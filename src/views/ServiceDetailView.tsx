@@ -731,7 +731,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                       {salon.address}, {salon.neighborhood}
                     </p>
                     <p className="text-[11px] text-[#B82E5F] font-medium">
-                      {salon.distance} · Ver en mapa de Buenos Aires
+                      {salon.distance} · Ver en el mapa
                     </p>
                   </div>
                   <span className="material-symbols-outlined text-[16px] text-[#6C5961]">

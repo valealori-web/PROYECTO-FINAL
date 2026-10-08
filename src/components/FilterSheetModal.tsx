@@ -34,14 +34,14 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
     'Estética Facial',
     'Botox & Armonización',
   ];
-  const distances = ['< 1 km', '< 3 km', '< 5 km', 'Toda la ciudad'];
+  const distances = ['< 1 km', '< 5 km', '< 20 km', 'Todo Uruguay'];
   const availabilities = ['Cualquiera', 'Hoy', 'Mañana', 'Esta semana'];
   const ratings = [4.5, 4.8, 4.9];
 
   const handleReset = () => {
     const resetValues: FilterOptions = {
       category: 'Todas',
-      maxDistance: '< 3 km',
+      maxDistance: 'Todo Uruguay',
       availability: 'Cualquiera',
       minRating: 4.8,
       maxPrice: 5000,

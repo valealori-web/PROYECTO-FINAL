@@ -52,7 +52,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   const [collections, setCollections] = useState<SavedCollection[]>(INITIAL_SAVED_COLLECTIONS);
   const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
   const [bioText, setBioText] = useState(
-    'Amante del skincare, el balayage cálido y nail art minimalista ✨ Buenos Aires'
+    'Amante del skincare, el balayage cálido y nail art minimalista ✨ Montevideo'
   );
   const [isEditingBio, setIsEditingBio] = useState(false);
 

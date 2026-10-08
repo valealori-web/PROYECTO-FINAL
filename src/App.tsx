@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ActiveScreen, Look, Salon } from './types';
+import { distanceKm, formatDistance } from './lib/geo';
+import { useUserLocation } from './lib/useUserLocation';
 import { LOOKS_DATA, SALONS_DATA, INITIAL_NOTIFICATIONS, OTHER_USERS_DATA } from './data/mockData';
 import { BottomNavBar } from './components/BottomNavBar';
 import { Toast } from './components/Toast';
@@ -31,7 +33,15 @@ export default function App() {
 
   // Application Data & Interactive States
   const [looks] = useState<Look[]>(LOOKS_DATA);
-  const [salons] = useState(SALONS_DATA);
+  const userLocation = useUserLocation();
+  const salons = useMemo(() => {
+    const result: Record<string, Salon> = {};
+    for (const [id, data] of Object.entries(SALONS_DATA)) {
+      const km = distanceKm(userLocation.position, data.coordinates);
+      result[id] = { ...data, distanceKm: km, distance: formatDistance(km) };
+    }
+    return result;
+  }, [userLocation.position]);
   const [savedLookIds, setSavedLookIds] = useState<string[]>([
     'look-kapping-cherry',
     'look-balayage-vainilla',
@@ -63,7 +73,7 @@ export default function App() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
     category: 'Todas',
-    maxDistance: '< 3 km',
+    maxDistance: 'Todo Uruguay',
     availability: 'Cualquiera',
     minRating: 4.8,
     maxPrice: 5000,
@@ -293,6 +303,7 @@ export default function App() {
             onShowToast={showToast}
             unreadCount={unreadNotificationsCount}
             initialSalonId={currentScreen.initialSalonId}
+            userLocation={userLocation}
           />
         )}
 

@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Salon, Look, ActiveScreen, FilterOptions } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
 import { USER_AVATAR } from '../data/mockData';
+import { UruguayMap } from '../components/UruguayMap';
+import { parseMaxDistance } from '../lib/geo';
+import type { useUserLocation } from '../lib/useUserLocation';
 
 interface ExploreMapViewProps {
   salons: Salon[];
@@ -21,6 +24,7 @@ interface ExploreMapViewProps {
   onShowToast: (msg: string, icon?: string) => void;
   unreadCount: number;
   initialSalonId?: string;
+  userLocation?: ReturnType<typeof useUserLocation>;
 }
 
 export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
@@ -35,6 +39,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
   onShowToast,
   unreadCount,
   initialSalonId,
+  userLocation,
 }) => {
   const [selectedPinId, setSelectedPinId] = useState<string>(
     initialSalonId || (salons.length > 0 ? salons[0].id : 'studio-velvet-nails')
@@ -43,6 +48,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [activeQuickFilter, setActiveQuickFilter] = useState<'all' | 'tomorrow' | 'high_rating'>('all');
   const [activeNeighborhood, setActiveNeighborhood] = useState<string>('Todos');
+  const [recenterToken, setRecenterToken] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -68,8 +74,25 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
   };
 
   const handleRecenter = () => {
-    onShowToast('Ubicación centrada en Palermo Soho, Buenos Aires', 'my_location');
+    setRecenterToken((n) => n + 1);
+    if (userLocation && userLocation.isFallback) userLocation.locate();
+    onShowToast(
+      userLocation && !userLocation.isFallback
+        ? 'Mostrando los salones cerca tuyo'
+        : 'Mostrando todos los salones en el mapa',
+      'my_location'
+    );
   };
+
+  // Barrios/ciudades reales, derivados de los salones (ordenados por cantidad)
+  const neighborhoods = Object.entries(
+    salons.reduce<Record<string, number>>((acc, s) => {
+      acc[s.neighborhood] = (acc[s.neighborhood] || 0) + 1;
+      return acc;
+    }, {})
+  )
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([name]) => name);
 
   // Filter salons dynamically
   const filteredSalons = salons.filter((s) => {
@@ -109,6 +132,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
 
     // Advanced filters
     if (currentFilters) {
+      const maxKm = parseMaxDistance(currentFilters.maxDistance);
+      if (maxKm !== null && s.distanceKm !== null && s.distanceKm > maxKm) return false;
       if (currentFilters.category && currentFilters.category !== 'Todas') {
         const hasCategory = s.services.some((srv) =>
           srv.category.toLowerCase().includes(currentFilters.category.toLowerCase())
@@ -156,7 +181,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               <div className="hidden sm:flex items-center gap-1.5 ml-2 pl-3 border-l border-[#F5DCE5]">
                 <span className="material-symbols-outlined text-[17px] text-[#B82E5F]">map</span>
                 <span className="text-xs font-bold text-[#571C31] tracking-wide uppercase">
-                  Explorar Buenos Aires
+                  Explorar Uruguay
                 </span>
               </div>
             </div>
@@ -171,7 +196,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Buscar salones, Palermo, Recoleta, uñas, balayage..."
+                  placeholder="Buscar salones, Pocitos, Carrasco, uñas, balayage..."
                   className="w-full bg-transparent text-[#181416] placeholder:text-[#6C5961] text-xs focus:outline-none"
                 />
                 {searchQuery && (
@@ -234,7 +259,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar salones, Palermo Soho, uñas..."
+              placeholder="Buscar salones, Pocitos, uñas..."
               className="w-full bg-transparent text-[#181416] placeholder:text-[#6C5961] text-xs focus:outline-none"
             />
             {searchQuery && (
@@ -268,7 +293,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     setActiveQuickFilter('all');
                     setActiveNeighborhood('Todos');
                     setSearchQuery('');
-                    onShowToast('Mostrando todos los salones de Buenos Aires');
+                    onShowToast('Mostrando todos los salones de Uruguay');
                   }}
                   className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                     activeQuickFilter === 'all' && activeNeighborhood === 'Todos' && !searchQuery
@@ -280,7 +305,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 </button>
 
                 {/* Neighborhood chips */}
-                {['Palermo Soho', 'Recoleta'].map((neigh) => {
+                {neighborhoods.map((neigh) => {
                   const isActive = activeNeighborhood === neigh;
                   return (
                     <button
@@ -396,7 +421,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   {filteredSalons.length} salones encontrados
                 </h2>
               </div>
-              <span className="text-xs text-[#6C5961]">Palermo &amp; Recoleta</span>
+              <span className="text-xs text-[#6C5961]">Montevideo, Punta del Este y Colonia</span>
             </div>
 
             {/* List of Salon Cards */}
@@ -579,7 +604,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
           </div>
 
           {/* ======================================================== */}
-          {/* RIGHT COLUMN: Interactive Buenos Aires Map (Desktop & Mobile) */}
+          {/* RIGHT COLUMN: Interactive Uruguay Map (Desktop & Mobile) */}
           {/* ======================================================== */}
           <div
             className={`md:col-span-7 lg:col-span-7 flex flex-col ${
@@ -587,45 +612,15 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
             }`}
           >
             <div className="sticky top-32 w-full h-[62vh] md:h-[calc(100vh-180px)] rounded-3xl overflow-hidden border border-[#DEBFC4] shadow-md relative bg-[#F5EFE6] select-none">
-              {/* Buenos Aires Stylized Vector Map Canvas */}
-              <div className="absolute inset-0 bg-[#F6F1EA]">
-                {/* Detailed Street Grid Pattern */}
-                <svg className="w-full h-full opacity-45" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="street-grid-desktop" width="50" height="50" patternUnits="userSpaceOnUse">
-                      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#D3C3BA" strokeWidth="1" />
-                    </pattern>
-                  </defs>
-                  <rect width="100%" height="100%" fill="url(#street-grid-desktop)" />
-                  {/* Major Buenos Aires Thoroughfares */}
-                  {/* Av. Santa Fe */}
-                  <path d="M -50 140 Q 300 240 900 320" stroke="#DEBFC4" strokeWidth="5" fill="none" opacity="0.65" />
-                  {/* Av. Corrientes */}
-                  <path d="M 120 -50 L 520 850" stroke="#D3C3BA" strokeWidth="4" fill="none" opacity="0.6" />
-                  {/* Av. Juan B Justo */}
-                  <path d="M -50 420 L 900 360" stroke="#E292A9" strokeWidth="4" fill="none" opacity="0.65" />
-                  {/* Av. del Libertador & Rio de la Plata shoreline curve */}
-                  <path d="M 350 -50 Q 650 300 800 800" stroke="#C4B5A5" strokeWidth="6" fill="none" opacity="0.5" />
-                  <path d="M 500 -50 Q 850 250 950 700" stroke="#87CEEB" strokeWidth="18" fill="none" opacity="0.25" />
-                </svg>
-
-                {/* Neighborhood Watermarks */}
-                <div className="absolute top-[18%] left-[12%] text-xs md:text-sm font-extrabold uppercase tracking-widest text-[#B82E5F]/20 pointer-events-none">
-                  Colegiales
-                </div>
-                <div className="absolute top-[38%] left-[32%] text-sm md:text-base font-black uppercase tracking-widest text-[#B82E5F]/30 pointer-events-none">
-                  Palermo Soho
-                </div>
-                <div className="absolute top-[48%] left-[15%] text-xs md:text-sm font-extrabold uppercase tracking-widest text-[#B82E5F]/20 pointer-events-none">
-                  Palermo Hollywood
-                </div>
-                <div className="absolute top-[32%] right-[16%] text-sm md:text-base font-black uppercase tracking-widest text-[#B82E5F]/30 pointer-events-none">
-                  Recoleta
-                </div>
-                <div className="absolute bottom-[16%] right-[12%] text-xs md:text-sm font-bold uppercase tracking-widest text-[#B82E5F]/20 pointer-events-none">
-                  Puerto Madero
-                </div>
-              </div>
+              {/* Mapa real de Uruguay (Leaflet + OpenStreetMap) */}
+              <UruguayMap
+                salons={filteredSalons}
+                selectedId={selectedSalon?.id}
+                onSelect={scrollToSalon}
+                userPosition={userLocation && !userLocation.isFallback ? userLocation.position : null}
+                recenterToken={recenterToken}
+                focusSelectedOnMount={!!initialSalonId}
+              />
 
               {/* Map Floating Controls Top */}
               <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
@@ -641,88 +636,14 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 <button
                   type="button"
                   onClick={handleRecenter}
-                  aria-label="Re-centrar en Buenos Aires"
+                  aria-label="Re-centrar el mapa"
                   className="w-10 h-10 rounded-full bg-white/95 backdrop-blur-md text-[#181416] shadow-md flex items-center justify-center hover:bg-[#F5DCE5] active:scale-90 transition-all"
-                  title="Centrar mapa en Palermo Soho"
+                  title="Re-centrar el mapa"
                 >
                   <span className="material-symbols-outlined text-[20px] text-[#B82E5F]">
                     my_location
                   </span>
                 </button>
-              </div>
-
-              {/* Interactive Map Pins (Responsive positions synced to filteredSalons) */}
-              {filteredSalons.map((salon, idx) => {
-                const isSelected = selectedPinId === salon.id;
-                const leadService = salon.services[0] || {
-                  name: 'Signature Care',
-                  price: '$ 1.800',
-                };
-
-                const pinCoords =
-                  salon.id === 'maison-hair-co'
-                    ? { top: '38%', left: '42%' }
-                    : salon.id === 'studio-velvet-nails'
-                    ? { top: '48%', left: '50%' }
-                    : salon.id === 'brow-bar-atelier'
-                    ? { top: '30%', left: '34%' }
-                    : salon.id === 'camila-v-makeup'
-                    ? { top: '56%', left: '38%' }
-                    : salon.id === 'lumiere-skin-spa'
-                    ? { top: '30%', left: '74%' }
-                    : {
-                        top: `${28 + (idx * 15) % 50}%`,
-                        left: `${25 + (idx * 20) % 60}%`,
-                      };
-
-                return (
-                  <div
-                    key={salon.id}
-                    style={{ top: pinCoords.top, left: pinCoords.left }}
-                    className={`absolute -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer transition-all duration-300 ${
-                      isSelected ? 'scale-110 z-30' : 'opacity-90 hover:scale-105'
-                    }`}
-                    onClick={() => scrollToSalon(salon.id)}
-                  >
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={`flex items-center gap-1.5 p-1 pr-2.5 rounded-full bg-white text-[#181416] shadow-xl border transition-all ${
-                          isSelected
-                            ? 'border-[#B82E5F] ring-4 ring-[#B82E5F]/30 bg-[#FFF8F9]'
-                            : 'border-[#DEBFC4] hover:border-[#B82E5F]'
-                        }`}
-                      >
-                        <img
-                          src={salon.logo}
-                          alt={salon.name}
-                          className="w-7 h-7 rounded-full object-cover shrink-0"
-                        />
-                        <div className="flex flex-col">
-                          <span className="text-[11px] font-bold text-[#181416] leading-tight truncate max-w-[130px]">
-                            {salon.name.split(' ')[0]}
-                          </span>
-                          <span className="text-[10px] text-[#B82E5F] font-bold leading-none">
-                            {leadService.price}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="w-0.5 h-2 bg-[#B82E5F]" />
-                      <div className="w-3 h-3 rounded-full bg-[#B82E5F] flex items-center justify-center shadow-xs">
-                        <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Pulsing User Current Location Marker (Palermo Soho) */}
-              <div className="absolute top-[44%] left-[45%] -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                <div className="relative flex items-center justify-center">
-                  <div className="absolute w-8 h-8 rounded-full bg-[#B82E5F]/20 animate-ping" />
-                  <div className="w-4 h-4 rounded-full bg-[#B82E5F] shadow-md flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-white" />
-                  </div>
-                </div>
               </div>
 
               {/* Selected Salon Preview Card Floating at Bottom of Map (Desktop & Mobile) */}

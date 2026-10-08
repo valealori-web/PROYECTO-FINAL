@@ -107,7 +107,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
                 <span className="material-symbols-outlined text-[#6C5961] text-[17px]">
                   location_on
                 </span>
-                <span>Armenia 1840, Palermo Soho, Buenos Aires</span>
+                <span>Benito Blanco 1020, Pocitos, Montevideo</span>
               </div>
             </div>
 
@@ -158,7 +158,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
                 </span>
                 <div>
                   <h4 className="text-xs font-bold text-[#181416]">¡Se liberó un turno para hoy!</h4>
-                  <p className="text-[11px] text-[#574145]">Studio Velvet Nails · Recoleta</p>
+                  <p className="text-[11px] text-[#574145]">Studio Velvet Nails · Punta Carretas</p>
                 </div>
               </div>
               <span className="text-[10px] text-[#BA1A1A] font-bold uppercase">Hoy 18:00 hs</span>

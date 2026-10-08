@@ -284,7 +284,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
                               <span className="material-symbols-outlined text-[14px]">
                                 location_on
                               </span>
-                              <span>Palermo Soho</span>
+                              <span>Pocitos</span>
                             </span>
                           </div>
                         )}

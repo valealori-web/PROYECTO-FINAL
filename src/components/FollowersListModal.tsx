@@ -48,7 +48,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
       name: 'Maison Hair Co. Studio',
       handle: '@maisonhairco',
       avatar: SALONS_DATA['maison-hair-co'].logo,
-      subtitle: 'Salón Verificado · Palermo Soho',
+      subtitle: 'Salón Verificado · Pocitos',
     },
     {
       id: 'studio-velvet-nails',
@@ -56,7 +56,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
       name: 'Studio Velvet Nails',
       handle: '@velvetnails',
       avatar: SALONS_DATA['studio-velvet-nails'].logo,
-      subtitle: 'Salón Verificado · Recoleta',
+      subtitle: 'Salón Verificado · Punta Carretas',
     },
     {
       id: 'brow-bar-atelier',
@@ -64,7 +64,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
       name: 'Brow Bar Atelier',
       handle: '@browbaratelier',
       avatar: SALONS_DATA['brow-bar-atelier'].logo,
-      subtitle: 'Salón Verificado · Colegiales',
+      subtitle: 'Salón Verificado · Cordón',
     },
     {
       id: 'sofia-val',

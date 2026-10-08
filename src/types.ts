@@ -61,7 +61,7 @@ export interface Look {
   }[];
 }
 
-export interface Salon {
+export interface SalonData {
   id: string;
   name: string;
   initials: string;
@@ -76,10 +76,9 @@ export interface Salon {
   address: string;
   neighborhood: string;
   city?: string;
-  distance: string;
   coordinates: {
-    top: string;
-    left: string;
+    lat: number;
+    lng: number;
   };
   socialProof: string;
   mutualFollowers: {
@@ -140,6 +139,13 @@ export interface Salon {
   }[];
   nextSlot: string;
   externalBookingProvider: 'Fresha' | 'Timely' | 'Calendly' | 'WhatsApp';
+}
+
+/** Salón enriquecido con la distancia al usuario (calculada en runtime). */
+export interface Salon extends SalonData {
+  /** Texto listo para mostrar, ej. "a 1.2 km". Vacío si no se conoce la ubicación. */
+  distance: string;
+  distanceKm: number | null;
 }
 
 export interface NotificationItem {
