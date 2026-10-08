@@ -2,16 +2,12 @@ import React, { useState } from 'react';
 
 interface AccountSettingsModalProps {
   isOpen: boolean;
-  showBeautyLoverBadge: boolean;
-  onToggleBeautyLoverBadge: (val: boolean) => void;
   onClose: () => void;
   onShowToast: (msg: string, icon?: string) => void;
 }
 
 export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
   isOpen,
-  showBeautyLoverBadge,
-  onToggleBeautyLoverBadge,
   onClose,
   onShowToast,
 }) => {
@@ -46,34 +42,6 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
           >
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>
-        </div>
-
-        {/* Badge Customization */}
-        <div className="flex flex-col gap-1.5 p-3 rounded-2xl bg-white border border-[#EAD8DE]">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col">
-              <span className="text-xs font-bold text-[#181416]">Insignia &quot;Beauty Lover&quot;</span>
-              <span className="text-[11px] text-[#6C5961]">
-                Mostrar el distintivo en tu perfil público
-              </span>
-            </div>
-            <button
-              onClick={() => {
-                const next = !showBeautyLoverBadge;
-                onToggleBeautyLoverBadge(next);
-                onShowToast(next ? 'Insignia activada' : 'Insignia oculta del perfil', 'badge');
-              }}
-              className={`w-11 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                showBeautyLoverBadge ? 'bg-[#B82E5F]' : 'bg-[#DEBFC4]'
-              }`}
-            >
-              <div
-                className={`w-5 h-5 rounded-full bg-white shadow-xs transition-transform ${
-                  showBeautyLoverBadge ? 'translate-x-5' : 'translate-x-0'
-                }`}
-              />
-            </button>
-          </div>
         </div>
 
         {/* Notifications & Reminders */}

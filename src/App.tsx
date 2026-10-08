@@ -228,7 +228,6 @@ export default function App() {
             onNavigate={handleNavigate}
             onOpenFilters={() => setIsFilterOpen(true)}
             currentFilters={filterOptions}
-            onOpenOnboarding={() => setIsOnboardingOpen(true)}
             unreadCount={unreadNotificationsCount}
           />
         )}
@@ -328,7 +327,6 @@ export default function App() {
             onNavigate={handleNavigate}
             onOpenBooking={handleOpenBooking}
             onOpenLightbox={handleOpenLightbox}
-            onOpenOnboarding={() => setIsOnboardingOpen(true)}
             onShowToast={showToast}
             unreadCount={unreadNotificationsCount}
           />

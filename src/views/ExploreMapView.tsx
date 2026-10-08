@@ -178,12 +178,6 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 </button>
               ) : null}
               <GlowBuzzLogo variant="header" size={30} />
-              <div className="hidden sm:flex items-center gap-1.5 ml-2 pl-3 border-l border-[#F5DCE5]">
-                <span className="material-symbols-outlined text-[17px] text-[#B82E5F]">map</span>
-                <span className="text-xs font-bold text-[#571C31] tracking-wide uppercase">
-                  Explorar Uruguay
-                </span>
-              </div>
             </div>
 
             {/* Desktop Center Quick Search */}

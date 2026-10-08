@@ -16,7 +16,6 @@ interface FeedViewProps {
     minRating: number;
     maxPrice: number;
   };
-  onOpenOnboarding?: () => void;
   unreadCount: number;
 }
 
@@ -27,7 +26,6 @@ export const FeedView: React.FC<FeedViewProps> = ({
   onNavigate,
   onOpenFilters,
   currentFilters,
-  onOpenOnboarding,
   unreadCount,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('Todos');
@@ -135,17 +133,6 @@ export const FeedView: React.FC<FeedViewProps> = ({
 
             {/* Header Right Actions */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              {onOpenOnboarding && (
-                <button
-                  type="button"
-                  onClick={onOpenOnboarding}
-                  className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#F5DCE5] text-[#571C31] hover:bg-[#FFD9E0] text-xs font-semibold transition-all shadow-xs"
-                >
-                  <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
-                  <span>Intereses</span>
-                </button>
-              )}
-
               <button
                 type="button"
                 onClick={() => onNavigate({ name: 'notifications' })}

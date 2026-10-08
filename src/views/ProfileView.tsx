@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Look, ActiveScreen, SavedCollection } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
-import { USER_AVATAR, INITIAL_SAVED_COLLECTIONS } from '../data/mockData';
+import { USER_AVATAR, INITIAL_SAVED_COLLECTIONS, BEAUTY_INTERESTS_LIST } from '../data/mockData';
 import { AccountSettingsModal } from '../components/AccountSettingsModal';
 import { FollowersListModal } from '../components/FollowersListModal';
 import { UploadLookModal } from '../components/UploadLookModal';
@@ -20,7 +20,6 @@ interface ProfileViewProps {
     provider?: 'Fresha' | 'Timely' | 'Calendly' | 'WhatsApp';
   }) => void;
   onOpenLightbox?: (imageUrl: string, caption?: string) => void;
-  onOpenOnboarding?: () => void;
   onShowToast: (msg: string, icon?: string) => void;
   unreadCount: number;
 }
@@ -42,7 +41,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onNavigate,
   onOpenBooking,
   onOpenLightbox,
-  onOpenOnboarding,
   onShowToast,
   unreadCount,
 }) => {
@@ -55,6 +53,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     'Amante del skincare, el balayage cálido y nail art minimalista ✨ Montevideo'
   );
   const [isEditingBio, setIsEditingBio] = useState(false);
+  const [interests, setInterests] = useState<string[]>(['nails', 'hair_color', 'brows']);
+  const [draftInterests, setDraftInterests] = useState<string[]>(interests);
 
   // Beauty Lover Badge state
   const [showBeautyLoverBadge, setShowBeautyLoverBadge] = useState(true);
@@ -210,22 +210,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="flex items-center gap-1.5 pt-1">
               <button
                 type="button"
-                onClick={() => setIsEditingBio(!isEditingBio)}
+                onClick={() => {
+                  if (!isEditingBio) setDraftInterests(interests);
+                  setIsEditingBio(!isEditingBio);
+                }}
                 className="px-3 h-9 rounded-full bg-[#F5DCE5] text-[#25181E] text-xs font-semibold hover:bg-[#F5DCE5]/80 transition-all flex items-center gap-1 shadow-xs active:scale-95"
               >
                 <span className="material-symbols-outlined text-[15px]">edit</span>
                 <span>Editar bio</span>
               </button>
-              {onOpenOnboarding && (
-                <button
-                  type="button"
-                  onClick={onOpenOnboarding}
-                  className="px-3 h-9 rounded-full bg-[#EFE6E8] text-[#574145] hover:bg-[#F5DCE5] hover:text-[#B82E5F] text-xs font-semibold transition-all flex items-center gap-1 shadow-xs active:scale-95"
-                >
-                  <span className="material-symbols-outlined text-[15px]">checklist</span>
-                  <span>Intereses</span>
-                </button>
-              )}
               {/* Account Settings Trigger */}
               <button
                 type="button"
@@ -277,11 +270,42 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 className="w-full text-xs p-2.5 rounded-xl border border-[#B82E5F] bg-white text-[#181416] focus:outline-none"
                 rows={2}
               />
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[11px] font-bold text-[#574145] uppercase tracking-wide">
+                  Mis intereses
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {BEAUTY_INTERESTS_LIST.map((item) => {
+                    const active = draftInterests.includes(item.id);
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        aria-pressed={active}
+                        onClick={() =>
+                          setDraftInterests((prev) =>
+                            active ? prev.filter((i) => i !== item.id) : [...prev, item.id]
+                          )
+                        }
+                        className={`px-2.5 py-1 rounded-full text-[11px] font-semibold flex items-center gap-1 transition-all active:scale-95 ${
+                          active
+                            ? 'bg-[#B82E5F] text-white shadow-xs'
+                            : 'bg-white text-[#574145] border border-[#DEBFC4] hover:bg-[#FBF1F4]'
+                        }`}
+                      >
+                        <span className="material-symbols-outlined text-[13px]">{item.icon}</span>
+                        {item.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
               <button
                 type="button"
                 onClick={() => {
+                  setInterests(draftInterests);
                   setIsEditingBio(false);
-                  onShowToast('Biografía actualizada', 'check');
+                  onShowToast('Perfil actualizado', 'check');
                 }}
                 className="self-end px-3 py-1 rounded-full bg-[#B82E5F] text-white text-xs font-semibold"
               >
@@ -792,8 +816,6 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       {/* Account Settings Modal */}
       <AccountSettingsModal
         isOpen={isSettingsOpen}
-        showBeautyLoverBadge={showBeautyLoverBadge}
-        onToggleBeautyLoverBadge={(val) => setShowBeautyLoverBadge(val)}
         onClose={() => setIsSettingsOpen(false)}
         onShowToast={onShowToast}
       />
