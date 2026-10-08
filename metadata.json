@@ -1,0 +1,6 @@
+{
+  "name": "Glow Buzz",
+  "description": "Descubrimiento de belleza y reservas con inspiración y resultados reales.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
