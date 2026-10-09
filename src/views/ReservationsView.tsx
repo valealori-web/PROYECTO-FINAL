@@ -115,16 +115,6 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
               <button
                 type="button"
                 onClick={() =>
-                  onNavigate({ name: 'look_detail', lookId: 'look-balayage-vainilla' })
-                }
-                className="flex-1 py-2 px-3 rounded-full bg-[#EFE6E8] text-[#181416] hover:bg-[#F5DCE5] text-xs font-semibold flex items-center justify-center gap-1 transition-colors"
-              >
-                <span className="material-symbols-outlined text-[15px]">info</span>
-                <span>Ver look y cuidados</span>
-              </button>
-              <button
-                type="button"
-                onClick={() =>
                   onOpenBooking({
                     salonName: 'Maison Hair Co. Studio',
                     serviceName: 'Balayage Signature',
