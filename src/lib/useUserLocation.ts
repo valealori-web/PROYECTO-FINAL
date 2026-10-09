@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { LatLng, MONTEVIDEO_CENTER, isInUruguay } from './geo';
+import { LatLng, MONTEVIDEO_CENTER, isInMontevideo } from './geo';
 
 export type LocationStatus = 'idle' | 'loading' | 'granted' | 'denied' | 'unavailable';
 
 /**
  * Ubicación real del usuario vía Geolocation API. Si no hay permiso, no hay soporte
- * o está fuera de Uruguay, cae en el centro de Montevideo (isFallback = true).
+ * o está fuera de Montevideo, cae en el centro de Montevideo (isFallback = true).
  */
 export function useUserLocation() {
   const [position, setPosition] = useState<LatLng | null>(null);
@@ -31,7 +31,7 @@ export function useUserLocation() {
     locate();
   }, [locate]);
 
-  const isReal = position !== null && isInUruguay(position);
+  const isReal = position !== null && isInMontevideo(position);
   return {
     position: isReal ? position : MONTEVIDEO_CENTER,
     isFallback: !isReal,

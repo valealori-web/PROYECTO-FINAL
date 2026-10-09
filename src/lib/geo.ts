@@ -6,21 +6,21 @@ export interface LatLng {
 /** Plaza Independencia, Montevideo: ubicación por defecto si el usuario no comparte la suya. */
 export const MONTEVIDEO_CENTER: LatLng = { lat: -34.9059, lng: -56.1991 };
 
-/** Vista inicial que muestra todo el país. */
-export const URUGUAY_CENTER: LatLng = { lat: -32.8, lng: -56.0 };
+/** Vista inicial del mapa. */
+export const CITY_CENTER: LatLng = MONTEVIDEO_CENTER;
 
-/** Límites aproximados de Uruguay con margen, para que el mapa no se pierda por el mundo. */
-export const URUGUAY_BOUNDS: [[number, number], [number, number]] = [
-  [-35.6, -59.2],
-  [-29.6, -52.4],
+/** Límites de Montevideo con margen, para que el mapa no se pierda por el mundo. */
+export const MONTEVIDEO_BOUNDS: [[number, number], [number, number]] = [
+  [-35.05, -56.6],
+  [-34.65, -55.85],
 ];
 
-export function isInUruguay({ lat, lng }: LatLng): boolean {
+export function isInMontevideo({ lat, lng }: LatLng): boolean {
   return (
-    lat >= URUGUAY_BOUNDS[0][0] &&
-    lat <= URUGUAY_BOUNDS[1][0] &&
-    lng >= URUGUAY_BOUNDS[0][1] &&
-    lng <= URUGUAY_BOUNDS[1][1]
+    lat >= MONTEVIDEO_BOUNDS[0][0] &&
+    lat <= MONTEVIDEO_BOUNDS[1][0] &&
+    lng >= MONTEVIDEO_BOUNDS[0][1] &&
+    lng <= MONTEVIDEO_BOUNDS[1][1]
   );
 }
 
@@ -42,7 +42,7 @@ export function formatDistance(km: number): string {
   return `a ${Math.round(km)} km`;
 }
 
-/** Convierte "< 5 km" en 5; "Todo Uruguay" (o cualquier otro valor) en null. */
+/** Convierte "< 5 km" en 5; "Todo Montevideo" (o cualquier otro valor) en null. */
 export function parseMaxDistance(label: string): number | null {
   const m = label.match(/(\d+)\s*km/i);
   return m ? Number(m[1]) : null;

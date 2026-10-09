@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Salon, Look, ActiveScreen, FilterOptions } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
 import { USER_AVATAR } from '../data/mockData';
-import { UruguayMap } from '../components/UruguayMap';
+import { CityMap } from '../components/CityMap';
 import { parseMaxDistance } from '../lib/geo';
 import type { useUserLocation } from '../lib/useUserLocation';
 
@@ -287,7 +287,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     setActiveQuickFilter('all');
                     setActiveNeighborhood('Todos');
                     setSearchQuery('');
-                    onShowToast('Mostrando todos los salones de Uruguay');
+                    onShowToast('Mostrando todos los salones de Montevideo');
                   }}
                   className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                     activeQuickFilter === 'all' && activeNeighborhood === 'Todos' && !searchQuery
@@ -415,7 +415,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   {filteredSalons.length} salones encontrados
                 </h2>
               </div>
-              <span className="text-xs text-[#6C5961]">Montevideo, Punta del Este y Colonia</span>
+              <span className="text-xs text-[#6C5961]">Montevideo</span>
             </div>
 
             {/* List of Salon Cards */}
@@ -598,7 +598,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
           </div>
 
           {/* ======================================================== */}
-          {/* RIGHT COLUMN: Interactive Uruguay Map (Desktop & Mobile) */}
+          {/* RIGHT COLUMN: Interactive Montevideo Map (Desktop & Mobile) */}
           {/* ======================================================== */}
           <div
             className={`md:col-span-7 lg:col-span-7 flex flex-col ${
@@ -606,8 +606,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
             }`}
           >
             <div className="sticky top-32 w-full h-[62vh] md:h-[calc(100vh-180px)] rounded-3xl overflow-hidden border border-[#DEBFC4] shadow-md relative bg-[#F5EFE6] select-none">
-              {/* Mapa real de Uruguay (Leaflet + OpenStreetMap) */}
-              <UruguayMap
+              {/* Mapa real de Montevideo (Leaflet + OpenStreetMap) */}
+              <CityMap
                 salons={filteredSalons}
                 selectedId={selectedSalon?.id}
                 onSelect={scrollToSalon}

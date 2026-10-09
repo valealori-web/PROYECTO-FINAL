@@ -73,7 +73,7 @@ export default function App() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterOptions, setFilterOptions] = useState({
     category: 'Todas',
-    maxDistance: 'Todo Uruguay',
+    maxDistance: 'Todo Montevideo',
     availability: 'Cualquiera',
     minRating: 4.8,
     maxPrice: 5000,

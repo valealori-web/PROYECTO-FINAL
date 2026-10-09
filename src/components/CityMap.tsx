@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Salon } from '../types';
-import { LatLng, URUGUAY_BOUNDS, URUGUAY_CENTER } from '../lib/geo';
+import { LatLng, MONTEVIDEO_BOUNDS, CITY_CENTER } from '../lib/geo';
 
-interface UruguayMapProps {
+interface CityMapProps {
   salons: Salon[];
   selectedId?: string;
   onSelect: (salonId: string) => void;
@@ -35,7 +35,7 @@ function pinHtml(salon: Salon, selected: boolean) {
     </div>`;
 }
 
-export const UruguayMap: React.FC<UruguayMapProps> = ({
+export const CityMap: React.FC<CityMapProps> = ({
   salons,
   selectedId,
   onSelect,
@@ -55,10 +55,10 @@ export const UruguayMap: React.FC<UruguayMapProps> = ({
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return;
     const map = L.map(containerRef.current, {
-      center: [URUGUAY_CENTER.lat, URUGUAY_CENTER.lng],
-      zoom: 7,
-      minZoom: 6,
-      maxBounds: URUGUAY_BOUNDS,
+      center: [CITY_CENTER.lat, CITY_CENTER.lng],
+      zoom: 12,
+      minZoom: 10,
+      maxBounds: MONTEVIDEO_BOUNDS,
       maxBoundsViscosity: 0.8,
       zoomControl: false,
     });
@@ -161,5 +161,5 @@ export const UruguayMap: React.FC<UruguayMapProps> = ({
     } as L.MarkerOptions).addTo(map);
   }, [userPosition]);
 
-  return <div ref={containerRef} className="absolute inset-0 z-0" role="application" aria-label="Mapa de salones en Uruguay" />;
+  return <div ref={containerRef} className="absolute inset-0 z-0" role="application" aria-label="Mapa de salones en Montevideo" />;
 };
