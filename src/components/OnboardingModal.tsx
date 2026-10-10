@@ -81,7 +81,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 onClick={() => setAuthMode('login')}
                 className={`flex-1 py-2 px-3 rounded-full text-xs font-semibold text-center transition-all ${
                   authMode === 'login'
-                    ? 'bg-[#111111] text-white shadow-xs'
+                    ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                     : 'text-[#444444] hover:text-[#111111]'
                 }`}
               >
@@ -92,7 +92,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                 onClick={() => setAuthMode('register')}
                 className={`flex-1 py-2 px-3 rounded-full text-xs font-semibold text-center transition-all ${
                   authMode === 'register'
-                    ? 'bg-[#111111] text-white shadow-xs'
+                    ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                     : 'text-[#444444] hover:text-[#111111]'
                 }`}
               >
@@ -183,7 +183,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-3 px-4 mt-1 rounded-full bg-[#111111] text-white text-sm font-bold shadow-md active:scale-98 transition-transform flex items-center justify-center gap-1.5"
+                className="w-full py-3 px-4 mt-1 rounded-full bg-[#FDE7EE] text-[#B82E5F] text-sm font-bold shadow-md active:scale-98 transition-transform flex items-center justify-center gap-1.5"
               >
                 <span>{authMode === 'login' ? 'Iniciar Sesión' : 'Continuar a Intereses'}</span>
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -264,7 +264,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
                     onClick={() => toggleInterest(item.id)}
                     className={`p-3 rounded-2xl border text-left flex items-center justify-between transition-all ${
                       isSelected
-                        ? 'bg-[#111111] border-[#111111] text-white shadow-xs'
+                        ? 'bg-[#FDE7EE] border-[#111111] text-[#B82E5F] shadow-xs'
                         : 'bg-white border-[#D9D9D9] text-[#111111] hover:bg-[#F7F7F7]'
                     }`}
                   >
@@ -306,7 +306,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
             <button
               type="button"
               onClick={handleFinishInterests}
-              className="w-full py-3.5 px-4 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white font-bold text-sm shadow-md active:scale-98 transition-transform flex items-center justify-center gap-2"
+              className="w-full py-3.5 px-4 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-sm shadow-md active:scale-98 transition-transform flex items-center justify-center gap-2"
             >
               <span>Explorar Feed de Looks</span>
               <span className="material-symbols-outlined text-[18px]">arrow_forward</span>

@@ -92,8 +92,8 @@ export const OtherUserProfileView: React.FC<OtherUserProfileViewProps> = ({
             onClick={handleFollowToggle}
             className={`mt-4 w-full h-9 rounded-lg text-sm font-semibold transition-colors ${
               isFollowing
-                ? 'bg-[#F1F1F1] text-[#111111] hover:bg-[#E5E5E5]'
-                : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
+                ? 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
+                : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
             }`}
           >
             {isFollowing ? 'Siguiendo' : 'Seguir'}

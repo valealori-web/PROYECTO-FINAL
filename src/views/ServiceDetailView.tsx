@@ -421,7 +421,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                             onClick={() => setSelectedSlot(slot)}
                             className={`p-2.5 rounded-xl text-xs font-semibold transition-all border text-left ${
                               isSelected
-                                ? 'bg-[#111111] text-white border-[#111111] shadow-xs'
+                                ? 'bg-[#FDE7EE] text-[#B82E5F] border-[#111111] shadow-xs'
                                 : 'bg-[#F7F7F7] text-[#111111] border-[#E5E5E5] hover:border-[#D9D9D9]'
                             }`}
                           >
@@ -438,7 +438,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                 <button
                   type="button"
                   onClick={handleBookingClick}
-                  className="w-full py-3.5 px-4 mt-2 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white font-bold text-sm shadow-md active:scale-98 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-4 mt-2 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-sm shadow-md active:scale-98 transition-all flex items-center justify-center gap-2"
                 >
                   <span className="material-symbols-outlined text-[19px]">calendar_month</span>
                   <span>Reservar con Glow Buzz</span>
@@ -491,7 +491,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                     onClick={handleFollowToggle}
                     className={`px-3 py-1 rounded-full text-xs font-semibold active:scale-95 transition-all shrink-0 ${
                       isFollowing
-                        ? 'bg-[#111111] text-white shadow-xs'
+                        ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                         : 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80'
                     }`}
                   >
@@ -539,7 +539,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
           <button
             type="button"
             onClick={handleBookingClick}
-            className="flex-1 py-3 px-4 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white font-bold text-xs sm:text-sm shadow-md active:scale-98 transition-transform flex items-center justify-center gap-1.5"
+            className="flex-1 py-3 px-4 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-xs sm:text-sm shadow-md active:scale-98 transition-transform flex items-center justify-center gap-1.5"
           >
             <span className="material-symbols-outlined text-[17px]">calendar_month</span>
             <span>Reservar con Glow Buzz</span>

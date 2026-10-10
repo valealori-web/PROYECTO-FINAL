@@ -99,7 +99,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             onClick={() => setFilter('todas')}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
               filter === 'todas'
-                ? 'bg-[#111111] text-white shadow-xs'
+                ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                 : 'bg-[#F1F1F1] text-[#444444] hover:bg-[#F1F1F1]'
             }`}
           >
@@ -110,7 +110,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             onClick={() => setFilter('turnos')}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
               filter === 'turnos'
-                ? 'bg-[#111111] text-white shadow-xs'
+                ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                 : 'bg-[#F1F1F1] text-[#444444] hover:bg-[#F1F1F1]'
             }`}
           >
@@ -121,7 +121,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             onClick={() => setFilter('espera')}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all flex items-center gap-1 ${
               filter === 'espera'
-                ? 'bg-[#111111] text-white shadow-xs'
+                ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                 : 'bg-[#F1F1F1] text-[#444444] hover:bg-[#F1F1F1]'
             }`}
           >
@@ -132,7 +132,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             onClick={() => setFilter('inspiracion')}
             className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
               filter === 'inspiracion'
-                ? 'bg-[#111111] text-white shadow-xs'
+                ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                 : 'bg-[#F1F1F1] text-[#444444] hover:bg-[#F1F1F1]'
             }`}
           >
@@ -179,7 +179,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
                         <span
                           className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
                             item.category === 'espera'
-                              ? 'bg-[#BA1A1A] text-white'
+                              ? 'bg-[#FDE7EE] text-[#B82E5F]'
                               : 'bg-[#E5E5E5] text-[#111111]'
                           }`}
                         >
@@ -208,7 +208,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
                                   provider: 'Timely',
                                 });
                               }}
-                              className="px-3.5 py-1.5 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white text-xs font-bold shadow-xs active:scale-95 transition-transform flex items-center gap-1"
+                              className="px-3.5 py-1.5 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] text-xs font-bold shadow-xs active:scale-95 transition-transform flex items-center gap-1"
                             >
                               <span>Aprovechar turno</span>
                               <span className="material-symbols-outlined text-[15px]">
@@ -278,12 +278,12 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
                           alt="Salón avatar"
                           className="w-full h-full object-cover"
                         />
-                        <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#111111] text-white rounded-full flex items-center justify-center text-[8px]">
+                        <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#FDE7EE] text-[#B82E5F] rounded-full flex items-center justify-center text-[8px]">
                           ✓
                         </span>
                       </div>
                     ) : (
-                      <div className="shrink-0 w-11 h-11 rounded-full bg-[#666666] text-white flex items-center justify-center">
+                      <div className="shrink-0 w-11 h-11 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center">
                         <span
                           className="material-symbols-outlined text-[20px]"
                           style={{ fontVariationSettings: "'FILL' 1" }}

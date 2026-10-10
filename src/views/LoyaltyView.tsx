@@ -161,7 +161,7 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
                       type="button"
                       disabled={missing > 0}
                       onClick={() => redeem(r.id)}
-                      className="h-9 px-4 rounded-lg bg-[#111111] text-white text-xs font-semibold hover:bg-[#2A2A2A] transition-colors disabled:bg-[#F1F1F1] disabled:text-[#8A8A8A] disabled:cursor-not-allowed shrink-0"
+                      className="h-9 px-4 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-xs font-semibold hover:bg-[#FBD5E2] transition-colors disabled:bg-[#F1F1F1] disabled:text-[#8A8A8A] disabled:cursor-not-allowed shrink-0"
                     >
                       {missing > 0 ? `Faltan ${fmt(missing)}` : 'Canjear'}
                     </button>
@@ -220,7 +220,7 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
                   if (invited < 3) setInvited((n) => n + 1);
                   onShowToast('Link de invitación copiado', 'link');
                 }}
-                className="h-10 px-4 rounded-lg bg-[#111111] text-white text-sm font-semibold hover:bg-[#2A2A2A] transition-colors shrink-0"
+                className="h-10 px-4 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors shrink-0"
               >
                 Invitar
               </button>

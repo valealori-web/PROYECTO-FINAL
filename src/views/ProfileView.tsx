@@ -278,7 +278,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                         }
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                           active
-                            ? 'bg-[#111111] text-white'
+                            ? 'bg-[#FDE7EE] text-[#B82E5F]'
                             : 'bg-white text-[#444444] border border-[#E5E5E5] hover:border-[#111111]'
                         }`}
                       >
@@ -293,7 +293,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setIsEditingBio(false)}
-                  className="flex-1 h-9 rounded-lg bg-[#F1F1F1] text-[#111111] text-sm font-semibold hover:bg-[#E5E5E5] transition-colors"
+                  className="flex-1 h-9 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors"
                 >
                   Cancelar
                 </button>
@@ -304,7 +304,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     setIsEditingBio(false);
                     onShowToast('Perfil actualizado', 'check');
                   }}
-                  className="flex-1 h-9 rounded-lg bg-[#111111] text-white text-sm font-semibold hover:bg-[#2A2A2A] transition-colors"
+                  className="flex-1 h-9 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors"
                 >
                   Guardar
                 </button>
@@ -317,7 +317,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 setDraftInterests(interests);
                 setIsEditingBio(true);
               }}
-              className="mt-4 w-full h-9 rounded-lg bg-[#F1F1F1] text-[#111111] text-sm font-semibold hover:bg-[#E5E5E5] transition-colors"
+              className="mt-4 w-full h-9 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors"
             >
               Editar perfil
             </button>
@@ -402,7 +402,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 onClick={() => setSelectedCollection(null)}
                 className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
                   selectedCollection === null
-                    ? 'bg-[#111111] text-white'
+                    ? 'bg-[#FDE7EE] text-[#B82E5F]'
                     : 'bg-[#F1F1F1] text-[#444444]'
                 }`}
               >
@@ -419,7 +419,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                     }
                     className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-colors cursor-pointer ${
                       isSelected
-                        ? 'bg-[#111111] text-white font-semibold'
+                        ? 'bg-[#FDE7EE] text-[#B82E5F] font-semibold'
                         : 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80'
                     }`}
                   >
@@ -511,7 +511,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setSelectedCollection(null)}
-                    className="mt-3 px-4 py-2 rounded-full bg-[#111111] text-white text-xs font-bold"
+                    className="mt-3 px-4 py-2 rounded-full bg-[#FDE7EE] text-[#B82E5F] text-xs font-bold"
                   >
                     Ver todos los guardados
                   </button>
@@ -629,7 +629,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <button
                 type="button"
                 onClick={() => setIsUploadModalOpen(true)}
-                className="px-3.5 py-1.5 bg-[#111111] text-white rounded-full text-xs font-bold shadow-xs hover:opacity-90 active:scale-95 transition-transform shrink-0"
+                className="px-3.5 py-1.5 bg-[#FDE7EE] text-[#B82E5F] rounded-full text-xs font-bold shadow-xs hover:opacity-90 active:scale-95 transition-transform shrink-0"
               >
                 Subir look
               </button>
@@ -828,7 +828,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-2.5 rounded-full bg-[#111111] text-white font-bold text-xs shadow-md mt-1 active:scale-98 transition-transform"
+                className="w-full py-2.5 rounded-full bg-[#FDE7EE] text-[#B82E5F] font-bold text-xs shadow-md mt-1 active:scale-98 transition-transform"
               >
                 Crear Colección
               </button>

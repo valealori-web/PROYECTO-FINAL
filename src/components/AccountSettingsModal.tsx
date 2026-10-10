@@ -61,7 +61,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                 onShowToast('Preferencia actualizada');
               }}
               className={`w-11 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                pushNotifs ? 'bg-[#111111]' : 'bg-[#D9D9D9]'
+                pushNotifs ? 'bg-[#B82E5F]' : 'bg-[#D9D9D9]'
               }`}
             >
               <div
@@ -83,7 +83,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                 onShowToast('Preferencia de WhatsApp actualizada');
               }}
               className={`w-11 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                waReminders ? 'bg-[#111111]' : 'bg-[#D9D9D9]'
+                waReminders ? 'bg-[#B82E5F]' : 'bg-[#D9D9D9]'
               }`}
             >
               <div
@@ -105,7 +105,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                 onShowToast('Sincronización configurada');
               }}
               className={`w-11 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                externalSync ? 'bg-[#111111]' : 'bg-[#D9D9D9]'
+                externalSync ? 'bg-[#B82E5F]' : 'bg-[#D9D9D9]'
               }`}
             >
               <div

@@ -87,7 +87,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
                 onClick={() => setFilters({ ...filters, category: cat })}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
                   filters.category === cat
-                    ? 'bg-[#111111] text-white shadow-xs'
+                    ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                     : 'bg-white text-[#444444] border border-[#D9D9D9]'
                 }`}
               >
@@ -156,7 +156,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
                 onClick={() => setFilters({ ...filters, minRating: rate })}
                 className={`flex-1 py-2 px-3 rounded-full text-xs font-semibold flex items-center justify-center gap-1 border transition-all ${
                   filters.minRating === rate
-                    ? 'bg-[#111111] text-white border-[#111111]'
+                    ? 'bg-[#FDE7EE] text-[#B82E5F] border-[#111111]'
                     : 'bg-white border-[#D9D9D9] text-[#444444]'
                 }`}
               >
@@ -169,7 +169,7 @@ export const FilterSheetModal: React.FC<FilterSheetModalProps> = ({
         {/* Action button */}
         <button
           onClick={handleApply}
-          className="w-full py-3.5 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white font-bold text-sm shadow-md mt-2 active:scale-98 transition-transform"
+          className="w-full py-3.5 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-sm shadow-md mt-2 active:scale-98 transition-transform"
         >
           Aplicar filtros
         </button>

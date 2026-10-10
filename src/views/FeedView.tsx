@@ -222,7 +222,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                     }}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                       isActive
-                        ? 'bg-[#111111] text-white shadow-xs'
+                        ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                         : item.isIcon
                         ? 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80 flex items-center gap-1'
                         : 'bg-white text-[#444444] hover:text-[#111111] hover:bg-[#F7F7F7] border border-[#E5E5E5]/80'
@@ -288,7 +288,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                       className={`absolute top-3 right-3 h-9 px-4 rounded-full text-sm font-semibold transition-colors ${
                         isSaved
                           ? 'bg-white text-[#111111]'
-                          : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
+                          : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
                       }`}
                     >
                       {isSaved ? 'Guardado' : 'Guardar'}
@@ -323,7 +323,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                 setActiveCategory('Todos');
                 setSearchQuery('');
               }}
-              className="mt-4 px-5 py-2 rounded-full bg-[#111111] text-white text-xs font-bold shadow-xs hover:bg-[#2A2A2A] transition-all"
+              className="mt-4 px-5 py-2 rounded-full bg-[#FDE7EE] text-[#B82E5F] text-xs font-bold shadow-xs hover:bg-[#FBD5E2] transition-all"
             >
               Ver todas las publicaciones
             </button>

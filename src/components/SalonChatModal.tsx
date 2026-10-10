@@ -132,7 +132,7 @@ export const SalonChatModal: React.FC<SalonChatModalProps> = ({
                 <div
                   className={`p-3 rounded-2xl text-xs leading-relaxed ${
                     isMe
-                      ? 'bg-[#111111] text-white rounded-br-xs'
+                      ? 'bg-[#FDE7EE] text-[#B82E5F] rounded-br-xs'
                       : 'bg-white text-[#111111] border border-[#E5E5E5] rounded-bl-xs shadow-xs'
                   }`}
                 >
@@ -155,7 +155,7 @@ export const SalonChatModal: React.FC<SalonChatModalProps> = ({
           />
           <button
             type="submit"
-            className="w-9 h-9 rounded-full bg-[#111111] text-white flex items-center justify-center shadow-xs active:scale-90 transition-transform shrink-0"
+            className="w-9 h-9 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shadow-xs active:scale-90 transition-transform shrink-0"
           >
             <span className="material-symbols-outlined text-[17px]">send</span>
           </button>

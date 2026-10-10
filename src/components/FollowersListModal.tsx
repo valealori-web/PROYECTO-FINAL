@@ -132,7 +132,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
             <button
               onClick={() => setTab('following')}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                tab === 'following' ? 'bg-[#111111] text-white shadow-xs' : 'text-[#444444]'
+                tab === 'following' ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs' : 'text-[#444444]'
               }`}
             >
               Siguiendo (142)
@@ -140,7 +140,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
             <button
               onClick={() => setTab('followers')}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                tab === 'followers' ? 'bg-[#111111] text-white shadow-xs' : 'text-[#444444]'
+                tab === 'followers' ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs' : 'text-[#444444]'
               }`}
             >
               Seguidores (380)
@@ -195,8 +195,8 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
                   onClick={() => toggleFollow(item.id, item.name)}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
                     isF
-                      ? 'bg-[#F1F1F1] text-[#444444] hover:bg-[#FFDAD6] hover:text-[#BA1A1A]'
-                      : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
+                      ? 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
+                      : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
                   }`}
                 >
                   {isF ? 'Siguiendo' : '+ Seguir'}

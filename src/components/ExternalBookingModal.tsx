@@ -120,7 +120,7 @@ export const ExternalBookingModal: React.FC<ExternalBookingModalProps> = ({
               <button
                 disabled={isRedirecting}
                 onClick={() => handleExternalHandover('provider')}
-                className="w-full py-3.5 px-4 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white font-bold text-sm shadow-md active:scale-98 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-sm shadow-md active:scale-98 transition-all flex items-center justify-center gap-2"
               >
                 {isRedirecting ? (
                   <>
@@ -166,7 +166,7 @@ export const ExternalBookingModal: React.FC<ExternalBookingModalProps> = ({
             </div>
             <button
               onClick={handleFinish}
-              className="w-full mt-2 py-3 rounded-full bg-[#111111] text-white font-bold text-sm shadow-md active:scale-98 transition-transform"
+              className="w-full mt-2 py-3 rounded-full bg-[#FDE7EE] text-[#B82E5F] font-bold text-sm shadow-md active:scale-98 transition-transform"
             >
               Continuar navegando looks
             </button>

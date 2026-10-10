@@ -253,7 +253,7 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
           <button
             type="submit"
             disabled={!selectedPhoto}
-            className="w-full h-11 rounded-lg bg-[#111111] text-white font-semibold text-sm mt-1 hover:bg-[#2A2A2A] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="w-full h-11 rounded-lg bg-[#FDE7EE] text-[#B82E5F] font-semibold text-sm mt-1 hover:bg-[#FBD5E2] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Publicar
           </button>

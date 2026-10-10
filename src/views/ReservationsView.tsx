@@ -97,7 +97,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
                     provider: 'Fresha',
                   })
                 }
-                className="flex-1 py-2 px-3 rounded-full bg-[#111111] text-white hover:bg-[#2A2A2A] text-xs font-semibold flex items-center justify-center gap-1 shadow-xs transition-colors"
+                className="flex-1 py-2 px-3 rounded-full bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2] text-xs font-semibold flex items-center justify-center gap-1 shadow-xs transition-colors"
               >
                 <span className="material-symbols-outlined text-[15px]">edit_calendar</span>
                 <span>Modificar en agenda</span>
@@ -114,10 +114,10 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
             </h2>
           </div>
 
-          <div className="p-4 rounded-3xl bg-[#FFDAD6]/60 border border-[#BA1A1A]/30 flex flex-col gap-2.5">
+          <div className="p-4 rounded-3xl bg-[#FDE7EE]/60 border border-[#F3D3DE] flex flex-col gap-2.5">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-[#BA1A1A] text-white flex items-center justify-center">
+                <span className="w-8 h-8 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center">
                   <span className="material-symbols-outlined text-[18px]">bolt</span>
                 </span>
                 <div>
@@ -125,7 +125,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
                   <p className="text-[11px] text-[#444444]">Studio Velvet Nails · Punta Carretas</p>
                 </div>
               </div>
-              <span className="text-[10px] text-[#BA1A1A] font-bold uppercase">Hoy 18:00 hs</span>
+              <span className="text-[10px] text-[#B82E5F] font-bold uppercase">Hoy 18:00 hs</span>
             </div>
 
             <p className="text-xs text-[#444444] leading-snug">
@@ -143,7 +143,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
                   provider: 'Timely',
                 })
               }
-              className="py-2.5 px-4 rounded-full bg-[#BA1A1A] hover:bg-[#93000A] text-white text-xs font-bold shadow-xs flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
+              className="py-2.5 px-4 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] text-xs font-bold shadow-xs flex items-center justify-center gap-1.5 active:scale-95 transition-transform"
             >
               <span>Aprovechar turno en agenda externa</span>
               <span className="material-symbols-outlined text-[15px]">arrow_forward</span>

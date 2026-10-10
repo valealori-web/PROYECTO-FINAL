@@ -77,8 +77,8 @@ export const ShareSheetModal: React.FC<ShareSheetModalProps> = ({
             onClick={handleCopy}
             className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1 ${
               copied
-                ? 'bg-emerald-600 text-white'
-                : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
+                ? 'bg-[#FDE7EE] text-[#B82E5F]'
+                : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
             }`}
           >
             <span className="material-symbols-outlined text-[14px]">

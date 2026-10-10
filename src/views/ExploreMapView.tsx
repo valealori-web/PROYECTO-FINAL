@@ -255,7 +255,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   }}
                   className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                     activeQuickFilter === 'all' && activeNeighborhood === 'Todos' && !searchQuery
-                      ? 'bg-[#111111] text-white shadow-xs'
+                      ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                       : 'bg-white text-[#444444] border border-[#D9D9D9]'
                   }`}
                 >
@@ -280,7 +280,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                       }}
                       className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                         isActive
-                          ? 'bg-[#111111] text-white shadow-xs'
+                          ? 'bg-[#FDE7EE] text-[#B82E5F] shadow-xs'
                           : 'bg-white text-[#444444] hover:bg-[#F7F7F7] border border-[#D9D9D9]'
                       }`}
                     >
@@ -380,7 +380,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                       setActiveNeighborhood('Todos');
                       setSearchQuery('');
                     }}
-                    className="mt-3 px-4 py-1.5 rounded-full bg-[#111111] text-white text-xs font-bold"
+                    className="mt-3 px-4 py-1.5 rounded-full bg-[#FDE7EE] text-[#B82E5F] text-xs font-bold"
                   >
                     Restablecer búsqueda
                   </button>

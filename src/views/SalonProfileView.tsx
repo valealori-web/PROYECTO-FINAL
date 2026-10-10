@@ -183,7 +183,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               onClick={() =>
                 document.getElementById('booking-sheet')?.scrollIntoView({ behavior: 'smooth' })
               }
-              className="flex-1 h-10 rounded-lg bg-[#111111] hover:bg-[#2A2A2A] text-white text-sm font-semibold transition-colors"
+              className="flex-1 h-10 rounded-lg bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] text-sm font-semibold transition-colors"
             >
               Reservar turno
             </button>
@@ -192,8 +192,8 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               onClick={handleFollowToggle}
               className={`h-10 px-5 rounded-lg text-sm font-semibold transition-colors ${
                 isFollowing
-                  ? 'bg-[#F1F1F1] text-[#111111] hover:bg-[#E5E5E5]'
-                  : 'bg-[#F1F1F1] text-[#111111] hover:bg-[#E5E5E5]'
+                  ? 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
+                  : 'bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2]'
               }`}
             >
               {isFollowing ? 'Siguiendo' : 'Seguir'}
@@ -389,14 +389,14 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                         <button
                           type="button"
                           onClick={() => handleServiceDetail(serv)}
-                          className="px-3 h-8 rounded-lg bg-[#F1F1F1] text-[#111111] text-xs font-semibold hover:bg-[#E5E5E5] transition-colors"
+                          className="px-3 h-8 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-xs font-semibold hover:bg-[#FBD5E2] transition-colors"
                         >
                           Ver detalle
                         </button>
                         <button
                           type="button"
                           onClick={() => handleSelectService(serv.name, serv.price)}
-                          className="px-3 h-8 rounded-lg bg-[#111111] text-white text-xs font-semibold hover:bg-[#2A2A2A] transition-colors"
+                          className="px-3 h-8 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-xs font-semibold hover:bg-[#FBD5E2] transition-colors"
                         >
                           Reservar
                         </button>
@@ -589,7 +589,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
             <button
               type="button"
               onClick={handleConfirmBooking}
-              className="w-full py-3.5 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all"
+              className="w-full py-3.5 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all"
             >
               <span className="material-symbols-outlined text-[18px]">event_available</span>
               <span>Reservar con Glow Buzz</span>
