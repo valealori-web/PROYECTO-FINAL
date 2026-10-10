@@ -394,16 +394,16 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                   {look.title}
                 </h2>
 
-                <div className="flex items-baseline justify-between pt-1 border-t border-[#F4F4F4]">
+                <div className="flex items-center justify-between gap-3 p-4 rounded-2xl bg-[#571C31] text-[#FFF8F3]">
                   <div>
-                    <span className="text-2xl sm:text-3xl font-extrabold text-[#111111]">
-                      {look.price}
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-[#F5DCE5]/80 block">
+                      Precio estimado
                     </span>
-                    <span className="text-xs text-[#6B6B6B] ml-2">precio estimado</span>
+                    <span className="text-3xl font-extrabold text-white">{look.price}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-xs font-bold text-amber-600">
-                    <span>★ {look.rating}</span>
-                    <span className="text-[#6B6B6B] font-normal">({look.reviewsCount})</span>
+                  <div className="text-right">
+                    <span className="text-sm font-bold text-[#FFC83D]">★ {look.rating}</span>
+                    <span className="block text-[11px] text-[#F5DCE5]/80">{look.reviewsCount} reseñas</span>
                   </div>
                 </div>
 

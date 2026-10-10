@@ -347,16 +347,16 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
           <button
             type="button"
             onClick={() => onNavigate({ name: 'loyalty' })}
-            className="w-full flex items-center gap-3 p-3 rounded-xl border border-[#E5E5E5] hover:bg-[#F7F7F7] transition-colors text-left"
+            className="w-full flex items-center gap-3 p-3 rounded-xl bg-[#571C31] hover:bg-[#3E1222] transition-colors text-left"
           >
-            <span className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shrink-0">
+            <span className="w-10 h-10 rounded-full bg-white/10 text-[#FFC83D] flex items-center justify-center shrink-0">
               <span className="material-symbols-outlined text-[22px]">stars</span>
             </span>
             <span className="flex-1 min-w-0">
-              <span className="block text-xs text-[#6B6B6B]">Puntos Glow</span>
-              <span className="block text-sm font-medium text-[#111111]">1.240 puntos</span>
+              <span className="block text-xs text-[#F5DCE5]/80">Puntos Glow</span>
+              <span className="block text-sm font-bold text-white">1.240 puntos</span>
             </span>
-            <span className="material-symbols-outlined text-[20px] text-[#8A8A8A]">chevron_right</span>
+            <span className="material-symbols-outlined text-[20px] text-[#F5DCE5]/70">chevron_right</span>
           </button>
         </section>
 

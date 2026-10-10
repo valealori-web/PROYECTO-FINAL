@@ -52,41 +52,41 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
             <span className="text-[11px] text-[#111111] font-bold">En 3 días</span>
           </div>
 
-          <div className="bg-white rounded-3xl p-4 shadow-sm border border-[#E5E5E5] flex flex-col gap-3">
+          <div className="bg-[#571C31] text-[#FFF8F3] rounded-3xl p-5 shadow-sm flex flex-col gap-3">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-3">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrVocG-HFvOIk8EwLh9YGNuj1IZNSLixooDpM9jQkkPxa4mm8P2hQHiveNuDdrAZmbbQn953SKJXfkBpb_E9I4qQoQww8ehT3GNMVx70oljngvF5GTiIR97c3dZcfvH9ZGo7nj_Hc90CAjGkA_ofyH8M-o502hfJSKXpjj4lzStwDJqJfmmqG-JX6s3w4KM783kwqH16EK9pbx_iFu8uhWVQr-sPWGuVBaRvJtvyLg4QIIlXv4zZ9K"
                   alt="Maison Hair Co"
-                  className="w-12 h-12 rounded-full object-cover border border-[#F1F1F1]"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-white/30"
                 />
                 <div>
-                  <h3 className="text-sm font-bold text-[#111111]">Maison Hair Co. Studio</h3>
-                  <p className="text-xs text-[#444444]">Balayage Signature &amp; Nutrición</p>
-                  <p className="text-[11px] text-[#111111] font-medium">Colorista: Sofía Navarro</p>
+                  <h3 className="text-sm font-bold text-white">Maison Hair Co. Studio</h3>
+                  <p className="text-xs text-[#F5DCE5]/85">Balayage Signature &amp; Nutrición</p>
+                  <p className="text-[11px] text-[#F5DCE5] font-medium">Colorista: Sofía Navarro</p>
                 </div>
               </div>
-              <span className="bg-[#E5E5E5] text-[#111111] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
+              <span className="bg-white/15 text-[#F5DCE5] text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
                 Confirmada
               </span>
             </div>
 
-            <div className="p-3 rounded-2xl bg-[#F7F7F7] flex flex-col gap-1.5 text-xs text-[#444444]">
-              <div className="flex items-center gap-2 text-[#111111] font-semibold">
-                <span className="material-symbols-outlined text-[#111111] text-[17px]">
+            <div className="p-3 rounded-2xl bg-white/10 flex flex-col gap-1.5 text-xs text-[#F5DCE5]">
+              <div className="flex items-center gap-2 text-white font-semibold">
+                <span className="material-symbols-outlined text-[#FFC83D] text-[17px]">
                   schedule
                 </span>
                 <span>Martes 24 Octubre · 15:30 hs (3h 30m)</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#6B6B6B] text-[17px]">
+                <span className="material-symbols-outlined text-[#F5DCE5]/70 text-[17px]">
                   location_on
                 </span>
                 <span>Benito Blanco 1020, Pocitos, Montevideo</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 pt-1 border-t border-[#F4F4F4]">
+            <div className="flex items-center gap-2 pt-3 border-t border-white/15">
               <button
                 type="button"
                 onClick={() =>
@@ -97,7 +97,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
                     provider: 'Fresha',
                   })
                 }
-                className="flex-1 py-2 px-3 rounded-full bg-[#FDE7EE] text-[#B82E5F] hover:bg-[#FBD5E2] text-xs font-semibold flex items-center justify-center gap-1 shadow-xs transition-colors"
+                className="flex-1 py-2 px-3 rounded-full bg-white text-[#B82E5F] hover:bg-[#FDE7EE] text-xs font-bold flex items-center justify-center gap-1 shadow-xs transition-colors"
               >
                 <span className="material-symbols-outlined text-[15px]">edit_calendar</span>
                 <span>Modificar en agenda</span>

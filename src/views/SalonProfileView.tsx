@@ -567,20 +567,20 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
 
         {/* Sticky Bottom Quick Booking Drawer Target */}
         <div className="mt-8 px-5" id="booking-sheet">
-          <div className="p-4 rounded-3xl bg-[#F1F1F1]/70 backdrop-blur-md border border-[#F1F1F1] shadow-lg flex flex-col gap-3">
+          <div className="p-5 rounded-3xl bg-[#571C31] text-[#FFF8F3] shadow-lg flex flex-col gap-3">
             <div className="flex items-center justify-between">
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase font-bold text-[#111111] tracking-wider">
+                <span className="text-[10px] uppercase font-bold text-[#F5DCE5]/80 tracking-widest">
                   Disponibilidad Inmediata
                 </span>
-                <span className="text-sm font-bold text-[#111111]">
+                <span className="text-lg font-extrabold text-white">
                   Próximo turno libre: {salon.nextSlot}
                 </span>
               </div>
             </div>
 
             {selectedService && (
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#E5E5E5] text-[#111111] text-xs font-semibold">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-white/10 text-[#F5DCE5] text-xs font-semibold">
                 <span>{selectedService} {selectedPrice && `(${selectedPrice})`}</span>
                 <span className="material-symbols-outlined text-[15px]">check</span>
               </div>
@@ -589,7 +589,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
             <button
               type="button"
               onClick={handleConfirmBooking}
-              className="w-full py-3.5 rounded-full bg-[#FDE7EE] hover:bg-[#FBD5E2] text-[#B82E5F] font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all"
+              className="w-full py-3.5 rounded-full bg-white hover:bg-[#FDE7EE] text-[#B82E5F] font-bold text-sm tracking-tight flex items-center justify-center gap-2 shadow-md active:scale-98 transition-all"
             >
               <span className="material-symbols-outlined text-[18px]">event_available</span>
               <span>Reservar con Glow Buzz</span>
