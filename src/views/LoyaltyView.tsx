@@ -20,6 +20,8 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
   const [myRewards, setMyRewards] = useState<{ id: string; rewardId: string; code: string }[]>([]);
   const [invited, setInvited] = useState(1);
 
+  const nextReward = [...REWARDS].sort((a, b) => a.cost - b.cost).find((r) => r.cost > points);
+
   const redeem = (rewardId: string) => {
     const reward = REWARDS.find((r) => r.id === rewardId);
     if (!reward || points < reward.cost) return;
@@ -53,19 +55,63 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
       <main className="flex-1 w-full pt-16 max-w-3xl mx-auto px-5">
         <h1 className="pt-6 text-xl font-semibold text-[#111111]">Puntos Glow</h1>
 
-        <section className="mt-4 rounded-2xl bg-[#F5DCE5] p-5 flex items-center justify-between gap-4">
-          <div>
-            <span className="text-xs font-medium text-[#6B4A56]">Puntos disponibles</span>
-            <p className="mt-1 text-4xl font-semibold text-[#111111] tracking-tight">{fmt(points)}</p>
-            <p className="mt-2 text-xs text-[#6B4A56]">Ganás 1 punto por cada $10 en tus turnos.</p>
+        <section className="mt-4 relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#B82E5F] via-[#D23F78] to-[#F28BAA] text-white p-6 shadow-lg">
+          <span className="absolute -top-16 -right-10 w-52 h-52 rounded-full bg-white/10" aria-hidden="true" />
+          <span className="absolute -bottom-20 -left-8 w-44 h-44 rounded-full bg-white/10" aria-hidden="true" />
+
+          <div className="relative">
+            <span className="text-xs font-semibold uppercase tracking-widest text-white/80">
+              Puntos disponibles
+            </span>
+            <div className="mt-2 flex items-center gap-3">
+              <span
+                className="material-symbols-outlined text-[#FFC83D] drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)] shrink-0"
+                style={{ fontSize: 64, lineHeight: 1, fontVariationSettings: "'FILL' 1" }}
+                aria-hidden="true"
+              >
+                star
+              </span>
+              <p className="text-6xl font-bold tracking-tight leading-none">{fmt(points)}</p>
+            </div>
+            <p className="mt-3 text-sm text-white/90">Ganás 1 punto por cada $10 en tus turnos.</p>
+
+            {nextReward && (
+              <div className="mt-5">
+                <div
+                  className="h-2.5 rounded-full bg-white/25 overflow-hidden"
+                  role="progressbar"
+                  aria-valuenow={Math.round((points / nextReward.cost) * 100)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <div
+                    className="h-full rounded-full bg-[#FFC83D] transition-all"
+                    style={{ width: `${Math.min(100, (points / nextReward.cost) * 100)}%` }}
+                  />
+                </div>
+                <p className="mt-2 text-xs text-white/90">
+                  Te faltan <strong>{fmt(nextReward.cost - points)}</strong> puntos para “{nextReward.title}”
+                </p>
+              </div>
+            )}
+
+            <div className="mt-5 flex gap-2">
+              <button
+                type="button"
+                onClick={() => setTab('canjear')}
+                className="flex-1 h-11 rounded-full bg-white text-[#111111] text-sm font-semibold hover:bg-[#FFF3F7] transition-colors"
+              >
+                Canjear
+              </button>
+              <button
+                type="button"
+                onClick={() => setTab('ganar')}
+                className="flex-1 h-11 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-colors"
+              >
+                Ganar más
+              </button>
+            </div>
           </div>
-          <span
-            className="material-symbols-outlined text-[56px] text-[#111111] shrink-0"
-            style={{ fontVariationSettings: "'FILL' 1" }}
-            aria-hidden="true"
-          >
-            star
-          </span>
         </section>
 
         <nav className="mt-6 sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF] flex" role="tablist">
@@ -93,14 +139,23 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
               {REWARDS.map((r) => {
                 const missing = r.cost - points;
                 return (
-                  <div key={r.id} className="rounded-2xl border border-[#E5E5E5] p-4 flex items-center gap-4">
-                    <span className="w-12 h-12 rounded-full bg-[#F1F1F1] flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-[24px] text-[#111111]">{r.icon}</span>
+                  <div key={r.id} className="rounded-2xl border border-[#F3D3DE] bg-white p-4 flex items-center gap-4 shadow-sm">
+                    <span className="w-12 h-12 rounded-full bg-[#FDE7EE] flex items-center justify-center shrink-0">
+                      <span className="material-symbols-outlined text-[24px] text-[#B82E5F]">{r.icon}</span>
                     </span>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-[#111111]">{r.title}</p>
                       <p className="text-xs text-[#6B6B6B] mt-0.5">{r.description}</p>
-                      <p className="text-xs text-[#111111] mt-1 font-medium">{fmt(r.cost)} puntos</p>
+                      <p className="text-xs text-[#111111] mt-1 font-semibold flex items-center gap-1">
+                        <span
+                          className="material-symbols-outlined text-[16px] text-[#F5B301]"
+                          style={{ fontVariationSettings: "'FILL' 1" }}
+                          aria-hidden="true"
+                        >
+                          star
+                        </span>
+                        {fmt(r.cost)} puntos
+                      </p>
                     </div>
                     <button
                       type="button"
