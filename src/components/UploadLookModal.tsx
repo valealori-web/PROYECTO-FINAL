@@ -119,7 +119,7 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444] hover:text-[#111111]"
+            className="w-8 h-8 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] hover:text-[#111111]"
           >
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>

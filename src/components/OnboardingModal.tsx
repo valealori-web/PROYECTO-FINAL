@@ -53,7 +53,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444] hover:text-[#111111]"
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] hover:text-[#111111]"
           aria-label="Cerrar"
         >
           <span className="material-symbols-outlined text-[18px]">close</span>

@@ -23,7 +23,7 @@ export const BackButton: React.FC<{ onBack?: () => void }> = ({ onBack }) =>
       type="button"
       onClick={onBack}
       aria-label="Volver"
-      className="w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:bg-[#F4F4F4] transition-colors"
+      className="w-10 h-10 flex items-center justify-center rounded-full text-[#B82E5F] bg-[#FDE7EE] hover:bg-[#FBD5E2] transition-colors"
     >
       <span className="material-symbols-outlined text-[22px]">arrow_back</span>
     </button>
@@ -37,7 +37,7 @@ export const NotificationBell: React.FC<{
     type="button"
     onClick={() => onNavigate({ name: 'notifications' })}
     aria-label="Notificaciones"
-    className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:bg-[#F4F4F4] transition-colors"
+    className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#B82E5F] bg-[#FDE7EE] hover:bg-[#FBD5E2] transition-colors"
   >
     <span className="material-symbols-outlined text-[24px]">notifications</span>
     {unreadCount > 0 && (
@@ -56,7 +56,7 @@ export const HeaderIconButton: React.FC<{
     type="button"
     onClick={onClick}
     aria-label={label}
-    className="w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:bg-[#F4F4F4] transition-colors"
+    className="w-10 h-10 flex items-center justify-center rounded-full text-[#B82E5F] bg-[#FDE7EE] hover:bg-[#FBD5E2] transition-colors"
   >
     <span
       className="material-symbols-outlined text-[24px]"

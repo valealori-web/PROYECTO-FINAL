@@ -195,7 +195,9 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
             <ul className="divide-y divide-[#F1F1F1]">
               {EARN_RULES.map((r) => (
                 <li key={r.label} className="py-3.5 flex items-center gap-3">
-                  <span className="material-symbols-outlined text-[22px] text-[#111111]">{r.icon}</span>
+                  <span className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-[22px]">{r.icon}</span>
+                  </span>
                   <span className="flex-1 text-sm text-[#111111]">{r.label}</span>
                   <span className="text-sm font-semibold text-[#111111]">{r.points}</span>
                 </li>

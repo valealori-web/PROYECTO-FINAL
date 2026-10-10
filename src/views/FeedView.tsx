@@ -154,7 +154,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                   type="button"
                   onClick={onOpenFilters}
                   aria-label="Filtrar búsqueda"
-                  className="w-7 h-7 rounded-full bg-[#F1F1F1] hover:bg-[#111111] text-[#111111] hover:text-white flex items-center justify-center transition-colors shrink-0"
+                  className="w-7 h-7 rounded-full bg-[#FDE7EE] hover:bg-[#B82E5F] text-[#B82E5F] hover:text-white flex items-center justify-center transition-colors shrink-0"
                 >
                   <span className="material-symbols-outlined text-[16px]">tune</span>
                 </button>
@@ -193,7 +193,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
               type="button"
               onClick={onOpenFilters}
               aria-label="Filtrar búsqueda"
-              className="w-7 h-7 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#111111] active:scale-95 transition-transform shrink-0"
+              className="w-7 h-7 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] active:scale-95 transition-transform shrink-0"
             >
               <span className="material-symbols-outlined text-[16px]">tune</span>
             </button>
@@ -310,7 +310,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
         {/* Empty state if search/filter yield no results */}
         {filteredLooks.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center max-w-md mx-auto">
-            <div className="w-14 h-14 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center mb-3">
+            <div className="w-14 h-14 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center mb-3">
               <span className="material-symbols-outlined text-[28px]">search_off</span>
             </div>
             <h3 className="text-base font-bold text-[#111111]">No se encontraron looks</h3>

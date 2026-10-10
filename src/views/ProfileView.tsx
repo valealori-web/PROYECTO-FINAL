@@ -331,8 +331,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             onClick={() => onNavigate({ name: 'reservations' })}
             className="w-full flex items-center gap-3 p-3 rounded-xl border border-[#E5E5E5] hover:bg-[#F7F7F7] transition-colors text-left"
           >
-            <span className="material-symbols-outlined text-[22px] text-[#111111]">
-              calendar_clock
+<span className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-[22px]">calendar_clock</span>
             </span>
             <span className="flex-1 min-w-0">
               <span className="block text-xs text-[#6B6B6B]">Próxima cita · En 3 días</span>
@@ -349,7 +349,9 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             onClick={() => onNavigate({ name: 'loyalty' })}
             className="w-full flex items-center gap-3 p-3 rounded-xl border border-[#E5E5E5] hover:bg-[#F7F7F7] transition-colors text-left"
           >
-            <span className="material-symbols-outlined text-[22px] text-[#111111]">stars</span>
+            <span className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-[22px]">stars</span>
+            </span>
             <span className="flex-1 min-w-0">
               <span className="block text-xs text-[#6B6B6B]">Puntos Glow</span>
               <span className="block text-sm font-medium text-[#111111]">1.240 puntos</span>
@@ -531,7 +533,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-2 shadow-xs">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#111111] font-bold">
+                  <div className="w-10 h-10 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] font-bold">
                     <span className="material-symbols-outlined text-[20px]">content_cut</span>
                   </div>
                   <div>
@@ -571,7 +573,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
             <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-2 shadow-xs">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#111111] font-bold">
+                  <div className="w-10 h-10 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] font-bold">
                     <span className="material-symbols-outlined text-[20px]">brush</span>
                   </div>
                   <div>
@@ -733,8 +735,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 }}
                 className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-[#F7F7F7] transition-colors text-left"
               >
-                <span className="material-symbols-outlined text-[22px] text-[#111111]">
-                  {item.icon}
+                <span className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
                 </span>
                 <span className="flex-1 text-sm font-medium text-[#111111]">{item.label}</span>
                 {item.hint && <span className="text-xs text-[#6B6B6B]">{item.hint}</span>}
@@ -790,7 +792,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               <button
                 type="button"
                 onClick={() => setIsNewFolderModalOpen(false)}
-                className="w-7 h-7 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444]"
+                className="w-7 h-7 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F]"
               >
                 <span className="material-symbols-outlined text-[16px]">close</span>
               </button>

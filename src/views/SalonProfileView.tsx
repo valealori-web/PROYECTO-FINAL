@@ -202,7 +202,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               type="button"
               onClick={() => onOpenChat(salon)}
               aria-label="Enviar mensaje"
-              className="w-10 h-10 rounded-lg bg-[#F1F1F1] text-[#111111] flex items-center justify-center hover:bg-[#E5E5E5] transition-colors"
+              className="w-10 h-10 rounded-lg bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center hover:bg-[#FBD5E2] transition-colors"
             >
               <span className="material-symbols-outlined text-[20px]">chat_bubble</span>
             </button>

@@ -71,7 +71,7 @@ export const ExternalBookingModal: React.FC<ExternalBookingModalProps> = ({
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444] hover:text-[#111111]"
+                className="w-8 h-8 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] hover:text-[#111111]"
               >
                 <span className="material-symbols-outlined text-[18px]">close</span>
               </button>
@@ -151,7 +151,7 @@ export const ExternalBookingModal: React.FC<ExternalBookingModalProps> = ({
         ) : (
           /* Handover Success Confirmation */
           <div className="py-6 flex flex-col items-center text-center gap-3">
-            <div className="w-14 h-14 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center shadow-sm">
+            <div className="w-14 h-14 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shadow-sm">
               <span className="material-symbols-outlined text-[32px]">check</span>
             </div>
             <h3 className="text-xl font-bold text-[#111111]">

@@ -193,7 +193,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   type="button"
                   onClick={onOpenFilters}
                   aria-label="Filtros avanzados"
-                  className="w-7 h-7 rounded-full bg-[#F1F1F1] hover:bg-[#111111] text-[#111111] hover:text-white flex items-center justify-center transition-colors shrink-0"
+                  className="w-7 h-7 rounded-full bg-[#FDE7EE] hover:bg-[#B82E5F] text-[#B82E5F] hover:text-white flex items-center justify-center transition-colors shrink-0"
                 >
                   <span className="material-symbols-outlined text-[15px]">tune</span>
                 </button>
@@ -233,7 +233,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               type="button"
               onClick={onOpenFilters}
               aria-label="Filtrar salones"
-              className="w-7 h-7 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#111111] active:scale-95 transition-transform shrink-0"
+              className="w-7 h-7 rounded-full bg-[#FDE7EE] flex items-center justify-center text-[#B82E5F] active:scale-95 transition-transform shrink-0"
             >
               <span className="material-symbols-outlined text-[15px]">tune</span>
             </button>
@@ -413,10 +413,10 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   type="button"
                   onClick={handleRecenter}
                   aria-label="Re-centrar el mapa"
-                  className="w-10 h-10 rounded-full bg-white/95 backdrop-blur-md text-[#111111] shadow-md flex items-center justify-center hover:bg-[#F1F1F1] active:scale-90 transition-all"
+                  className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] shadow-md flex items-center justify-center hover:bg-[#FBD5E2] active:scale-90 transition-all"
                   title="Re-centrar el mapa"
                 >
-                  <span className="material-symbols-outlined text-[20px] text-[#111111]">
+                  <span className="material-symbols-outlined text-[20px] text-[#B82E5F]">
                     my_location
                   </span>
                 </button>

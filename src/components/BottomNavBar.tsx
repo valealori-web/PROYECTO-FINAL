@@ -33,7 +33,9 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
           }`}
         >
           <span
-            className="material-symbols-outlined text-[22px]"
+            className={`material-symbols-outlined text-[22px] w-14 h-8 rounded-full flex items-center justify-center transition-colors ${
+              activeTab === 'inicio' ? 'bg-[#FDE7EE] text-[#B82E5F]' : ''
+            }`}
             style={activeTab === 'inicio' ? { fontVariationSettings: "'FILL' 1" } : undefined}
           >
             home
@@ -50,7 +52,9 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
           }`}
         >
           <span
-            className="material-symbols-outlined text-[22px]"
+            className={`material-symbols-outlined text-[22px] w-14 h-8 rounded-full flex items-center justify-center transition-colors ${
+              activeTab === 'explorar' ? 'bg-[#FDE7EE] text-[#B82E5F]' : ''
+            }`}
             style={activeTab === 'explorar' ? { fontVariationSettings: "'FILL' 1" } : undefined}
           >
             explore
@@ -67,7 +71,9 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
           }`}
         >
           <span
-            className="material-symbols-outlined text-[22px]"
+            className={`material-symbols-outlined text-[22px] w-14 h-8 rounded-full flex items-center justify-center transition-colors ${
+              activeTab === 'reservas' ? 'bg-[#FDE7EE] text-[#B82E5F]' : ''
+            }`}
             style={activeTab === 'reservas' ? { fontVariationSettings: "'FILL' 1" } : undefined}
           >
             calendar_month
@@ -84,7 +90,9 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
           }`}
         >
           <span
-            className="material-symbols-outlined text-[22px]"
+            className={`material-symbols-outlined text-[22px] w-14 h-8 rounded-full flex items-center justify-center transition-colors ${
+              activeTab === 'perfil' ? 'bg-[#FDE7EE] text-[#B82E5F]' : ''
+            }`}
             style={activeTab === 'perfil' ? { fontVariationSettings: "'FILL' 1" } : undefined}
           >
             person

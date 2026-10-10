@@ -368,7 +368,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
                   className="bg-white rounded-2xl p-4 shadow-xs border border-[#E5E5E5] transition-all hover:shadow-md"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="shrink-0 w-11 h-11 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center">
+                    <div className="shrink-0 w-11 h-11 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center">
                       <span className="material-symbols-outlined text-[20px]">auto_awesome</span>
                     </div>
 
@@ -418,7 +418,7 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
           {/* Empty state when no notifications */}
           {visibleNotifications.length === 0 && (
             <div className="flex flex-col items-center justify-center text-center py-12 px-4">
-              <div className="w-14 h-14 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center mb-3">
+              <div className="w-14 h-14 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center mb-3">
                 <span className="material-symbols-outlined text-[28px]">notifications_paused</span>
               </div>
               <p className="text-base font-bold text-[#111111]">Sin novedades por aquí</p>

@@ -163,7 +163,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
           <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-2 shadow-xs">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center">
+                <div className="w-9 h-9 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center">
                   <span className="material-symbols-outlined text-[18px]">content_cut</span>
                 </div>
                 <div>
@@ -196,7 +196,7 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
           <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-2 shadow-xs">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center">
+                <div className="w-9 h-9 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center">
                   <span className="material-symbols-outlined text-[18px]">brush</span>
                 </div>
                 <div>
