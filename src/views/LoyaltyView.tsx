@@ -13,6 +13,16 @@ type Tab = 'canjear' | 'ganar' | 'historial';
 
 const fmt = (n: number) => n.toLocaleString('es-UY');
 
+const StarIcon: React.FC<{ size: number; className?: string }> = ({ size, className = '' }) => (
+  <span
+    className={`material-symbols-outlined text-[#FFC83D] shrink-0 ${className}`}
+    style={{ fontSize: size, lineHeight: 1, fontVariationSettings: "'FILL' 1" }}
+    aria-hidden="true"
+  >
+    star
+  </span>
+);
+
 export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, onShowToast }) => {
   const [tab, setTab] = useState<Tab>('canjear');
   const [points, setPoints] = useState(1240);
@@ -20,7 +30,9 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
   const [myRewards, setMyRewards] = useState<{ id: string; rewardId: string; code: string }[]>([]);
   const [invited, setInvited] = useState(1);
 
-  const nextReward = [...REWARDS].sort((a, b) => a.cost - b.cost).find((r) => r.cost > points);
+  const sortedRewards = [...REWARDS].sort((a, b) => a.cost - b.cost);
+  const nextReward = sortedRewards.find((r) => r.cost > points);
+  const earned = history.filter((h) => h.points > 0).reduce((sum, h) => sum + h.points, 0);
 
   const redeem = (rewardId: string) => {
     const reward = REWARDS.find((r) => r.id === rewardId);
@@ -53,165 +65,200 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
       </header>
 
       <main className="flex-1 w-full pt-16 max-w-3xl mx-auto px-5">
-        <h1 className="pt-6 text-xl font-semibold text-[#111111]">Puntos Glow</h1>
+        {/* Título + selector (mismo patrón que las estadísticas de profesionales) */}
+        <div className="pt-6 flex flex-col gap-4">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-[#181416]">Puntos Glow</h1>
+            <p className="text-sm text-[#571C31]/75 mt-0.5">
+              Sumá puntos con cada turno y usalos en tus próximos servicios.
+            </p>
+          </div>
 
-        <section className="mt-4 relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#B82E5F] via-[#D23F78] to-[#F28BAA] text-white p-6 shadow-lg">
-          <span className="absolute -top-16 -right-10 w-52 h-52 rounded-full bg-white/10" aria-hidden="true" />
-          <span className="absolute -bottom-20 -left-8 w-44 h-44 rounded-full bg-white/10" aria-hidden="true" />
+          <div
+            className="inline-flex items-center p-1 rounded-xl bg-white border border-[#571C31]/15 self-start"
+            role="tablist"
+          >
+            {tabs.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                role="tab"
+                aria-selected={tab === t.id}
+                onClick={() => setTab(t.id)}
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                  tab === t.id ? 'bg-[#B82E5F] text-white shadow-xs' : 'text-[#571C31]/70 hover:text-[#571C31]'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Bloque destacado */}
+        <section className="mt-6 p-6 sm:p-8 rounded-3xl bg-[#571C31] text-[#FFF8F3] relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          <span className="absolute -top-20 -right-12 w-56 h-56 rounded-full bg-white/5" aria-hidden="true" />
+          <span className="absolute -bottom-24 -left-10 w-48 h-48 rounded-full bg-[#B82E5F]/20" aria-hidden="true" />
 
           <div className="relative">
-            <span className="text-xs font-semibold uppercase tracking-widest text-white/80">
-              Puntos disponibles
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#F5DCE5]/80">
+              Tu saldo de puntos
             </span>
-            <div className="mt-2 flex items-center gap-3">
-              <span
-                className="material-symbols-outlined text-[#FFC83D] drop-shadow-[0_2px_6px_rgba(0,0,0,0.25)] shrink-0"
-                style={{ fontSize: 64, lineHeight: 1, fontVariationSettings: "'FILL' 1" }}
-                aria-hidden="true"
-              >
-                star
-              </span>
-              <p className="text-6xl font-bold tracking-tight leading-none">{fmt(points)}</p>
+            <div className="mt-3 flex items-center gap-3">
+              <StarIcon size={56} className="drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" />
+              <span className="text-5xl sm:text-6xl font-extrabold tracking-tight leading-none">{fmt(points)}</span>
             </div>
-            <p className="mt-3 text-sm text-white/90">Ganás 1 punto por cada $10 en tus turnos.</p>
+            <p className="text-xs sm:text-sm text-[#F5DCE5]/80 mt-3 max-w-xs">
+              Ganás 1 punto por cada $10 en tus turnos reservados con Glow Buzz.
+            </p>
+          </div>
 
-            {nextReward && (
-              <div className="mt-5">
-                <div
-                  className="h-2.5 rounded-full bg-white/25 overflow-hidden"
-                  role="progressbar"
-                  aria-valuenow={Math.round((points / nextReward.cost) * 100)}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                >
-                  <div
-                    className="h-full rounded-full bg-[#FFC83D] transition-all"
-                    style={{ width: `${Math.min(100, (points / nextReward.cost) * 100)}%` }}
-                  />
-                </div>
-                <p className="mt-2 text-xs text-white/90">
-                  Te faltan <strong>{fmt(nextReward.cost - points)}</strong> puntos para “{nextReward.title}”
-                </p>
-              </div>
-            )}
-
-            <div className="mt-5 flex gap-2">
-              <button
-                type="button"
-                onClick={() => setTab('canjear')}
-                className="flex-1 h-11 rounded-full bg-white text-[#111111] text-sm font-semibold hover:bg-[#FFF3F7] transition-colors"
-              >
-                Canjear
-              </button>
-              <button
-                type="button"
-                onClick={() => setTab('ganar')}
-                className="flex-1 h-11 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-colors"
-              >
-                Ganar más
-              </button>
+          <div className="relative flex sm:flex-col gap-3">
+            <div className="flex-1 p-4 rounded-2xl bg-white/10 backdrop-blur-xs text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#F5DCE5] block">Acumulados</span>
+              <span className="text-2xl font-bold text-white block mt-0.5">{fmt(earned)}</span>
+            </div>
+            <div className="flex-1 p-4 rounded-2xl bg-white/10 backdrop-blur-xs text-center min-w-[120px]">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#F5DCE5] block">Canjes</span>
+              <span className="text-2xl font-bold text-white block mt-0.5">
+                {history.filter((h) => h.points < 0).length}
+              </span>
             </div>
           </div>
         </section>
 
-        <nav className="mt-6 sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF] flex" role="tablist">
-          {tabs.map((t) => (
-            <button
-              key={t.id}
-              type="button"
-              role="tab"
-              aria-selected={tab === t.id}
-              onClick={() => setTab(t.id)}
-              className={`flex-1 h-11 text-sm font-medium border-b-2 transition-colors ${
-                tab === t.id
-                  ? 'border-[#111111] text-[#111111]'
-                  : 'border-transparent text-[#8A8A8A] hover:text-[#111111]'
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </nav>
-
+        {/* CANJEAR */}
         {tab === 'canjear' && (
-          <div className="py-5 flex flex-col gap-8">
-            <section className="flex flex-col gap-3">
-              {REWARDS.map((r) => {
-                const missing = r.cost - points;
-                return (
-                  <div key={r.id} className="rounded-2xl border border-[#F3D3DE] bg-white p-4 flex items-center gap-4 shadow-sm">
-                    <span className="w-12 h-12 rounded-full bg-[#FDE7EE] flex items-center justify-center shrink-0">
-                      <span className="material-symbols-outlined text-[24px] text-[#B82E5F]">{r.icon}</span>
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-[#111111]">{r.title}</p>
-                      <p className="text-xs text-[#6B6B6B] mt-0.5">{r.description}</p>
-                      <p className="text-xs text-[#111111] mt-1 font-semibold flex items-center gap-1">
-                        <span
-                          className="material-symbols-outlined text-[16px] text-[#F5B301]"
-                          style={{ fontVariationSettings: "'FILL' 1" }}
-                          aria-hidden="true"
-                        >
-                          star
-                        </span>
-                        {fmt(r.cost)} puntos
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      disabled={missing > 0}
-                      onClick={() => redeem(r.id)}
-                      className="h-9 px-4 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-xs font-semibold hover:bg-[#FBD5E2] transition-colors disabled:bg-[#F1F1F1] disabled:text-[#8A8A8A] disabled:cursor-not-allowed shrink-0"
+          <div className="mt-8 space-y-8 animate-in fade-in duration-200">
+            <div className="space-y-4">
+              <div className="flex items-end justify-between gap-3">
+                <h2 className="text-lg font-bold text-[#181416]">Camino a tu próxima recompensa</h2>
+                {nextReward && (
+                  <span className="text-xs text-[#571C31]/70 text-right">
+                    Te faltan {fmt(nextReward.cost - points)} puntos
+                  </span>
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {sortedRewards.map((r) => {
+                  const missing = r.cost - points;
+                  const isNext = nextReward?.id === r.id;
+                  const ready = missing <= 0;
+                  return (
+                    <div
+                      key={r.id}
+                      className={`p-4 rounded-2xl flex flex-col justify-between border ${
+                        isNext ? 'bg-[#F5DCE5] border-[#B82E5F]/30' : 'bg-[#FFF8F9] border-[#571C31]/10'
+                      }`}
                     >
-                      {missing > 0 ? `Faltan ${fmt(missing)}` : 'Canjear'}
-                    </button>
-                  </div>
-                );
-              })}
-            </section>
+                      <div>
+                        <div className="flex items-start justify-between gap-2">
+                          <span
+                            className={`text-[10px] font-bold uppercase tracking-wide ${
+                              isNext ? 'text-[#B82E5F]' : 'text-[#571C31]/60'
+                            }`}
+                          >
+                            {isNext ? 'Tu próxima meta' : ready ? 'Disponible' : 'Recompensa'}
+                          </span>
+                          <span className="w-8 h-8 rounded-xl bg-white text-[#B82E5F] flex items-center justify-center shrink-0">
+                            <span className="material-symbols-outlined text-[18px]">{r.icon}</span>
+                          </span>
+                        </div>
+                        <p className="mt-1 flex items-center gap-1.5 text-2xl font-extrabold text-[#181416]">
+                          <StarIcon size={22} />
+                          {fmt(r.cost)}
+                        </p>
+                        <p className="text-sm font-semibold text-[#181416] mt-1 leading-snug">{r.title}</p>
+                        <p className="text-xs text-[#571C31]/75 mt-0.5">{r.description}</p>
+                      </div>
+
+                      <div
+                        className={`mt-4 pt-3 border-t flex items-center justify-between gap-2 ${
+                          isNext ? 'border-[#B82E5F]/20' : 'border-[#571C31]/10'
+                        }`}
+                      >
+                        <span className="text-[11px] font-bold text-[#B82E5F]">
+                          {ready ? '✓ Podés canjearla' : `Faltan ${fmt(missing)}`}
+                        </span>
+                        <button
+                          type="button"
+                          disabled={!ready}
+                          onClick={() => redeem(r.id)}
+                          className="h-8 px-4 rounded-lg bg-white text-[#B82E5F] text-xs font-bold hover:bg-[#FDE7EE] transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-[#B82E5F]/20"
+                        >
+                          Canjear
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
 
             {myRewards.length > 0 && (
-              <section>
-                <h2 className="text-sm font-semibold text-[#111111]">Mis recompensas</h2>
-                <div className="mt-3 flex flex-col gap-3">
-                  {myRewards.map((mr) => {
-                    const reward = REWARDS.find((r) => r.id === mr.rewardId)!;
-                    return (
-                      <div key={mr.id} className="rounded-2xl border border-dashed border-[#111111] p-4">
-                        <p className="text-sm font-semibold text-[#111111]">{reward.title}</p>
-                        <p className="text-xs text-[#6B6B6B] mt-0.5">Mostrá este código en el salón</p>
-                        <p className="mt-2 text-lg font-semibold tracking-widest text-[#111111]">{mr.code}</p>
+              <div className="space-y-3">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-[#571C31]">Mis recompensas</h2>
+                {myRewards.map((mr) => {
+                  const reward = REWARDS.find((r) => r.id === mr.rewardId)!;
+                  return (
+                    <div
+                      key={mr.id}
+                      className="p-4 rounded-2xl bg-white border border-dashed border-[#B82E5F]/50 flex items-center justify-between gap-3"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-sm font-semibold text-[#181416]">{reward.title}</p>
+                        <p className="text-xs text-[#571C31]/70 mt-0.5">Mostrá este código en el salón</p>
                       </div>
-                    );
-                  })}
-                </div>
-              </section>
+                      <span className="px-3 py-1.5 rounded-lg bg-[#F5DCE5] text-[#B82E5F] text-sm font-extrabold tracking-widest">
+                        {mr.code}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </div>
         )}
 
+        {/* GANAR */}
         {tab === 'ganar' && (
-          <div className="py-5 flex flex-col gap-6">
-            <ul className="divide-y divide-[#F1F1F1]">
-              {EARN_RULES.map((r) => (
-                <li key={r.label} className="py-3.5 flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-full bg-[#FDE7EE] text-[#B82E5F] flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-[22px]">{r.icon}</span>
-                  </span>
-                  <span className="flex-1 text-sm text-[#111111]">{r.label}</span>
-                  <span className="text-sm font-semibold text-[#111111]">{r.points}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 space-y-8 animate-in fade-in duration-200">
+            <div className="space-y-3">
+              <h2 className="text-sm font-bold uppercase tracking-wider text-[#571C31]">Cómo sumar puntos</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {EARN_RULES.map((r) => (
+                  <div
+                    key={r.label}
+                    className="bg-white rounded-2xl border border-[#571C31]/10 p-5 hover:border-[#B82E5F]/30 transition-colors"
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-2.5">
+                      <span className="text-xs font-semibold text-[#571C31]/70 uppercase tracking-wider">
+                        {r.label}
+                      </span>
+                      <span className="w-8 h-8 rounded-xl bg-[#FFF8F9] text-[#B82E5F] flex items-center justify-center shrink-0">
+                        <span className="material-symbols-outlined text-[18px]">{r.icon}</span>
+                      </span>
+                    </div>
+                    <span className="text-2xl font-bold tracking-tight text-[#181416]">{r.points}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-            <section className="rounded-2xl border border-[#E5E5E5] p-4 flex items-center gap-4">
-              <div className="flex-1 min-w-0">
-                <h2 className="text-sm font-semibold text-[#111111]">Invitá a 3 amigas y ganá 500 puntos</h2>
-                <p className="text-xs text-[#6B6B6B] mt-0.5">{invited} de 3 completadas</p>
-                <div className="mt-2 flex gap-1.5">
-                  {[0, 1, 2].map((i) => (
-                    <span key={i} className={`h-1.5 flex-1 rounded-full ${i < invited ? 'bg-[#111111]' : 'bg-[#E5E5E5]'}`} />
-                  ))}
+            <div className="p-6 rounded-2xl bg-[#FFF8F9] border border-[#B82E5F]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <span className="p-2.5 rounded-xl bg-[#F5DCE5] text-[#B82E5F] flex">
+                  <span className="material-symbols-outlined text-[22px]">group_add</span>
+                </span>
+                <div>
+                  <h3 className="text-base font-bold text-[#181416]">Invitá a 3 amigas y ganá 500 puntos</h3>
+                  <p className="text-xs sm:text-sm text-[#571C31]/75 mt-0.5">{invited} de 3 completadas</p>
+                  <div className="mt-2 flex gap-1.5 w-40">
+                    {[0, 1, 2].map((i) => (
+                      <span key={i} className={`h-1.5 flex-1 rounded-full ${i < invited ? 'bg-[#B82E5F]' : 'bg-[#F5DCE5]'}`} />
+                    ))}
+                  </div>
                 </div>
               </div>
               <button
@@ -220,29 +267,37 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
                   if (invited < 3) setInvited((n) => n + 1);
                   onShowToast('Link de invitación copiado', 'link');
                 }}
-                className="h-10 px-4 rounded-lg bg-[#FDE7EE] text-[#B82E5F] text-sm font-semibold hover:bg-[#FBD5E2] transition-colors shrink-0"
+                className="h-10 px-5 rounded-xl bg-[#B82E5F] text-white text-sm font-semibold hover:bg-[#A02450] transition-colors shrink-0"
               >
                 Invitar
               </button>
-            </section>
+            </div>
           </div>
         )}
 
+        {/* HISTORIAL */}
         {tab === 'historial' && (
-          <ul className="py-3 divide-y divide-[#F1F1F1]">
-            {history.map((h) => (
-              <li key={h.id} className="py-3.5 flex items-center gap-3">
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm text-[#111111] truncate">{h.label}</p>
-                  <p className="text-xs text-[#6B6B6B]">{h.date}</p>
+          <div className="mt-8 animate-in fade-in duration-200">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-[#571C31]">Movimientos</h2>
+            <div className="mt-3 bg-white rounded-2xl border border-[#571C31]/10 divide-y divide-[#571C31]/10">
+              {history.map((h) => (
+                <div key={h.id} className="px-5 py-3.5 flex items-center gap-3">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-[#181416] truncate">{h.label}</p>
+                    <p className="text-xs text-[#571C31]/60">{h.date}</p>
+                  </div>
+                  <span
+                    className={`text-sm font-bold px-2.5 py-1 rounded-lg ${
+                      h.points > 0 ? 'bg-[#F5DCE5] text-[#B82E5F]' : 'bg-[#F1F1F1] text-[#571C31]/70'
+                    }`}
+                  >
+                    {h.points > 0 ? '+' : ''}
+                    {fmt(h.points)}
+                  </span>
                 </div>
-                <span className={`text-sm font-semibold ${h.points > 0 ? 'text-[#111111]' : 'text-[#6B6B6B]'}`}>
-                  {h.points > 0 ? '+' : ''}
-                  {fmt(h.points)}
-                </span>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+          </div>
         )}
       </main>
     </div>
