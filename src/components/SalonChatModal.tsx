@@ -68,27 +68,27 @@ export const SalonChatModal: React.FC<SalonChatModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md bg-[#FFF8F3] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col h-[85vh] sm:h-[600px] border border-[#F5DCE5] overflow-hidden"
+        className="w-full max-w-md bg-[#FFFFFF] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col h-[85vh] sm:h-[600px] border border-[#F1F1F1] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-3.5 bg-white border-b border-[#EAD8DE] flex items-center justify-between shadow-xs">
+        <div className="p-3.5 bg-white border-b border-[#E5E5E5] flex items-center justify-between shadow-xs">
           <div className="flex items-center gap-2.5">
             <div className="relative">
               <img
                 src={salon.logo}
                 alt={salon.name}
-                className="w-9 h-9 rounded-full object-cover border border-[#F5DCE5]"
+                className="w-9 h-9 rounded-full object-cover border border-[#F1F1F1]"
               />
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-1 ring-white" />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-1">
-                <span className="text-xs font-bold text-[#181416] truncate max-w-[190px]">
+                <span className="text-xs font-bold text-[#111111] truncate max-w-[190px]">
                   {salon.name}
                 </span>
                 <span
-                  className="material-symbols-outlined text-[13px] text-[#B82E5F]"
+                  className="material-symbols-outlined text-[13px] text-[#111111]"
                   style={{ fontVariationSettings: "'FILL' 1" }}
                 >
                   verified
@@ -101,13 +101,13 @@ export const SalonChatModal: React.FC<SalonChatModalProps> = ({
           <div className="flex items-center gap-1">
             <button
               onClick={onOpenBooking}
-              className="px-2.5 py-1 rounded-full bg-[#F5DCE5] text-[#B82E5F] text-[11px] font-bold hover:bg-[#B82E5F] hover:text-white transition-colors"
+              className="px-2.5 py-1 rounded-full bg-[#F1F1F1] text-[#111111] text-[11px] font-bold hover:bg-[#111111] hover:text-white transition-colors"
             >
               Turnos
             </button>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-[#EFE6E8] flex items-center justify-center text-[#574145] hover:text-[#181416]"
+              className="w-8 h-8 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444] hover:text-[#111111]"
             >
               <span className="material-symbols-outlined text-[18px]">close</span>
             </button>
@@ -117,7 +117,7 @@ export const SalonChatModal: React.FC<SalonChatModalProps> = ({
         {/* Messages Stream */}
         <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3">
           <div className="text-center my-1">
-            <span className="text-[10px] bg-[#EFE6E8] text-[#574145] px-2.5 py-0.5 rounded-full">
+            <span className="text-[10px] bg-[#F1F1F1] text-[#444444] px-2.5 py-0.5 rounded-full">
               Canal directo verificado por Glow Buzz
             </span>
           </div>
@@ -132,30 +132,30 @@ export const SalonChatModal: React.FC<SalonChatModalProps> = ({
                 <div
                   className={`p-3 rounded-2xl text-xs leading-relaxed ${
                     isMe
-                      ? 'bg-[#B82E5F] text-white rounded-br-xs'
-                      : 'bg-white text-[#181416] border border-[#EAD8DE] rounded-bl-xs shadow-xs'
+                      ? 'bg-[#111111] text-white rounded-br-xs'
+                      : 'bg-white text-[#111111] border border-[#E5E5E5] rounded-bl-xs shadow-xs'
                   }`}
                 >
                   {m.text}
                 </div>
-                <span className="text-[9px] text-[#6C5961] mt-0.5 px-1">{m.time}</span>
+                <span className="text-[9px] text-[#6B6B6B] mt-0.5 px-1">{m.time}</span>
               </div>
             );
           })}
         </div>
 
         {/* Input Bar */}
-        <form onSubmit={handleSend} className="p-3 bg-white border-t border-[#EAD8DE] flex items-center gap-2">
+        <form onSubmit={handleSend} className="p-3 bg-white border-t border-[#E5E5E5] flex items-center gap-2">
           <input
             type="text"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Escribí un mensaje..."
-            className="flex-1 px-3.5 py-2 rounded-full bg-[#FBF1F4] border border-[#DEBFC4] text-xs text-[#181416] outline-none focus:border-[#B82E5F]"
+            className="flex-1 px-3.5 py-2 rounded-full bg-[#F7F7F7] border border-[#D9D9D9] text-xs text-[#111111] outline-none focus:border-[#111111]"
           />
           <button
             type="submit"
-            className="w-9 h-9 rounded-full bg-[#B82E5F] text-white flex items-center justify-center shadow-xs active:scale-90 transition-transform shrink-0"
+            className="w-9 h-9 rounded-full bg-[#111111] text-white flex items-center justify-center shadow-xs active:scale-90 transition-transform shrink-0"
           >
             <span className="material-symbols-outlined text-[17px]">send</span>
           </button>

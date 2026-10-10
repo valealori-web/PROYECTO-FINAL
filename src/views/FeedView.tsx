@@ -88,9 +88,9 @@ export const FeedView: React.FC<FeedViewProps> = ({
   };
 
   return (
-    <div className="flex flex-col w-full pb-28 md:pb-24 bg-[#FFF8F3] min-h-screen">
+    <div className="flex flex-col w-full pb-28 md:pb-24 bg-[#FFFFFF] min-h-screen">
       {/* Sticky Top Header - Responsive desktop & mobile */}
-      <header className="sticky top-0 w-full z-40 pt-safe bg-[#FFF8F3]/90 backdrop-blur-xl border-b border-[#F5DCE5]/60 transition-all">
+      <header className="sticky top-0 w-full z-40 pt-safe bg-[#FFFFFF]/90 backdrop-blur-xl border-b border-[#F1F1F1]/60 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between gap-4">
             {/* Logo */}
@@ -100,8 +100,8 @@ export const FeedView: React.FC<FeedViewProps> = ({
 
             {/* Desktop Center Search Bar (Expanded on medium & large screens) */}
             <div className="hidden md:flex flex-1 max-w-xl mx-4">
-              <div className="relative flex items-center w-full bg-[#FBF1F4] hover:bg-[#F5EBEE] focus-within:bg-white rounded-full px-4 py-2 border border-[#EAD8DE] focus-within:border-[#B82E5F] transition-all shadow-xs">
-                <span className="material-symbols-outlined text-[#6C5961] text-[20px] mr-2.5">
+              <div className="relative flex items-center w-full bg-[#F7F7F7] hover:bg-[#F4F4F4] focus-within:bg-white rounded-full px-4 py-2 border border-[#E5E5E5] focus-within:border-[#111111] transition-all shadow-xs">
+                <span className="material-symbols-outlined text-[#6B6B6B] text-[20px] mr-2.5">
                   search
                 </span>
                 <input
@@ -109,13 +109,13 @@ export const FeedView: React.FC<FeedViewProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Buscar inspiración, Botox, Balayage, Uñas, Estética..."
-                  className="w-full bg-transparent text-[#181416] placeholder:text-[#6C5961] text-xs focus:outline-none"
+                  className="w-full bg-transparent text-[#111111] placeholder:text-[#6B6B6B] text-xs focus:outline-none"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
-                    className="text-[#6C5961] mr-1 hover:text-[#181416]"
+                    className="text-[#6B6B6B] mr-1 hover:text-[#111111]"
                   >
                     <span className="material-symbols-outlined text-[16px]">close</span>
                   </button>
@@ -124,7 +124,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                   type="button"
                   onClick={onOpenFilters}
                   aria-label="Filtrar búsqueda"
-                  className="w-7 h-7 rounded-full bg-[#F5DCE5] hover:bg-[#B82E5F] text-[#571C31] hover:text-white flex items-center justify-center transition-colors shrink-0"
+                  className="w-7 h-7 rounded-full bg-[#F1F1F1] hover:bg-[#111111] text-[#111111] hover:text-white flex items-center justify-center transition-colors shrink-0"
                 >
                   <span className="material-symbols-outlined text-[16px]">tune</span>
                 </button>
@@ -137,18 +137,18 @@ export const FeedView: React.FC<FeedViewProps> = ({
                 type="button"
                 onClick={() => onNavigate({ name: 'notifications' })}
                 aria-label="Notificaciones"
-                className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#181416] hover:text-[#B82E5F] hover:bg-[#F5DCE5]/40 transition-colors"
+                className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
               >
                 <span className="material-symbols-outlined text-[23px]">notifications</span>
                 {unreadCount > 0 && (
-                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#B82E5F] ring-2 ring-[#FFF8F3]" />
+                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-[#FFFFFF]" />
                 )}
               </button>
 
               <button
                 type="button"
                 onClick={() => onNavigate({ name: 'profile' })}
-                className="rounded-full ring-2 ring-[#F5DCE5] hover:ring-[#B82E5F] overflow-hidden transition-all ml-0.5"
+                className="rounded-full ring-2 ring-[#F1F1F1] hover:ring-[#111111] overflow-hidden transition-all ml-0.5"
                 aria-label="Mi Perfil"
               >
                 <img
@@ -163,8 +163,8 @@ export const FeedView: React.FC<FeedViewProps> = ({
 
         {/* Mobile Search Bar (Only shown below md) */}
         <div className="md:hidden px-4 pb-2.5 pt-0.5">
-          <div className="relative flex items-center w-full bg-[#FBF1F4] rounded-full px-3.5 py-2 shadow-xs border border-[#EAD8DE] focus-within:border-[#B82E5F] focus-within:bg-white transition-all">
-            <span className="material-symbols-outlined text-[#6C5961] text-[18px] mr-2">
+          <div className="relative flex items-center w-full bg-[#F7F7F7] rounded-full px-3.5 py-2 shadow-xs border border-[#E5E5E5] focus-within:border-[#111111] focus-within:bg-white transition-all">
+            <span className="material-symbols-outlined text-[#6B6B6B] text-[18px] mr-2">
               search
             </span>
             <input
@@ -172,13 +172,13 @@ export const FeedView: React.FC<FeedViewProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Buscar estilos, Botox, faciales, uñas..."
-              className="w-full bg-transparent text-[#181416] placeholder:text-[#6C5961] text-xs focus:outline-none"
+              className="w-full bg-transparent text-[#111111] placeholder:text-[#6B6B6B] text-xs focus:outline-none"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="text-[#6C5961] mr-1.5 hover:text-[#181416]"
+                className="text-[#6B6B6B] mr-1.5 hover:text-[#111111]"
               >
                 <span className="material-symbols-outlined text-[15px]">close</span>
               </button>
@@ -187,7 +187,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
               type="button"
               onClick={onOpenFilters}
               aria-label="Filtrar búsqueda"
-              className="w-7 h-7 rounded-full bg-[#F5DCE5] flex items-center justify-center text-[#571C31] active:scale-95 transition-transform shrink-0"
+              className="w-7 h-7 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#111111] active:scale-95 transition-transform shrink-0"
             >
               <span className="material-symbols-outlined text-[16px]">tune</span>
             </button>
@@ -195,7 +195,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
         </div>
 
         {/* Horizontal Category Navigation Chips */}
-        <div className="w-full border-t border-[#F5DCE5]/40 bg-[#FFF8F3]/60">
+        <div className="w-full border-t border-[#F1F1F1]/40 bg-[#FFFFFF]/60">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <section
               aria-label="Filtros de categorías"
@@ -216,10 +216,10 @@ export const FeedView: React.FC<FeedViewProps> = ({
                     }}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                       isActive
-                        ? 'bg-[#B82E5F] text-white shadow-xs'
+                        ? 'bg-[#111111] text-white shadow-xs'
                         : item.isIcon
-                        ? 'bg-[#F5DCE5] text-[#571C31] hover:bg-[#F5DCE5]/80 flex items-center gap-1'
-                        : 'bg-white text-[#574145] hover:text-[#181416] hover:bg-[#FBF1F4] border border-[#EAD8DE]/80'
+                        ? 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80 flex items-center gap-1'
+                        : 'bg-white text-[#444444] hover:text-[#111111] hover:bg-[#F7F7F7] border border-[#E5E5E5]/80'
                     }`}
                   >
                     {item.isIcon && (
@@ -239,12 +239,12 @@ export const FeedView: React.FC<FeedViewProps> = ({
         {/* Subtle Inspiration Header */}
         <div className="flex items-center justify-between px-1 mb-3">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#B82E5F] animate-pulse" />
-            <h1 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#571C31]">
+            <span className="w-2 h-2 rounded-full bg-[#111111] animate-pulse" />
+            <h1 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#111111]">
               Inspiración &amp; Trabajos Reales
             </h1>
           </div>
-          <span className="text-[11px] text-[#6C5961] font-medium">
+          <span className="text-[11px] text-[#6B6B6B] font-medium">
             {filteredLooks.length} resultados
           </span>
         </div>
@@ -260,10 +260,10 @@ export const FeedView: React.FC<FeedViewProps> = ({
               <article
                 key={look.id}
                 onClick={() => onNavigate({ name: 'look_detail', lookId: look.id })}
-                className="break-inside-avoid mb-3 md:mb-4 group cursor-pointer relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F5DCE5]/30 shadow-[0_4px_16px_rgba(87,28,49,0.04)] hover:shadow-xl transition-all duration-300"
+                className="break-inside-avoid mb-3 md:mb-4 group cursor-pointer relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F1F1F1]/30 shadow-[0_4px_16px_rgba(17,17,17,0.04)] hover:shadow-xl transition-all duration-300"
               >
                 {/* Visual Image Slot */}
-                <div className={`relative w-full ${aspectClass} overflow-hidden bg-[#EFE6E8]`}>
+                <div className={`relative w-full ${aspectClass} overflow-hidden bg-[#F1F1F1]`}>
                   <img
                     src={mainImage.url}
                     alt={mainImage.alt || look.title}
@@ -284,8 +284,8 @@ export const FeedView: React.FC<FeedViewProps> = ({
                     aria-label={isSaved ? 'Quitar de guardados' : 'Guardar en inspiración'}
                     className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-xs active:scale-75 ${
                       isSaved
-                        ? 'bg-[#B82E5F] text-white opacity-100'
-                        : 'bg-black/35 hover:bg-white text-white hover:text-[#B82E5F] backdrop-blur-md opacity-85 group-hover:opacity-100'
+                        ? 'bg-[#111111] text-white opacity-100'
+                        : 'bg-black/35 hover:bg-white text-white hover:text-[#111111] backdrop-blur-md opacity-85 group-hover:opacity-100'
                     }`}
                   >
                     <span
@@ -323,11 +323,11 @@ export const FeedView: React.FC<FeedViewProps> = ({
         {/* Empty state if search/filter yield no results */}
         {filteredLooks.length === 0 && (
           <div className="flex flex-col items-center justify-center py-16 text-center max-w-md mx-auto">
-            <div className="w-14 h-14 rounded-full bg-[#F5DCE5] text-[#B82E5F] flex items-center justify-center mb-3">
+            <div className="w-14 h-14 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center mb-3">
               <span className="material-symbols-outlined text-[28px]">search_off</span>
             </div>
-            <h3 className="text-base font-bold text-[#181416]">No se encontraron looks</h3>
-            <p className="text-xs text-[#6C5961] mt-1.5 leading-relaxed">
+            <h3 className="text-base font-bold text-[#111111]">No se encontraron looks</h3>
+            <p className="text-xs text-[#6B6B6B] mt-1.5 leading-relaxed">
               No hay publicaciones que coincidan con &ldquo;{searchQuery || activeCategory}&rdquo;. Probá buscando &quot;Botox&quot;, &quot;Facial&quot; o &quot;Uñas&quot;.
             </p>
             <button
@@ -336,7 +336,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                 setActiveCategory('Todos');
                 setSearchQuery('');
               }}
-              className="mt-4 px-5 py-2 rounded-full bg-[#B82E5F] text-white text-xs font-bold shadow-xs hover:bg-[#971047] transition-all"
+              className="mt-4 px-5 py-2 rounded-full bg-[#111111] text-white text-xs font-bold shadow-xs hover:bg-[#2A2A2A] transition-all"
             >
               Ver todas las publicaciones
             </button>

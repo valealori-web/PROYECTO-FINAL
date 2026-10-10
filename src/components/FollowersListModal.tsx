@@ -122,17 +122,17 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md bg-[#FFF8F3] rounded-t-3xl p-5 shadow-2xl flex flex-col gap-3.5 border-t border-[#F5DCE5] max-h-[85vh] overflow-y-auto"
+        className="w-full max-w-md bg-[#FFFFFF] rounded-t-3xl p-5 shadow-2xl flex flex-col gap-3.5 border-t border-[#F1F1F1] max-h-[85vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-10 h-1 rounded-full bg-[#8B7075]/30 mx-auto" />
+        <div className="w-10 h-1 rounded-full bg-[#8A8A8A]/30 mx-auto" />
 
         <div className="flex items-center justify-between">
-          <div className="flex rounded-full bg-[#EFE6E8] p-1 gap-1">
+          <div className="flex rounded-full bg-[#F1F1F1] p-1 gap-1">
             <button
               onClick={() => setTab('following')}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                tab === 'following' ? 'bg-[#B82E5F] text-white shadow-xs' : 'text-[#574145]'
+                tab === 'following' ? 'bg-[#111111] text-white shadow-xs' : 'text-[#444444]'
               }`}
             >
               Siguiendo (142)
@@ -140,7 +140,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
             <button
               onClick={() => setTab('followers')}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                tab === 'followers' ? 'bg-[#B82E5F] text-white shadow-xs' : 'text-[#574145]'
+                tab === 'followers' ? 'bg-[#111111] text-white shadow-xs' : 'text-[#444444]'
               }`}
             >
               Seguidores (380)
@@ -148,7 +148,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#EFE6E8] flex items-center justify-center text-[#574145] hover:text-[#181416]"
+            className="w-8 h-8 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444] hover:text-[#111111]"
           >
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>
@@ -161,7 +161,7 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
             return (
               <div
                 key={item.id}
-                className="p-3 bg-white rounded-2xl border border-[#EAD8DE] flex items-center justify-between gap-3 shadow-xs hover:border-[#B82E5F]/50 transition-all"
+                className="p-3 bg-white rounded-2xl border border-[#E5E5E5] flex items-center justify-between gap-3 shadow-xs hover:border-[#111111]/50 transition-all"
               >
                 <div
                   className="flex items-center gap-2.5 min-w-0 cursor-pointer"
@@ -177,14 +177,14 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
                   <img
                     src={item.avatar}
                     alt={item.name}
-                    className="w-10 h-10 rounded-full object-cover border border-[#F5DCE5] shrink-0"
+                    className="w-10 h-10 rounded-full object-cover border border-[#F1F1F1] shrink-0"
                   />
                   <div className="flex flex-col min-w-0">
-                    <span className="text-xs font-bold text-[#181416] truncate hover:text-[#B82E5F]">
+                    <span className="text-xs font-bold text-[#111111] truncate hover:text-[#111111]">
                       {item.name}
                     </span>
-                    <span className="text-[11px] text-[#6C5961] truncate">{item.handle}</span>
-                    <span className="text-[10px] text-[#574145] truncate opacity-85">
+                    <span className="text-[11px] text-[#6B6B6B] truncate">{item.handle}</span>
+                    <span className="text-[10px] text-[#444444] truncate opacity-85">
                       {item.subtitle}
                     </span>
                   </div>
@@ -195,8 +195,8 @@ export const FollowersListModal: React.FC<FollowersListModalProps> = ({
                   onClick={() => toggleFollow(item.id, item.name)}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all ${
                     isF
-                      ? 'bg-[#EFE6E8] text-[#574145] hover:bg-[#FFDAD6] hover:text-[#BA1A1A]'
-                      : 'bg-[#B82E5F] text-white hover:bg-[#971047]'
+                      ? 'bg-[#F1F1F1] text-[#444444] hover:bg-[#FFDAD6] hover:text-[#BA1A1A]'
+                      : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
                   }`}
                 >
                   {isF ? 'Siguiendo' : '+ Seguir'}

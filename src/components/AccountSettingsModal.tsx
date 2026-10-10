@@ -26,34 +26,34 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md bg-[#FFF8F3] rounded-t-3xl p-5 shadow-2xl flex flex-col gap-4 border-t border-[#F5DCE5] max-h-[85vh] overflow-y-auto"
+        className="w-full max-w-md bg-[#FFFFFF] rounded-t-3xl p-5 shadow-2xl flex flex-col gap-4 border-t border-[#F1F1F1] max-h-[85vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-10 h-1 rounded-full bg-[#8B7075]/30 mx-auto" />
+        <div className="w-10 h-1 rounded-full bg-[#8A8A8A]/30 mx-auto" />
 
-        <div className="flex items-center justify-between pb-1 border-b border-[#F5EBEE]">
+        <div className="flex items-center justify-between pb-1 border-b border-[#F4F4F4]">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-[#B82E5F] text-[22px]">settings</span>
-            <h3 className="text-base font-bold text-[#181416]">Configuración de Cuenta</h3>
+            <span className="material-symbols-outlined text-[#111111] text-[22px]">settings</span>
+            <h3 className="text-base font-bold text-[#111111]">Configuración de Cuenta</h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#EFE6E8] flex items-center justify-center text-[#574145] hover:text-[#181416]"
+            className="w-8 h-8 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444] hover:text-[#111111]"
           >
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>
         </div>
 
         {/* Notifications & Reminders */}
-        <div className="flex flex-col gap-2 p-3 rounded-2xl bg-white border border-[#EAD8DE]">
-          <span className="text-xs font-bold text-[#571C31] uppercase tracking-wider">
+        <div className="flex flex-col gap-2 p-3 rounded-2xl bg-white border border-[#E5E5E5]">
+          <span className="text-xs font-bold text-[#111111] uppercase tracking-wider">
             Notificaciones &amp; Citas
           </span>
 
-          <div className="flex items-center justify-between py-1 border-b border-[#F5EBEE]">
+          <div className="flex items-center justify-between py-1 border-b border-[#F4F4F4]">
             <div className="flex flex-col">
-              <span className="text-xs font-semibold text-[#181416]">Alertas de turnos liberados</span>
-              <span className="text-[11px] text-[#6C5961]">Avisos inmediatos de lista de espera</span>
+              <span className="text-xs font-semibold text-[#111111]">Alertas de turnos liberados</span>
+              <span className="text-[11px] text-[#6B6B6B]">Avisos inmediatos de lista de espera</span>
             </div>
             <button
               onClick={() => {
@@ -61,7 +61,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                 onShowToast('Preferencia actualizada');
               }}
               className={`w-11 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                pushNotifs ? 'bg-[#B82E5F]' : 'bg-[#DEBFC4]'
+                pushNotifs ? 'bg-[#111111]' : 'bg-[#D9D9D9]'
               }`}
             >
               <div
@@ -72,10 +72,10 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
             </button>
           </div>
 
-          <div className="flex items-center justify-between py-1 border-b border-[#F5EBEE]">
+          <div className="flex items-center justify-between py-1 border-b border-[#F4F4F4]">
             <div className="flex flex-col">
-              <span className="text-xs font-semibold text-[#181416]">Recordatorios WhatsApp</span>
-              <span className="text-[11px] text-[#6C5961]">Avisos 24 hs antes de tu visita</span>
+              <span className="text-xs font-semibold text-[#111111]">Recordatorios WhatsApp</span>
+              <span className="text-[11px] text-[#6B6B6B]">Avisos 24 hs antes de tu visita</span>
             </div>
             <button
               onClick={() => {
@@ -83,7 +83,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                 onShowToast('Preferencia de WhatsApp actualizada');
               }}
               className={`w-11 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                waReminders ? 'bg-[#B82E5F]' : 'bg-[#DEBFC4]'
+                waReminders ? 'bg-[#111111]' : 'bg-[#D9D9D9]'
               }`}
             >
               <div
@@ -96,8 +96,8 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
 
           <div className="flex items-center justify-between py-1">
             <div className="flex flex-col">
-              <span className="text-xs font-semibold text-[#181416]">Sincronizar con agenda externa</span>
-              <span className="text-[11px] text-[#6C5961]">Recordar automáticamente turnos agendados</span>
+              <span className="text-xs font-semibold text-[#111111]">Sincronizar con agenda externa</span>
+              <span className="text-[11px] text-[#6B6B6B]">Recordar automáticamente turnos agendados</span>
             </div>
             <button
               onClick={() => {
@@ -105,7 +105,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                 onShowToast('Sincronización configurada');
               }}
               className={`w-11 h-6 rounded-full transition-colors relative flex items-center px-0.5 ${
-                externalSync ? 'bg-[#B82E5F]' : 'bg-[#DEBFC4]'
+                externalSync ? 'bg-[#111111]' : 'bg-[#D9D9D9]'
               }`}
             >
               <div

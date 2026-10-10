@@ -72,21 +72,21 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md bg-[#FFF8F3] rounded-t-3xl p-5 shadow-2xl flex flex-col gap-4 border-t border-[#F5DCE5] max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-md bg-[#FFFFFF] rounded-t-3xl p-5 shadow-2xl flex flex-col gap-4 border-t border-[#F1F1F1] max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-10 h-1 rounded-full bg-[#8B7075]/30 mx-auto" />
+        <div className="w-10 h-1 rounded-full bg-[#8A8A8A]/30 mx-auto" />
 
         <div className="flex items-center justify-between pb-1">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-[#B82E5F] text-[22px]">
+            <span className="material-symbols-outlined text-[#111111] text-[22px]">
               photo_camera
             </span>
-            <h3 className="text-base font-bold text-[#181416]">Subir Look Real</h3>
+            <h3 className="text-base font-bold text-[#111111]">Subir Look Real</h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#EFE6E8] flex items-center justify-center text-[#574145] hover:text-[#181416]"
+            className="w-8 h-8 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#444444] hover:text-[#111111]"
           >
             <span className="material-symbols-outlined text-[18px]">close</span>
           </button>
@@ -95,7 +95,7 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           {/* Photo selection */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-[#571C31] uppercase tracking-wider">
+            <label className="text-xs font-bold text-[#111111] uppercase tracking-wider">
               Elegí o capturá tu foto
             </label>
             <div className="grid grid-cols-4 gap-2">
@@ -105,8 +105,8 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
                   onClick={() => setSelectedPhoto(photo.url)}
                   className={`aspect-square rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
                     selectedPhoto === photo.url
-                      ? 'border-[#B82E5F] ring-2 ring-[#B82E5F]/30 scale-102'
-                      : 'border-[#DEBFC4] opacity-70 hover:opacity-100'
+                      ? 'border-[#111111] ring-2 ring-[#111111]/30 scale-102'
+                      : 'border-[#D9D9D9] opacity-70 hover:opacity-100'
                   }`}
                 >
                   <img
@@ -121,11 +121,11 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
 
           {/* Salón de atención */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-bold text-[#181416]">Salón o Profesional</label>
+            <label className="text-xs font-bold text-[#111111]">Salón o Profesional</label>
             <select
               value={salonId}
               onChange={(e) => setSalonId(e.target.value)}
-              className="w-full p-2.5 rounded-xl bg-white border border-[#DEBFC4] text-xs text-[#181416] outline-none"
+              className="w-full p-2.5 rounded-xl bg-white border border-[#D9D9D9] text-xs text-[#111111] outline-none"
             >
               {Object.values(SALONS_DATA).map((s) => (
                 <option key={s.id} value={s.id}>
@@ -137,20 +137,20 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
 
           {/* Tratamiento */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-bold text-[#181416]">Tratamiento realizado</label>
+            <label className="text-xs font-bold text-[#111111]">Tratamiento realizado</label>
             <input
               type="text"
               value={treatment}
               onChange={(e) => setTreatment(e.target.value)}
               placeholder="Ej: Balayage, Kapping Gel..."
-              className="w-full p-2.5 rounded-xl bg-white border border-[#DEBFC4] text-xs text-[#181416] outline-none"
+              className="w-full p-2.5 rounded-xl bg-white border border-[#D9D9D9] text-xs text-[#111111] outline-none"
               required
             />
           </div>
 
           {/* Calificación */}
-          <div className="flex items-center justify-between p-2.5 bg-white rounded-xl border border-[#DEBFC4]">
-            <span className="text-xs font-semibold text-[#181416]">Tu valoración:</span>
+          <div className="flex items-center justify-between p-2.5 bg-white rounded-xl border border-[#D9D9D9]">
+            <span className="text-xs font-semibold text-[#111111]">Tu valoración:</span>
             <div className="flex items-center gap-1 text-amber-500">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
@@ -172,12 +172,12 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
 
           {/* Comentario / Experiencia */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-bold text-[#181416]">Comentario o tips de cuidado</label>
+            <label className="text-xs font-bold text-[#111111]">Comentario o tips de cuidado</label>
             <textarea
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
               rows={2}
-              className="w-full p-2.5 rounded-xl bg-white border border-[#DEBFC4] text-xs text-[#181416] outline-none"
+              className="w-full p-2.5 rounded-xl bg-white border border-[#D9D9D9] text-xs text-[#111111] outline-none"
               placeholder="Contale a la comunidad cómo quedó..."
               required
             />
@@ -185,7 +185,7 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
 
           <button
             type="submit"
-            className="w-full py-3 rounded-full bg-[#B82E5F] text-white font-bold text-xs shadow-md mt-1 active:scale-98 transition-transform"
+            className="w-full py-3 rounded-full bg-[#111111] text-white font-bold text-xs shadow-md mt-1 active:scale-98 transition-transform"
           >
             Publicar en Mis Fotos
           </button>

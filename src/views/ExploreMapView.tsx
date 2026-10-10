@@ -160,9 +160,9 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
   const selectedLook = selectedSalon ? getMatchingLook(selectedSalon.id) : undefined;
 
   return (
-    <div className="flex flex-col w-full pb-24 md:pb-24 bg-[#FFF8F3] min-h-screen">
+    <div className="flex flex-col w-full pb-24 md:pb-24 bg-[#FFFFFF] min-h-screen">
       {/* Sticky Top Header - Responsive across Mobile and Desktop */}
-      <header className="sticky top-0 w-full z-40 pt-safe bg-[#FFF8F3]/90 backdrop-blur-xl border-b border-[#F5DCE5]/60 transition-all">
+      <header className="sticky top-0 w-full z-40 pt-safe bg-[#FFFFFF]/90 backdrop-blur-xl border-b border-[#F1F1F1]/60 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between gap-4">
             {/* Left: Back button + Logo */}
@@ -172,7 +172,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   type="button"
                   onClick={onBack}
                   aria-label="Volver atrás"
-                  className="w-9 h-9 flex items-center justify-center rounded-full text-[#181416] hover:text-[#B82E5F] hover:bg-[#F5DCE5]/40 transition-colors"
+                  className="w-9 h-9 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
                 >
                   <span className="material-symbols-outlined text-[20px]">arrow_back_ios_new</span>
                 </button>
@@ -182,8 +182,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
 
             {/* Desktop Center Quick Search */}
             <div className="hidden md:flex flex-1 max-w-lg mx-2">
-              <div className="relative flex items-center w-full bg-[#FBF1F4] hover:bg-[#F5EBEE] focus-within:bg-white rounded-full px-4 py-2 border border-[#EAD8DE] focus-within:border-[#B82E5F] transition-all shadow-xs">
-                <span className="material-symbols-outlined text-[#6C5961] text-[19px] mr-2">
+              <div className="relative flex items-center w-full bg-[#F7F7F7] hover:bg-[#F4F4F4] focus-within:bg-white rounded-full px-4 py-2 border border-[#E5E5E5] focus-within:border-[#111111] transition-all shadow-xs">
+                <span className="material-symbols-outlined text-[#6B6B6B] text-[19px] mr-2">
                   search
                 </span>
                 <input
@@ -191,14 +191,14 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Buscar salones, Pocitos, Carrasco, uñas, balayage..."
-                  className="w-full bg-transparent text-[#181416] placeholder:text-[#6C5961] text-xs focus:outline-none"
+                  className="w-full bg-transparent text-[#111111] placeholder:text-[#6B6B6B] text-xs focus:outline-none"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery('')}
                     aria-label="Limpiar búsqueda"
-                    className="text-[#6C5961] mr-1.5 hover:text-[#181416]"
+                    className="text-[#6B6B6B] mr-1.5 hover:text-[#111111]"
                   >
                     <span className="material-symbols-outlined text-[15px]">close</span>
                   </button>
@@ -207,7 +207,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   type="button"
                   onClick={onOpenFilters}
                   aria-label="Filtros avanzados"
-                  className="w-7 h-7 rounded-full bg-[#F5DCE5] hover:bg-[#B82E5F] text-[#571C31] hover:text-white flex items-center justify-center transition-colors shrink-0"
+                  className="w-7 h-7 rounded-full bg-[#F1F1F1] hover:bg-[#111111] text-[#111111] hover:text-white flex items-center justify-center transition-colors shrink-0"
                 >
                   <span className="material-symbols-outlined text-[15px]">tune</span>
                 </button>
@@ -220,17 +220,17 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 type="button"
                 onClick={() => onNavigate({ name: 'notifications' })}
                 aria-label="Notificaciones"
-                className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#181416] hover:text-[#B82E5F] hover:bg-[#F5DCE5]/40 transition-colors"
+                className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
               >
                 <span className="material-symbols-outlined text-[23px]">notifications</span>
                 {unreadCount > 0 && (
-                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#B82E5F] ring-2 ring-[#FFF8F3]" />
+                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-[#FFFFFF]" />
                 )}
               </button>
               <button
                 type="button"
                 onClick={() => onNavigate({ name: 'profile' })}
-                className="rounded-full ring-2 ring-[#F5DCE5] hover:ring-[#B82E5F] overflow-hidden transition-all ml-0.5"
+                className="rounded-full ring-2 ring-[#F1F1F1] hover:ring-[#111111] overflow-hidden transition-all ml-0.5"
                 aria-label="Mi Perfil"
               >
                 <img
@@ -245,8 +245,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
 
         {/* Mobile Search input bar */}
         <div className="md:hidden px-4 pb-2 pt-0.5">
-          <div className="relative flex items-center w-full bg-[#FBF1F4] rounded-full px-3.5 py-2 shadow-xs border border-[#EAD8DE] focus-within:border-[#B82E5F] focus-within:bg-white transition-all">
-            <span className="material-symbols-outlined text-[#6C5961] text-[18px] mr-2">
+          <div className="relative flex items-center w-full bg-[#F7F7F7] rounded-full px-3.5 py-2 shadow-xs border border-[#E5E5E5] focus-within:border-[#111111] focus-within:bg-white transition-all">
+            <span className="material-symbols-outlined text-[#6B6B6B] text-[18px] mr-2">
               search
             </span>
             <input
@@ -254,13 +254,13 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Buscar salones, Pocitos, uñas..."
-              className="w-full bg-transparent text-[#181416] placeholder:text-[#6C5961] text-xs focus:outline-none"
+              className="w-full bg-transparent text-[#111111] placeholder:text-[#6B6B6B] text-xs focus:outline-none"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="text-[#6C5961] mr-1.5 hover:text-[#181416]"
+                className="text-[#6B6B6B] mr-1.5 hover:text-[#111111]"
               >
                 <span className="material-symbols-outlined text-[15px]">close</span>
               </button>
@@ -269,7 +269,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               type="button"
               onClick={onOpenFilters}
               aria-label="Filtrar salones"
-              className="w-7 h-7 rounded-full bg-[#F5DCE5] flex items-center justify-center text-[#571C31] active:scale-95 transition-transform shrink-0"
+              className="w-7 h-7 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[#111111] active:scale-95 transition-transform shrink-0"
             >
               <span className="material-symbols-outlined text-[15px]">tune</span>
             </button>
@@ -277,7 +277,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
         </div>
 
         {/* Filter Pills Ribbon (Mobile & Desktop) */}
-        <div className="w-full border-t border-[#F5DCE5]/40 bg-[#FFF8F3]/70">
+        <div className="w-full border-t border-[#F1F1F1]/40 bg-[#FFFFFF]/70">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between gap-2 py-2 overflow-x-auto no-scrollbar">
               <div className="flex items-center gap-2">
@@ -291,8 +291,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   }}
                   className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                     activeQuickFilter === 'all' && activeNeighborhood === 'Todos' && !searchQuery
-                      ? 'bg-[#B82E5F] text-white shadow-xs'
-                      : 'bg-white text-[#574145] border border-[#DEBFC4]'
+                      ? 'bg-[#111111] text-white shadow-xs'
+                      : 'bg-white text-[#444444] border border-[#D9D9D9]'
                   }`}
                 >
                   Todos ({salons.length})
@@ -316,8 +316,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                       }}
                       className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 transition-all ${
                         isActive
-                          ? 'bg-[#B82E5F] text-white shadow-xs'
-                          : 'bg-white text-[#574145] hover:bg-[#FBF1F4] border border-[#DEBFC4]'
+                          ? 'bg-[#111111] text-white shadow-xs'
+                          : 'bg-white text-[#444444] hover:bg-[#F7F7F7] border border-[#D9D9D9]'
                       }`}
                     >
                       {neigh}
@@ -339,13 +339,13 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   }}
                   className={`flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap shrink-0 text-xs font-semibold transition-all shadow-xs ${
                     activeQuickFilter === 'tomorrow'
-                      ? 'bg-[#B82E5F] text-white'
-                      : 'bg-[#F5DCE5] text-[#571C31] hover:bg-[#F5DCE5]/80'
+                      ? 'bg-[#111111] text-white'
+                      : 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80'
                   }`}
                 >
                   <span
                     className={`w-1.5 h-1.5 rounded-full ${
-                      activeQuickFilter === 'tomorrow' ? 'bg-white' : 'bg-[#B82E5F] animate-pulse'
+                      activeQuickFilter === 'tomorrow' ? 'bg-white' : 'bg-[#111111] animate-pulse'
                     }`}
                   />
                   <span>Turnos mañana</span>
@@ -361,8 +361,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   }}
                   className={`flex items-center gap-1 px-3 py-1 rounded-full border whitespace-nowrap shrink-0 text-xs font-semibold transition-all shadow-xs ${
                     activeQuickFilter === 'high_rating'
-                      ? 'bg-[#B82E5F] text-white border-[#B82E5F]'
-                      : 'bg-white text-[#181416] border-[#DEBFC4]'
+                      ? 'bg-[#111111] text-white border-[#111111]'
+                      : 'bg-white text-[#111111] border-[#D9D9D9]'
                   }`}
                 >
                   <span
@@ -382,7 +382,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   onClick={() =>
                     setMobileViewMode((prev) => (prev === 'map' ? 'list' : 'map'))
                   }
-                  className="px-2.5 py-1 rounded-full bg-white text-[#571C31] border border-[#DEBFC4] text-xs font-bold flex items-center gap-1 shadow-xs"
+                  className="px-2.5 py-1 rounded-full bg-white text-[#111111] border border-[#D9D9D9] text-xs font-bold flex items-center gap-1 shadow-xs"
                 >
                   <span className="material-symbols-outlined text-[15px]">
                     {mobileViewMode === 'map' ? 'format_list_bulleted' : 'map'}
@@ -410,12 +410,12 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
             {/* Header info */}
             <div className="flex items-center justify-between px-1">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#B82E5F] animate-pulse" />
-                <h2 className="text-sm font-bold text-[#181416] tracking-tight">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#111111] animate-pulse" />
+                <h2 className="text-sm font-bold text-[#111111] tracking-tight">
                   {filteredSalons.length} salones encontrados
                 </h2>
               </div>
-              <span className="text-xs text-[#6C5961]">Montevideo</span>
+              <span className="text-xs text-[#6B6B6B]">Montevideo</span>
             </div>
 
             {/* List of Salon Cards */}
@@ -436,14 +436,14 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     onMouseEnter={() => setSelectedPinId(salon.id)}
                     className={`bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border transition-all duration-300 shadow-xs hover:shadow-md ${
                       isSelected
-                        ? 'border-[#B82E5F] ring-2 ring-[#B82E5F]/30 bg-[#FFF8F9]'
-                        : 'border-[#EAD8DE] hover:border-[#DEBFC4]'
+                        ? 'border-[#111111] ring-2 ring-[#111111]/30 bg-[#FFFFFF]'
+                        : 'border-[#E5E5E5] hover:border-[#D9D9D9]'
                     }`}
                   >
                     <div className="flex gap-3.5">
                       {/* Image Thumbnail */}
                       <div
-                        className="relative w-28 sm:w-32 h-28 sm:h-32 rounded-xl sm:rounded-2xl overflow-hidden shrink-0 cursor-pointer bg-[#F5EBEE]"
+                        className="relative w-28 sm:w-32 h-28 sm:h-32 rounded-xl sm:rounded-2xl overflow-hidden shrink-0 cursor-pointer bg-[#F4F4F4]"
                         onClick={() =>
                           onNavigate({ name: 'salon_profile', salonId: salon.id })
                         }
@@ -457,7 +457,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                           Verificado
                         </div>
                         {matchLook && (
-                          <div className="absolute bottom-1.5 right-1.5 bg-[#B82E5F] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                          <div className="absolute bottom-1.5 right-1.5 bg-[#111111] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
                             Inspo
                           </div>
                         )}
@@ -471,32 +471,32 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                               onClick={() =>
                                 onNavigate({ name: 'salon_profile', salonId: salon.id })
                               }
-                              className="text-sm font-bold text-[#181416] hover:text-[#B82E5F] cursor-pointer truncate transition-colors"
+                              className="text-sm font-bold text-[#111111] hover:text-[#111111] cursor-pointer truncate transition-colors"
                             >
                               {salon.name}
                             </h3>
                           </div>
 
-                          <p className="text-[11px] text-[#6C5961] flex items-center gap-1 mt-0.5 truncate">
-                            <span className="material-symbols-outlined text-[13px] text-[#B82E5F]">
+                          <p className="text-[11px] text-[#6B6B6B] flex items-center gap-1 mt-0.5 truncate">
+                            <span className="material-symbols-outlined text-[13px] text-[#111111]">
                               location_on
                             </span>
                             <span>{salon.neighborhood} · {salon.distance}</span>
                           </p>
 
                           {/* Highlighted Lead Service & Price */}
-                          <div className="mt-2 p-1.5 rounded-xl bg-[#FBF1F4] flex items-center justify-between text-xs">
-                            <span className="font-semibold text-[#181416] truncate max-w-[150px]">
+                          <div className="mt-2 p-1.5 rounded-xl bg-[#F7F7F7] flex items-center justify-between text-xs">
+                            <span className="font-semibold text-[#111111] truncate max-w-[150px]">
                               {leadService.name}
                             </span>
-                            <span className="font-bold text-[#B82E5F] shrink-0">
+                            <span className="font-bold text-[#111111] shrink-0">
                               {leadService.price}
                             </span>
                           </div>
                         </div>
 
                         {/* Ratings & Next slot */}
-                        <div className="flex items-center justify-between pt-2 border-t border-[#F5EBEE] mt-1.5">
+                        <div className="flex items-center justify-between pt-2 border-t border-[#F4F4F4] mt-1.5">
                           <button
                             type="button"
                             onClick={() =>
@@ -506,7 +506,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                                 initialTab: 'resenas',
                               })
                             }
-                            className="flex items-center gap-1 text-xs font-bold text-[#181416] hover:text-[#B82E5F] transition-colors"
+                            className="flex items-center gap-1 text-xs font-bold text-[#111111] hover:text-[#111111] transition-colors"
                           >
                             <span
                               className="material-symbols-outlined text-[13px] text-amber-500"
@@ -515,12 +515,12 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                               star
                             </span>
                             <span>{salon.rating.toFixed(1)}</span>
-                            <span className="text-[10px] text-[#6C5961] font-normal underline">
+                            <span className="text-[10px] text-[#6B6B6B] font-normal underline">
                               ({salon.reviewsCount})
                             </span>
                           </button>
 
-                          <span className="text-[11px] font-semibold text-[#B82E5F] bg-[#F5DCE5] px-2 py-0.5 rounded-full truncate max-w-[120px]">
+                          <span className="text-[11px] font-semibold text-[#111111] bg-[#F1F1F1] px-2 py-0.5 rounded-full truncate max-w-[120px]">
                             {salon.nextSlot}
                           </span>
                         </div>
@@ -528,14 +528,14 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     </div>
 
                     {/* Action buttons footer */}
-                    <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-[#F5EBEE]">
+                    <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-[#F4F4F4]">
                       {matchLook ? (
                         <button
                           type="button"
                           onClick={() =>
                             onNavigate({ name: 'look_detail', lookId: matchLook.id })
                           }
-                          className="flex-1 py-1.5 px-3 rounded-full bg-[#F5DCE5] hover:bg-[#FFD9E0] text-[#571C31] text-xs font-bold transition-colors flex items-center justify-center gap-1"
+                          className="flex-1 py-1.5 px-3 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-xs font-bold transition-colors flex items-center justify-center gap-1"
                         >
                           <span className="material-symbols-outlined text-[14px]">visibility</span>
                           <span>Ver look &amp; detalle</span>
@@ -546,7 +546,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                           onClick={() =>
                             onNavigate({ name: 'salon_profile', salonId: salon.id })
                           }
-                          className="flex-1 py-1.5 px-3 rounded-full bg-[#F5DCE5] hover:bg-[#FFD9E0] text-[#571C31] text-xs font-bold transition-colors"
+                          className="flex-1 py-1.5 px-3 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-xs font-bold transition-colors"
                         >
                           Ver perfil del salón
                         </button>
@@ -563,7 +563,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                             provider: salon.externalBookingProvider,
                           })
                         }
-                        className="py-1.5 px-4 rounded-full bg-[#B82E5F] hover:bg-[#971047] text-white text-xs font-bold shadow-xs active:scale-95 transition-all"
+                        className="py-1.5 px-4 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white text-xs font-bold shadow-xs active:scale-95 transition-all"
                       >
                         Reservar
                       </button>
@@ -573,12 +573,12 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               })}
 
               {filteredSalons.length === 0 && (
-                <div className="p-8 text-center bg-white rounded-3xl border border-[#EAD8DE]">
-                  <span className="material-symbols-outlined text-4xl text-[#DEBFC4] mb-2">
+                <div className="p-8 text-center bg-white rounded-3xl border border-[#E5E5E5]">
+                  <span className="material-symbols-outlined text-4xl text-[#D9D9D9] mb-2">
                     explore_off
                   </span>
-                  <p className="text-sm font-bold text-[#181416]">No hay salones con estos filtros</p>
-                  <p className="text-xs text-[#6C5961] mt-1">
+                  <p className="text-sm font-bold text-[#111111]">No hay salones con estos filtros</p>
+                  <p className="text-xs text-[#6B6B6B] mt-1">
                     Probá cambiando el barrio o quitando el filtro de turnos.
                   </p>
                   <button
@@ -588,7 +588,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                       setActiveNeighborhood('Todos');
                       setSearchQuery('');
                     }}
-                    className="mt-3 px-4 py-1.5 rounded-full bg-[#B82E5F] text-white text-xs font-bold"
+                    className="mt-3 px-4 py-1.5 rounded-full bg-[#111111] text-white text-xs font-bold"
                   >
                     Restablecer búsqueda
                   </button>
@@ -605,7 +605,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               mobileViewMode === 'list' ? 'hidden md:flex' : 'flex'
             }`}
           >
-            <div className="sticky top-32 w-full h-[62vh] md:h-[calc(100vh-180px)] rounded-3xl overflow-hidden border border-[#DEBFC4] shadow-md relative bg-[#F5EFE6] select-none">
+            <div className="sticky top-32 w-full h-[62vh] md:h-[calc(100vh-180px)] rounded-3xl overflow-hidden border border-[#D9D9D9] shadow-md relative bg-[#F2F2F2] select-none">
               {/* Mapa real de Montevideo (Leaflet + OpenStreetMap) */}
               <CityMap
                 salons={filteredSalons}
@@ -618,9 +618,9 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
 
               {/* Map Floating Controls Top */}
               <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md border border-[#F5EBEE]">
-                  <span className="w-2 h-2 rounded-full bg-[#B82E5F] animate-ping" />
-                  <span className="text-xs font-bold text-[#181416]">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md border border-[#F4F4F4]">
+                  <span className="w-2 h-2 rounded-full bg-[#111111] animate-ping" />
+                  <span className="text-xs font-bold text-[#111111]">
                     {filteredSalons.length} salones en mapa
                   </span>
                 </div>
@@ -631,10 +631,10 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   type="button"
                   onClick={handleRecenter}
                   aria-label="Re-centrar el mapa"
-                  className="w-10 h-10 rounded-full bg-white/95 backdrop-blur-md text-[#181416] shadow-md flex items-center justify-center hover:bg-[#F5DCE5] active:scale-90 transition-all"
+                  className="w-10 h-10 rounded-full bg-white/95 backdrop-blur-md text-[#111111] shadow-md flex items-center justify-center hover:bg-[#F1F1F1] active:scale-90 transition-all"
                   title="Re-centrar el mapa"
                 >
-                  <span className="material-symbols-outlined text-[20px] text-[#B82E5F]">
+                  <span className="material-symbols-outlined text-[20px] text-[#111111]">
                     my_location
                   </span>
                 </button>
@@ -643,7 +643,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               {/* Selected Salon Preview Card Floating at Bottom of Map (Desktop & Mobile) */}
               {selectedSalon && (
                 <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-xl border border-[#F5DCE5] flex items-center gap-3 sm:gap-4 max-w-xl mx-auto">
+                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-xl border border-[#F1F1F1] flex items-center gap-3 sm:gap-4 max-w-xl mx-auto">
                     <img
                       src={selectedSalon.coverImage}
                       alt={selectedSalon.name}
@@ -660,16 +660,16 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                             onClick={() =>
                               onNavigate({ name: 'salon_profile', salonId: selectedSalon.id })
                             }
-                            className="text-xs sm:text-sm font-bold text-[#181416] hover:text-[#B82E5F] cursor-pointer truncate"
+                            className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#111111] cursor-pointer truncate"
                           >
                             {selectedSalon.name}
                           </h4>
-                          <p className="text-[11px] text-[#6C5961] truncate">
+                          <p className="text-[11px] text-[#6B6B6B] truncate">
                             {selectedSalon.neighborhood} · {selectedSalon.distance}
                           </p>
                         </div>
 
-                        <span className="text-xs font-bold text-[#B82E5F] shrink-0">
+                        <span className="text-xs font-bold text-[#111111] shrink-0">
                           {selectedSalon.services[0]?.price}
                         </span>
                       </div>
@@ -681,7 +681,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                             onClick={() =>
                               onNavigate({ name: 'look_detail', lookId: selectedLook.id })
                             }
-                            className="px-3 py-1 rounded-full bg-[#F5DCE5] hover:bg-[#FFD9E0] text-[#571C31] text-[11px] font-bold transition-colors flex items-center gap-1"
+                            className="px-3 py-1 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-[11px] font-bold transition-colors flex items-center gap-1"
                           >
                             <span>Ver trabajo real</span>
                             <span className="material-symbols-outlined text-[13px]">
@@ -697,7 +697,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                                 salonId: selectedSalon.id,
                               })
                             }
-                            className="px-3 py-1 rounded-full bg-[#F5DCE5] hover:bg-[#FFD9E0] text-[#571C31] text-[11px] font-bold transition-colors"
+                            className="px-3 py-1 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-[11px] font-bold transition-colors"
                           >
                             Ver comercio
                           </button>
@@ -715,7 +715,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                               provider: selectedSalon.externalBookingProvider,
                             })
                           }
-                          className="px-3.5 py-1 rounded-full bg-[#B82E5F] hover:bg-[#971047] text-white text-[11px] font-bold shadow-xs transition-colors shrink-0"
+                          className="px-3.5 py-1 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white text-[11px] font-bold shadow-xs transition-colors shrink-0"
                         >
                           Reservar
                         </button>
@@ -746,8 +746,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                       id={`salon-card-mobile-${salon.id}`}
                       className={`snap-start shrink-0 w-[82vw] max-w-[320px] bg-white rounded-2xl overflow-hidden shadow-sm border transition-all ${
                         isSelected
-                          ? 'border-[#B82E5F] ring-2 ring-[#B82E5F]/30'
-                          : 'border-[#EAD8DE]'
+                          ? 'border-[#111111] ring-2 ring-[#111111]/30'
+                          : 'border-[#E5E5E5]'
                       }`}
                     >
                       <div
@@ -781,11 +781,11 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                               onClick={() =>
                                 onNavigate({ name: 'salon_profile', salonId: salon.id })
                               }
-                              className="text-xs font-bold text-[#181416] truncate"
+                              className="text-xs font-bold text-[#111111] truncate"
                             >
                               {salon.name}
                             </h4>
-                            <p className="text-[10px] text-[#6C5961] truncate">
+                            <p className="text-[10px] text-[#6B6B6B] truncate">
                               {salon.neighborhood} · {salon.distance}
                             </p>
                           </div>
@@ -794,14 +794,14 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                           </span>
                         </div>
 
-                        <div className="flex items-center justify-between pt-1 border-t border-[#F5EBEE]">
+                        <div className="flex items-center justify-between pt-1 border-t border-[#F4F4F4]">
                           {matchLook ? (
                             <button
                               type="button"
                               onClick={() =>
                                 onNavigate({ name: 'look_detail', lookId: matchLook.id })
                               }
-                              className="text-xs font-semibold text-[#B82E5F] flex items-center gap-0.5 hover:underline"
+                              className="text-xs font-semibold text-[#111111] flex items-center gap-0.5 hover:underline"
                             >
                               <span>Ver look</span>
                               <span className="material-symbols-outlined text-[13px]">
@@ -809,7 +809,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                               </span>
                             </button>
                           ) : (
-                            <span className="text-[10px] text-[#571C31] font-semibold">
+                            <span className="text-[10px] text-[#111111] font-semibold">
                               {salon.nextSlot}
                             </span>
                           )}
@@ -825,7 +825,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                                 provider: salon.externalBookingProvider,
                               })
                             }
-                            className="px-3 py-1 rounded-full bg-[#B82E5F] text-white text-xs font-bold shadow-xs active:scale-95"
+                            className="px-3 py-1 rounded-full bg-[#111111] text-white text-xs font-bold shadow-xs active:scale-95"
                           >
                             Reservar
                           </button>

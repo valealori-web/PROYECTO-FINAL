@@ -1,48 +1,48 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'DM Sans', sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
   --font-dm: 'DM Sans', sans-serif;
 
-  --color-cherry: #B82E5F;
-  --color-blush: #F5DCE5;
-  --color-crema: #FFF8F3;
-  --color-bordo: #571C31;
-  --color-negro: #181416;
+  --color-cherry: #111111;
+  --color-blush: #F1F1F1;
+  --color-crema: #FFFFFF;
+  --color-bordo: #111111;
+  --color-negro: #111111;
 
-  --color-surface: #fff8f9;
-  --color-surface-dim: #e1d8da;
-  --color-surface-bright: #fff8f9;
+  --color-surface: #FFFFFF;
+  --color-surface-dim: #E5E5E5;
+  --color-surface-bright: #FFFFFF;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #fbf1f4;
-  --color-surface-container: #f5ebee;
-  --color-surface-container-high: #efe6e8;
-  --color-surface-container-highest: #eae0e3;
-  --color-on-surface: #1f1a1c;
-  --color-on-surface-variant: #574145;
-  --color-outline: #8b7075;
-  --color-outline-variant: #debfc4;
-  --color-primary: #971047;
+  --color-surface-container-low: #F7F7F7;
+  --color-surface-container: #F4F4F4;
+  --color-surface-container-high: #F1F1F1;
+  --color-surface-container-highest: #EDEDED;
+  --color-on-surface: #111111;
+  --color-on-surface-variant: #444444;
+  --color-outline: #8A8A8A;
+  --color-outline-variant: #D9D9D9;
+  --color-primary: #2A2A2A;
   --color-on-primary: #ffffff;
-  --color-primary-container: #b82e5f;
-  --color-on-primary-container: #ffdae0;
-  --color-secondary: #6c5961;
+  --color-primary-container: #111111;
+  --color-on-primary-container: #E5E5E5;
+  --color-secondary: #6B6B6B;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #f5dce5;
-  --color-on-secondary-container: #725f67;
-  --color-secondary-fixed: #f5dce5;
-  --color-secondary-fixed-dim: #d8c0c9;
-  --color-on-secondary-fixed: #25181e;
-  --color-on-secondary-fixed-variant: #534249;
-  --color-tertiary: #7a384d;
+  --color-secondary-container: #F1F1F1;
+  --color-on-secondary-container: #555555;
+  --color-secondary-fixed: #F1F1F1;
+  --color-secondary-fixed-dim: #D4D4D4;
+  --color-on-secondary-fixed: #111111;
+  --color-on-secondary-fixed-variant: #444444;
+  --color-tertiary: #444444;
   --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #964f65;
-  --color-on-tertiary-container: #ffdae2;
-  --color-tertiary-fixed: #ffd9e1;
-  --color-tertiary-fixed-dim: #ffb1c6;
-  --color-on-tertiary-fixed: #3b051b;
-  --color-primary-fixed: #ffd9e0;
-  --color-on-primary-fixed: #3f0019;
+  --color-tertiary-container: #666666;
+  --color-on-tertiary-container: #E5E5E5;
+  --color-tertiary-fixed: #E5E5E5;
+  --color-tertiary-fixed-dim: #D4D4D4;
+  --color-on-tertiary-fixed: #111111;
+  --color-primary-fixed: #E5E5E5;
+  --color-on-primary-fixed: #111111;
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
@@ -83,19 +83,19 @@
 }
 
 /* ---------- Mapa (Leaflet) ---------- */
-.leaflet-container { font-family: inherit; background: #F6F1EA; }
+.leaflet-container { font-family: inherit; background: #F2F2F2; }
 .gb-pin-wrapper, .gb-user-wrapper { background: none; border: 0; }
 .gb-pin { position: absolute; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform .2s; }
 .gb-pin:hover { transform: translate(-50%, -100%) scale(1.05); }
 .gb-pin--selected { transform: translate(-50%, -100%) scale(1.1); }
-.gb-pin__bubble { display: flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 9999px; background: #fff; border: 1px solid #DEBFC4; box-shadow: 0 8px 20px rgb(0 0 0 / .18); white-space: nowrap; }
-.gb-pin--selected .gb-pin__bubble { border-color: #B82E5F; background: #FFF8F9; box-shadow: 0 0 0 4px rgb(184 46 95 / .3), 0 8px 20px rgb(0 0 0 / .18); }
+.gb-pin__bubble { display: flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 9999px; background: #fff; border: 1px solid #D9D9D9; box-shadow: 0 8px 20px rgb(0 0 0 / .18); white-space: nowrap; }
+.gb-pin--selected .gb-pin__bubble { border-color: #111111; background: #FFFFFF; box-shadow: 0 0 0 4px rgb(17 17 17 / .3), 0 8px 20px rgb(0 0 0 / .18); }
 .gb-pin__bubble img { width: 28px; height: 28px; border-radius: 9999px; object-fit: cover; }
 .gb-pin__text { display: flex; flex-direction: column; line-height: 1.15; }
-.gb-pin__name { font-size: 11px; font-weight: 700; color: #181416; max-width: 110px; overflow: hidden; text-overflow: ellipsis; }
-.gb-pin__price { font-size: 10px; font-weight: 700; color: #B82E5F; }
-.gb-pin__stem { width: 2px; height: 8px; background: #B82E5F; }
-.gb-pin__dot { width: 12px; height: 12px; border-radius: 9999px; background: #B82E5F; border: 3px solid #fff; box-sizing: border-box; }
+.gb-pin__name { font-size: 11px; font-weight: 700; color: #111111; max-width: 110px; overflow: hidden; text-overflow: ellipsis; }
+.gb-pin__price { font-size: 10px; font-weight: 700; color: #111111; }
+.gb-pin__stem { width: 2px; height: 8px; background: #111111; }
+.gb-pin__dot { width: 12px; height: 12px; border-radius: 9999px; background: #111111; border: 3px solid #fff; box-sizing: border-box; }
 .gb-user { position: absolute; width: 16px; height: 16px; transform: translate(-50%, -50%); }
 .gb-user__dot { position: absolute; inset: 0; border-radius: 9999px; background: #2563EB; border: 3px solid #fff; box-shadow: 0 2px 6px rgb(0 0 0 / .3); box-sizing: border-box; }
 .gb-user__pulse { position: absolute; inset: -10px; border-radius: 9999px; background: rgb(37 99 235 / .25); animation: gb-ping 1.6s cubic-bezier(0,0,.2,1) infinite; }

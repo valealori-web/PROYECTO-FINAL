@@ -214,7 +214,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF8F3] text-[#181416] flex flex-col font-['DM_Sans',sans-serif] selection:bg-[#F5DCE5] selection:text-[#B82E5F]">
+    <div className="min-h-screen bg-[#FFFFFF] text-[#111111] flex flex-col font-['Inter',system-ui,sans-serif] selection:bg-[#F1F1F1] selection:text-[#111111]">
       {/* Toast Feedback Banner */}
       <Toast message={toastMessage} icon={toastIcon} />
 
