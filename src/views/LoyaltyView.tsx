@@ -53,10 +53,19 @@ export const LoyaltyView: React.FC<LoyaltyViewProps> = ({ onNavigate, onBack, on
       <main className="flex-1 w-full pt-16 max-w-3xl mx-auto px-5">
         <h1 className="pt-6 text-xl font-semibold text-[#111111]">Puntos Glow</h1>
 
-        <section className="mt-4 rounded-2xl border border-[#E5E5E5] p-5">
-          <span className="text-xs font-medium text-[#6B6B6B]">Puntos disponibles</span>
-          <p className="mt-1 text-4xl font-semibold text-[#111111] tracking-tight">{fmt(points)}</p>
-          <p className="mt-2 text-xs text-[#6B6B6B]">Ganás 1 punto por cada $10 en tus turnos.</p>
+        <section className="mt-4 rounded-2xl bg-[#F5DCE5] p-5 flex items-center justify-between gap-4">
+          <div>
+            <span className="text-xs font-medium text-[#6B4A56]">Puntos disponibles</span>
+            <p className="mt-1 text-4xl font-semibold text-[#111111] tracking-tight">{fmt(points)}</p>
+            <p className="mt-2 text-xs text-[#6B4A56]">Ganás 1 punto por cada $10 en tus turnos.</p>
+          </div>
+          <span
+            className="material-symbols-outlined text-[56px] text-[#111111] shrink-0"
+            style={{ fontVariationSettings: "'FILL' 1" }}
+            aria-hidden="true"
+          >
+            star
+          </span>
         </section>
 
         <nav className="mt-6 sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF] flex" role="tablist">
