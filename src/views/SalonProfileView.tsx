@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { HEADER_CONTAINER, HeaderLogo, BackButton, HeaderIconButton } from '../components/HeaderParts';
 import { Salon, ActiveScreen } from '../types';
 import { CityMap } from '../components/CityMap';
-import { USER_AVATAR } from '../data/mockData';
+import { LOOKS_DATA } from '../data/mockData';
 
 interface SalonProfileViewProps {
   salon: Salon;
@@ -70,6 +71,27 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
     });
   };
 
+  // Abre el detalle del trabajo real asociado a un servicio (o el más cercano del salón)
+  const handleServiceDetail = (serv: Salon['services'][number]) => {
+    const norm = (t: string) =>
+      t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const words = norm(serv.name).split(/[^a-z0-9]+/).filter((w) => w.length > 3);
+    const candidates = LOOKS_DATA.filter((l) => l.salonId === salon.id);
+    const scored = candidates
+      .map((l) => ({
+        look: l,
+        score:
+          (norm(l.category) === norm(serv.category) ? 3 : 0) +
+          words.filter((w) => norm(l.title).includes(w)).length,
+      }))
+      .sort((a, b) => b.score - a.score);
+    if (scored.length > 0) {
+      onNavigate({ name: 'look_detail', lookId: scored[0].look.id });
+    } else {
+      onShowToast(serv.description, 'info');
+    }
+  };
+
   const handleShare = () => {
     onOpenShare(salon.name, `${salon.neighborhood} · Salón Verificado en Glow Buzz`);
   };
@@ -77,28 +99,12 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
   return (
     <div className="flex flex-col w-full pb-32 bg-[#FFFFFF] min-h-screen">
       {/* Sticky Header */}
-      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-[#FFFFFF]/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(17,17,17,0.04)]">
-        <div className="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between max-w-6xl mx-auto">
+      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-white/90 backdrop-blur-xl border-b border-[#EFEFEF]">
+        <div className={HEADER_CONTAINER}>
+          <HeaderLogo onNavigate={onNavigate} />
           <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={onBack}
-              aria-label="Volver"
-              className="w-10 h-10 flex items-center justify-center text-[#111111] hover:text-[#111111] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
-            </button>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handleShare}
-              aria-label="Compartir"
-              className="w-9 h-9 rounded-full flex items-center justify-center text-[#111111] hover:text-[#111111] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">share</span>
-            </button>
+            <HeaderIconButton icon="share" label="Compartir" onClick={handleShare} />
+            <BackButton onBack={onBack} />
           </div>
         </div>
       </header>
@@ -364,7 +370,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                 {salon.services.map((serv) => (
                   <div
                     key={serv.id}
-                    className="p-3.5 rounded-2xl bg-white border border-[#E5E5E5] shadow-xs flex items-center justify-between gap-3"
+                    className="p-4 rounded-2xl bg-white border border-[#E5E5E5] flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                   >
                     <div className="flex flex-col">
                       <span className="text-xs font-bold text-[#111111]">{serv.name}</span>
@@ -377,15 +383,24 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                       </span>
                     </div>
 
-                    <div className="flex flex-col items-end shrink-0 gap-1.5">
-                      <span className="text-sm font-bold text-[#111111]">{serv.price}</span>
-                      <button
-                        type="button"
-                        onClick={() => handleSelectService(serv.name, serv.price)}
-                        className="px-3 py-1 rounded-full bg-[#111111] text-white text-xs font-bold active:scale-95 transition-transform"
-                      >
-                        Elegir
-                      </button>
+                    <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-start shrink-0 gap-2">
+                      <span className="text-sm font-semibold text-[#111111]">{serv.price}</span>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => handleServiceDetail(serv)}
+                          className="px-3 h-8 rounded-lg bg-[#F1F1F1] text-[#111111] text-xs font-semibold hover:bg-[#E5E5E5] transition-colors"
+                        >
+                          Ver detalle
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleSelectService(serv.name, serv.price)}
+                          className="px-3 h-8 rounded-lg bg-[#111111] text-white text-xs font-semibold hover:bg-[#2A2A2A] transition-colors"
+                        >
+                          Reservar
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}

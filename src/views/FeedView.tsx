@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Look, ActiveScreen, LookCategory } from '../types';
-import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
+import { HeaderLogo, NotificationBell } from '../components/HeaderParts';
 
 interface FeedViewProps {
   looks: Look[];
@@ -126,10 +126,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
       <header className="sticky top-0 w-full z-40 pt-safe bg-[#FFFFFF]/90 backdrop-blur-xl border-b border-[#F1F1F1]/60 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between gap-4">
-            {/* Logo */}
-            <div className="flex items-center gap-2 shrink-0">
-              <GlowBuzzLogo variant="header" size={32} />
-            </div>
+            <HeaderLogo onNavigate={onNavigate} />
 
             {/* Desktop Center Search Bar (Expanded on medium & large screens) */}
             <div className="hidden md:flex flex-1 max-w-xl mx-4">
@@ -164,20 +161,8 @@ export const FeedView: React.FC<FeedViewProps> = ({
               </div>
             </div>
 
-            {/* Header Right Actions */}
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() => onNavigate({ name: 'notifications' })}
-                aria-label="Notificaciones"
-                className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
-              >
-                <span className="material-symbols-outlined text-[23px]">notifications</span>
-                {unreadCount > 0 && (
-                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-[#FFFFFF]" />
-                )}
-              </button>
-
+            <div className="flex items-center gap-1 shrink-0">
+              <NotificationBell onNavigate={onNavigate} unreadCount={unreadCount} />
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HEADER_CONTAINER, HeaderLogo, BackButton } from '../components/HeaderParts';
 import { NotificationItem, ActiveScreen } from '../types';
 
 interface NotificationsViewProps {
@@ -63,27 +64,18 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
   return (
     <div className="flex flex-col w-full pb-24 bg-[#FFFFFF] min-h-screen">
       {/* Fixed Top Header */}
-      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-[#FFFFFF]/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(17,17,17,0.04)]">
-        <div className="h-16 px-4 sm:px-6 flex items-center justify-between max-w-4xl mx-auto">
+      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-white/90 backdrop-blur-xl border-b border-[#EFEFEF]">
+        <div className={HEADER_CONTAINER}>
+          <HeaderLogo onNavigate={onNavigate} />
           <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={onBack}
-              aria-label="Volver"
-              className="w-10 h-10 flex items-center justify-center text-[#111111] hover:text-[#111111] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
-            </button>
-            <h1 className="text-base font-bold text-[#111111] tracking-tight ml-1 truncate max-w-[200px]">
-              Notificaciones
-            </h1>
+            <BackButton onBack={onBack} />
           </div>
-
         </div>
       </header>
 
       {/* Main Body */}
       <main className="flex-1 flex flex-col w-full pt-16 px-4 sm:px-6 max-w-4xl mx-auto">
+        <h1 className="text-xl font-semibold text-[#111111] pt-5">Notificaciones</h1>
         {unreadCount > 0 && (
           <div className="flex items-center justify-between pt-3 pb-1">
             <span className="text-xs text-[#6B6B6B]">{unreadCount} sin leer</span>

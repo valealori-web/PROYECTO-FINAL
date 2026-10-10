@@ -15,7 +15,7 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({
   let activeTab: 'inicio' | 'explorar' | 'reservas' | 'perfil' = 'inicio';
   if (currentScreen.name === 'explore') activeTab = 'explorar';
   else if (currentScreen.name === 'reservations') activeTab = 'reservas';
-  else if (currentScreen.name === 'profile') activeTab = 'perfil';
+  else if (currentScreen.name === 'profile' || currentScreen.name === 'loyalty') activeTab = 'perfil';
   else if (currentScreen.name === 'feed') activeTab = 'inicio';
 
   return (

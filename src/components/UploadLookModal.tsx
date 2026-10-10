@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { SALONS_DATA } from '../data/mockData';
 
 interface UploadLookModalProps {
@@ -21,35 +21,67 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
   onUploadLook,
   onShowToast,
 }) => {
-  const samplePhotos = [
-    {
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAr9e3NUEyjIimALfLvLc35kg8wSr1erLyy_GzoE2A5icTypHnNIqOdFd-X8j_j9f-I6tuT0x01pQ_GSfi9dhLE-8jIszDq1SOiHXteAP1UIwYAZ83n2uk-F8y4S2deCQl24IbAk5dfgVFjQaBXjSzVAZq8geQviKug-4e_7EQ_Ge75r6s1oa2TOk0V5peHrCc_rSCYQ3EvvEpQQIBxSUdHkodw3dKUVwb5zuhGh0tvhkf_xVJ58FFA',
-      label: 'Balayage Caramelo',
-    },
-    {
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAgOLvEtQCq68fBFgATYYp5_sBkz2XNxFPfRh-xAIvcTnAVWCViysJ7pyPy9k1IY7DCyPCOklMKp0YCugcYSd22tyBa7PQaDP7GjJ6r7Cl4iJKyt60kA6yVtfpSUD9vha9ggMr_dKr5dld0szI8L01Iqzx7YlIqJAxhh_meT_wKZYTTKvl1JFgcpXTLgdswP8DJahj6xtP_FW1a470znp1owjavW4X88OYrfm_wigykdKK6nOfMcChy',
-      label: 'Uñas Cherry Glaze',
-    },
-    {
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAwclwZDeT02AdqTMXr5JYvV08zmT8emxCT3h8JJvGpnWG4jIWHbX3ophB78VUsEaP2N6Fu0tXxOAkw3vwJznYWxqnxPdS6fP31_onUevmfwEih9-aL5lIlQQKrMnNYYy54esEAvKB0ZnGUqjuPWhQ3v7ukmvOCKy98YfR_JkvcfO0inYQFli6ywMIdjNcw1JBEQKeJ3lK1k9l4vJXohziCmuV3kF1PpTCAId7nMuhKrswLXWwFBGeT',
-      label: 'Laminado de cejas HD',
-    },
-    {
-      url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCG9RvTdY_daRtOP9TGTJRaNQqQI5jJz-w6-Dek_kmngCPOHwQ273_MVqEXlpYwkoSbVALk9_uKwBRVhm5bD-kC8HSfBzUYasekXKvCrXkvV8OeA7I9irrd2wMDCFIOeWaj9LEcw5oMX9T5h-EvBsfvbLznZ0Cy1OM0vLiztSjiGV6ZBALSR093P8eZcPftDnHWbt_WL0pHXxdSqUqqcAR-pXQoq2QsD_449kr3QuQtGZBjwtfRIWNx',
-      label: 'Piel Glow & Blush',
-    },
-  ];
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const [selectedPhoto, setSelectedPhoto] = useState(samplePhotos[0].url);
-  const [caption, setCaption] = useState('¡Quedó soñado! El acabado y la textura súper sedosa.');
+  /** Lee la imagen elegida y la reduce (máx. 1600 px) para no cargar la memoria. */
+  const loadImage = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      onShowToast('Elegí un archivo de imagen (JPG, PNG, HEIC…)', 'error');
+      return;
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      onShowToast('La foto pesa demasiado (máx. 25 MB)', 'error');
+      return;
+    }
+    setIsProcessing(true);
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext('2d')?.drawImage(img, 0, 0, canvas.width, canvas.height);
+      setSelectedPhoto(canvas.toDataURL('image/jpeg', 0.85));
+      URL.revokeObjectURL(objectUrl);
+      setIsProcessing(false);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      setIsProcessing(false);
+      onShowToast('No pudimos abrir esa foto. Probá con otra.', 'error');
+    };
+    img.src = objectUrl;
+  };
+
+  const handleFiles = (files: FileList | null) => {
+    const file = files?.[0];
+    if (file) loadImage(file);
+  };
+
+  const [selectedPhoto, setSelectedPhoto] = useState('');
+  const [caption, setCaption] = useState('');
   const [salonId, setSalonId] = useState('maison-hair-co');
-  const [treatment, setTreatment] = useState('Balayage Signature & Nutrición Gloss');
+  const [treatment, setTreatment] = useState('');
   const [rating, setRating] = useState(5);
 
   if (!isOpen) return null;
 
+  const resetForm = () => {
+    setSelectedPhoto('');
+    setCaption('');
+    setTreatment('');
+    setRating(5);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!selectedPhoto) {
+      onShowToast('Primero elegí una foto', 'add_a_photo');
+      return;
+    }
     const salon = SALONS_DATA[salonId] || SALONS_DATA['maison-hair-co'];
     onUploadLook({
       imageUrl: selectedPhoto,
@@ -60,6 +92,7 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
       rating,
     });
     onShowToast('¡Look subido con éxito a tu perfil!', 'add_a_photo');
+    resetForm();
     onClose();
   };
 
@@ -68,11 +101,11 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
       role="dialog"
       aria-modal="true"
       aria-label="Subir look de belleza"
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-xs animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="w-full max-w-md bg-[#FFFFFF] rounded-t-3xl p-5 shadow-2xl flex flex-col gap-4 border-t border-[#F1F1F1] max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-md bg-[#FFFFFF] rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl flex flex-col gap-4 border-t border-[#F1F1F1] max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-10 h-1 rounded-full bg-[#8A8A8A]/30 mx-auto" />
@@ -82,7 +115,7 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
             <span className="material-symbols-outlined text-[#111111] text-[22px]">
               photo_camera
             </span>
-            <h3 className="text-base font-bold text-[#111111]">Subir Look Real</h3>
+            <h3 className="text-base font-semibold text-[#111111]">Subir un look</h3>
           </div>
           <button
             onClick={onClose}
@@ -93,30 +126,64 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          {/* Photo selection */}
+          {/* Foto: galería / carrete en el celular, explorador de archivos en la compu */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-[#111111] uppercase tracking-wider">
-              Elegí o capturá tu foto
-            </label>
-            <div className="grid grid-cols-4 gap-2">
-              {samplePhotos.map((photo, i) => (
-                <div
-                  key={i}
-                  onClick={() => setSelectedPhoto(photo.url)}
-                  className={`aspect-square rounded-xl overflow-hidden border-2 cursor-pointer transition-all ${
-                    selectedPhoto === photo.url
-                      ? 'border-[#111111] ring-2 ring-[#111111]/30 scale-102'
-                      : 'border-[#D9D9D9] opacity-70 hover:opacity-100'
-                  }`}
+            <label className="text-xs font-medium text-[#6B6B6B]">Foto</label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                handleFiles(e.target.files);
+                e.target.value = '';
+              }}
+            />
+            {selectedPhoto ? (
+              <div className="relative rounded-2xl overflow-hidden bg-[#F1F1F1]">
+                <img src={selectedPhoto} alt="Vista previa" className="w-full max-h-72 object-cover" />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="absolute bottom-3 right-3 h-9 px-4 rounded-full bg-white/95 text-[#111111] text-xs font-semibold shadow-md hover:bg-white"
                 >
-                  <img
-                    src={photo.url}
-                    alt={photo.label}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
+                  Cambiar foto
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragging(true);
+                }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setIsDragging(false);
+                  handleFiles(e.dataTransfer.files);
+                }}
+                className={`w-full h-44 rounded-2xl border-2 border-dashed flex flex-col items-center justify-center gap-2 transition-colors ${
+                  isDragging
+                    ? 'border-[#111111] bg-[#F4F4F4]'
+                    : 'border-[#D9D9D9] bg-[#F7F7F7] hover:border-[#111111]'
+                }`}
+              >
+                <span className="material-symbols-outlined text-[32px] text-[#111111]">
+                  {isProcessing ? 'hourglass_top' : 'add_photo_alternate'}
+                </span>
+                <span className="text-sm font-semibold text-[#111111]">
+                  {isProcessing ? 'Procesando…' : 'Elegir una foto'}
+                </span>
+                <span className="text-xs text-[#6B6B6B] px-6 text-center">
+                  <span className="sm:hidden">Abrí tu galería o sacá una foto</span>
+                  <span className="hidden sm:inline">
+                    Buscala en tus archivos o arrastrala hasta acá
+                  </span>
+                </span>
+              </button>
+            )}
           </div>
 
           {/* Salón de atención */}
@@ -185,9 +252,10 @@ export const UploadLookModal: React.FC<UploadLookModalProps> = ({
 
           <button
             type="submit"
-            className="w-full py-3 rounded-full bg-[#111111] text-white font-bold text-xs shadow-md mt-1 active:scale-98 transition-transform"
+            disabled={!selectedPhoto}
+            className="w-full h-11 rounded-lg bg-[#111111] text-white font-semibold text-sm mt-1 hover:bg-[#2A2A2A] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            Publicar en Mis Fotos
+            Publicar
           </button>
         </form>
       </div>

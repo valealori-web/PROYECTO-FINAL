@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HEADER_CONTAINER, HeaderLogo, NotificationBell, HeaderIconButton } from '../components/HeaderParts';
 import { Look, ActiveScreen, SavedCollection } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
 import { USER_AVATAR, INITIAL_SAVED_COLLECTIONS, BEAUTY_INTERESTS_LIST } from '../data/mockData';
@@ -164,7 +165,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
       icon: 'stars',
       label: 'Puntos Glow',
       hint: '1.240 · Rose Gold',
-      onClick: () => onShowToast('¡Tenés 1.240 Puntos Glow Rose Gold!', 'stars'),
+      onClick: () => onNavigate({ name: 'loyalty' }),
     },
     {
       icon: 'add_a_photo',
@@ -185,51 +186,33 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
     <div className="flex flex-col w-full pb-24 bg-white min-h-screen">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-white/90 backdrop-blur-xl border-b border-[#EFEFEF]">
-        <div className="h-14 px-4 sm:px-6 lg:px-8 flex items-center justify-between max-w-3xl mx-auto">
-          <GlowBuzzLogo variant="header" size={30} />
-
+        <div className={HEADER_CONTAINER}>
+          <HeaderLogo onNavigate={onNavigate} />
           <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'notifications' })}
-              aria-label="Notificaciones"
-              className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:bg-[#F4F4F4] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[24px]">notifications</span>
-              {unreadCount > 0 && (
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-white" />
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsMenuOpen(true)}
-              aria-label="Abrir menú"
-              className="w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:bg-[#F4F4F4] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[26px]">menu</span>
-            </button>
+            <NotificationBell onNavigate={onNavigate} unreadCount={unreadCount} />
+            <HeaderIconButton icon="menu" label="Abrir menú" onClick={() => setIsMenuOpen(true)} />
           </div>
         </div>
       </header>
 
-      <main className="flex-1 flex flex-col w-full pt-14 max-w-3xl mx-auto">
+      <main className="flex-1 flex flex-col w-full pt-16 max-w-7xl mx-auto px-0">
         {/* Avatar + stats */}
-        <section className="px-5 pt-5">
-          <div className="flex items-center gap-6">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-[#F1F1F1] shrink-0">
+        <section className="px-4 sm:px-6 lg:px-8 pt-5 lg:pt-10">
+          <div className="flex items-center gap-6 lg:gap-16 lg:max-w-3xl">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-40 lg:h-40 rounded-full overflow-hidden bg-[#F1F1F1] shrink-0">
               <img alt="Valentina Rossi" className="w-full h-full object-cover" src={USER_AVATAR} />
             </div>
 
-            <div className="flex-1 grid grid-cols-3 text-center">
+            <div className="flex-1 grid grid-cols-3 text-center lg:text-left lg:gap-8">
               <button
                 type="button"
                 onClick={() => setActiveTab('fotos')}
                 className="flex flex-col items-center py-1 rounded-lg hover:bg-[#F7F7F7] transition-colors"
               >
-                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                <span className="text-lg lg:text-2xl font-semibold text-[#111111] leading-tight">
                   {userPhotos.length}
                 </span>
-                <span className="text-xs text-[#6B6B6B]">Looks</span>
+                <span className="text-xs lg:text-sm text-[#6B6B6B]">Looks</span>
               </button>
               <button
                 type="button"
@@ -239,8 +222,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 }}
                 className="flex flex-col items-center py-1 rounded-lg hover:bg-[#F7F7F7] transition-colors"
               >
-                <span className="text-lg font-semibold text-[#111111] leading-tight">380</span>
-                <span className="text-xs text-[#6B6B6B]">Seguidores</span>
+                <span className="text-lg lg:text-2xl font-semibold text-[#111111] leading-tight">380</span>
+                <span className="text-xs lg:text-sm text-[#6B6B6B]">Seguidores</span>
               </button>
               <button
                 type="button"
@@ -250,24 +233,24 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 }}
                 className="flex flex-col items-center py-1 rounded-lg hover:bg-[#F7F7F7] transition-colors"
               >
-                <span className="text-lg font-semibold text-[#111111] leading-tight">142</span>
-                <span className="text-xs text-[#6B6B6B]">Siguiendo</span>
+                <span className="text-lg lg:text-2xl font-semibold text-[#111111] leading-tight">142</span>
+                <span className="text-xs lg:text-sm text-[#6B6B6B]">Siguiendo</span>
               </button>
             </div>
           </div>
 
           {/* Name, handle, bio */}
           <div className="mt-4">
-            <h1 className="text-sm font-semibold text-[#111111]">Valentina Rossi</h1>
+            <h1 className="text-sm lg:text-lg font-semibold text-[#111111]">Valentina Rossi</h1>
             <p className="text-xs text-[#6B6B6B]">@valen.glow</p>
             {!isEditingBio && (
-              <p className="text-sm text-[#111111] mt-2 leading-snug max-w-md">{bioText}</p>
+              <p className="text-sm lg:text-base text-[#111111] mt-2 leading-snug max-w-2xl">{bioText}</p>
             )}
           </div>
 
           {/* Edit profile */}
           {isEditingBio ? (
-            <div className="mt-4 flex flex-col gap-4 p-4 rounded-2xl border border-[#E5E5E5]">
+            <div className="mt-4 flex flex-col gap-4 p-4 rounded-2xl border border-[#E5E5E5] lg:max-w-2xl">
               <label className="flex flex-col gap-1.5">
                 <span className="text-xs font-medium text-[#6B6B6B]">Biografía</span>
                 <textarea
@@ -334,19 +317,19 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
                 setDraftInterests(interests);
                 setIsEditingBio(true);
               }}
-              className="mt-4 w-full h-9 rounded-lg bg-[#F1F1F1] text-[#111111] text-sm font-semibold hover:bg-[#E5E5E5] transition-colors"
+              className="mt-4 w-full lg:w-auto lg:px-8 h-9 lg:h-10 rounded-lg bg-[#F1F1F1] text-[#111111] text-sm font-semibold hover:bg-[#E5E5E5] transition-colors"
             >
               Editar perfil
             </button>
           )}
         </section>
 
-        {/* Upcoming appointment */}
-        <section className="px-5 mt-4">
+        {/* Next appointment + loyalty */}
+        <section className="px-4 sm:px-6 lg:px-8 mt-4 flex flex-col lg:flex-row gap-2 lg:gap-3">
           <button
             type="button"
             onClick={() => onNavigate({ name: 'reservations' })}
-            className="w-full flex items-center gap-3 p-3 rounded-xl border border-[#E5E5E5] hover:bg-[#F7F7F7] transition-colors text-left"
+            className="w-full lg:flex-1 lg:max-w-md flex items-center gap-3 p-3 rounded-xl border border-[#E5E5E5] hover:bg-[#F7F7F7] transition-colors text-left"
           >
             <span className="material-symbols-outlined text-[22px] text-[#111111]">
               calendar_clock
@@ -361,11 +344,23 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               chevron_right
             </span>
           </button>
+          <button
+            type="button"
+            onClick={() => onNavigate({ name: 'loyalty' })}
+            className="w-full lg:flex-1 lg:max-w-md flex items-center gap-3 p-3 rounded-xl border border-[#E5E5E5] hover:bg-[#F7F7F7] transition-colors text-left"
+          >
+            <span className="material-symbols-outlined text-[22px] text-[#111111]">stars</span>
+            <span className="flex-1 min-w-0">
+              <span className="block text-xs text-[#6B6B6B]">Puntos Glow · Rose Gold</span>
+              <span className="block text-sm font-medium text-[#111111]">1.240 puntos</span>
+            </span>
+            <span className="material-symbols-outlined text-[20px] text-[#8A8A8A]">chevron_right</span>
+          </button>
         </section>
 
         {/* Tabs (icons, Instagram-style) */}
         <nav
-          className="mt-4 sticky top-14 z-30 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF] grid grid-cols-4"
+          className="mt-5 lg:mt-8 sticky top-16 z-30 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF] grid grid-cols-4 lg:max-w-xl lg:mx-auto lg:w-full"
           role="tablist"
         >
           {tabs.map((tab) => {
@@ -397,7 +392,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
         {/* TAB 1: Guardados (Functional Collections Filtering) */}
         {activeTab === 'guardados' && (
-          <div className="px-5 pt-4 pb-8 flex flex-col gap-4">
+          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-8 flex flex-col gap-4">
             {/* Collections Quick Tray with Working Filtering */}
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
               <button
@@ -526,8 +521,8 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
         {/* TAB 2: Mis Reservas */}
         {activeTab === 'reservas' && (
-          <div className="px-5 pt-3 pb-8 flex flex-col gap-3">
-            <div className="flex items-center justify-between">
+          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-8 flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:gap-4">
+            <div className="flex items-center justify-between lg:col-span-2">
               <h3 className="text-sm font-bold text-[#111111]">Historial de Visitas</h3>
               <span className="text-[11px] text-[#6B6B6B]">3 completadas en 2024</span>
             </div>
@@ -616,7 +611,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
         {/* TAB 3: Mis Fotos Subidas (Functional Subir look + Lightbox Zoom) */}
         {activeTab === 'fotos' && (
-          <div className="px-5 pt-3 pb-8 flex flex-col gap-4">
+          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-8 flex flex-col gap-4">
             <div className="bg-[#F1F1F1] text-[#111111] p-4 rounded-2xl flex items-center justify-between shadow-xs">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[#111111] text-[24px]">
@@ -665,7 +660,7 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
 
         {/* TAB 4: Mis Reseñas */}
         {activeTab === 'resenas' && (
-          <div className="px-5 pt-3 pb-8 flex flex-col gap-3">
+          <div className="px-4 sm:px-6 lg:px-8 pt-4 pb-8 flex flex-col gap-3 lg:grid lg:grid-cols-2 lg:gap-4">
             <div className="bg-white p-4 rounded-2xl border border-[#E5E5E5] flex flex-col gap-1.5 shadow-xs">
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-bold text-[#111111]">Maison Hair Co. Studio</h4>

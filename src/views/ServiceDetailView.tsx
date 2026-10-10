@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HEADER_CONTAINER, HeaderLogo, BackButton, HeaderIconButton } from '../components/HeaderParts';
 import { Look, Salon, ActiveScreen } from '../types';
 
 interface ServiceDetailViewProps {
@@ -110,46 +111,18 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
   return (
     <div className="flex flex-col w-full pb-44 md:pb-24 bg-[#FFFFFF] min-h-screen">
       {/* Sticky Top Header */}
-      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-[#FFFFFF]/90 backdrop-blur-xl border-b border-[#F1F1F1]/60">
-        <div className="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between max-w-7xl mx-auto">
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={onBack}
-              aria-label="Volver"
-              className="w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
-            </button>
-            <h1 className="text-sm sm:text-base font-bold text-[#111111] tracking-tight ml-1 truncate max-w-[220px] sm:max-w-md">
-              Detalle
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handleShareClick}
-              aria-label="Compartir look"
-              className="w-9 h-9 rounded-full flex items-center justify-center text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">ios_share</span>
-            </button>
-            <button
-              type="button"
+      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-white/90 backdrop-blur-xl border-b border-[#EFEFEF]">
+        <div className={HEADER_CONTAINER}>
+          <HeaderLogo onNavigate={onNavigate} />
+          <div className="flex items-center gap-1">
+            <HeaderIconButton icon="ios_share" label="Compartir look" onClick={handleShareClick} />
+            <HeaderIconButton
+              icon={isSaved ? 'bookmark' : 'bookmark_border'}
+              label={isSaved ? 'Quitar de guardados' : 'Guardar look'}
+              filled={isSaved}
               onClick={() => onToggleSave(look.id)}
-              aria-label="Guardar look"
-              className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
-                isSaved ? 'text-[#111111]' : 'text-[#111111] hover:text-[#111111]'
-              }`}
-            >
-              <span
-                className="material-symbols-outlined text-[20px]"
-                style={isSaved ? { fontVariationSettings: "'FILL' 1" } : undefined}
-              >
-                {isSaved ? 'bookmark' : 'bookmark_border'}
-              </span>
-            </button>
+            />
+            <BackButton onBack={onBack} />
           </div>
         </div>
       </header>

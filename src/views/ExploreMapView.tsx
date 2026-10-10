@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Salon, Look, ActiveScreen, FilterOptions } from '../types';
-import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
+import { HeaderLogo, NotificationBell, BackButton } from '../components/HeaderParts';
 import { CityMap } from '../components/CityMap';
 import { parseMaxDistance } from '../lib/geo';
 import type { useUserLocation } from '../lib/useUserLocation';
@@ -164,20 +164,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
       <header className="sticky top-0 w-full z-40 pt-safe bg-[#FFFFFF]/90 backdrop-blur-xl border-b border-[#F1F1F1]/60 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="h-16 flex items-center justify-between gap-4">
-            {/* Left: Back button + Logo */}
-            <div className="flex items-center gap-2 shrink-0">
-              {canGoBack && onBack ? (
-                <button
-                  type="button"
-                  onClick={onBack}
-                  aria-label="Volver atrás"
-                  className="w-9 h-9 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[20px]">arrow_back_ios_new</span>
-                </button>
-              ) : null}
-              <GlowBuzzLogo variant="header" size={30} />
-            </div>
+            <HeaderLogo onNavigate={onNavigate} />
 
             {/* Desktop Center Quick Search */}
             <div className="hidden md:flex flex-1 max-w-lg mx-2">
@@ -213,19 +200,9 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               </div>
             </div>
 
-            {/* Right: Notifications & Profile */}
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={() => onNavigate({ name: 'notifications' })}
-                aria-label="Notificaciones"
-                className="relative w-10 h-10 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] hover:bg-[#F1F1F1]/40 transition-colors"
-              >
-                <span className="material-symbols-outlined text-[23px]">notifications</span>
-                {unreadCount > 0 && (
-                  <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-[#FFFFFF]" />
-                )}
-              </button>
+            <div className="flex items-center gap-1 shrink-0">
+              <NotificationBell onNavigate={onNavigate} unreadCount={unreadCount} />
+              {canGoBack && <BackButton onBack={onBack} />}
             </div>
           </div>
         </div>

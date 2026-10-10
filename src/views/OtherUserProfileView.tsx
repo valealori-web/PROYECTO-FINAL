@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HEADER_CONTAINER, HeaderLogo, BackButton, HeaderIconButton } from '../components/HeaderParts';
 import { OtherUserProfile, ActiveScreen } from '../types';
 
 interface OtherUserProfileViewProps {
@@ -32,31 +33,16 @@ export const OtherUserProfileView: React.FC<OtherUserProfileViewProps> = ({
   return (
     <div className="flex flex-col w-full pb-24 bg-[#FFFFFF] min-h-screen">
       {/* Top Header */}
-      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-[#FFFFFF]/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(17,17,17,0.04)]">
-        <div className="h-16 px-4 sm:px-6 flex items-center justify-between max-w-4xl mx-auto">
+      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-white/90 backdrop-blur-xl border-b border-[#EFEFEF]">
+        <div className={HEADER_CONTAINER}>
+          <HeaderLogo onNavigate={onNavigate} />
           <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={onBack}
-              aria-label="Volver"
-              className="w-10 h-10 flex items-center justify-center text-[#111111] hover:text-[#111111] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
-            </button>
-            <h1 className="text-base font-bold text-[#111111] tracking-tight ml-1 truncate max-w-[200px]">
-              {user.handle}
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
+            <HeaderIconButton
+              icon="share"
+              label="Compartir perfil"
               onClick={() => onOpenShare(user.name, user.handle)}
-              aria-label="Compartir perfil"
-              className="w-9 h-9 rounded-full flex items-center justify-center text-[#111111] hover:text-[#111111] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[20px]">share</span>
-            </button>
+            />
+            <BackButton onBack={onBack} />
           </div>
         </div>
       </header>

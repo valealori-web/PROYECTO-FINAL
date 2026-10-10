@@ -1,4 +1,5 @@
 import React from 'react';
+import { HEADER_CONTAINER, HeaderLogo, NotificationBell } from '../components/HeaderParts';
 import { ActiveScreen } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
 
@@ -24,24 +25,11 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
   return (
     <div className="flex flex-col w-full pb-24 bg-[#FFFFFF] min-h-screen">
       {/* Sticky Header */}
-      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-[#FFFFFF]/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(17,17,17,0.04)]">
-        <div className="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between max-w-5xl mx-auto">
-          <div className="flex items-center gap-2">
-            <GlowBuzzLogo variant="header" size={32} />
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'notifications' })}
-              aria-label="Notificaciones"
-              className="relative w-11 h-11 flex items-center justify-center rounded-full text-[#111111] hover:text-[#111111] transition-colors"
-            >
-              <span className="material-symbols-outlined text-[24px]">notifications</span>
-              {unreadCount > 0 && (
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-[#FFFFFF]" />
-              )}
-            </button>
+      <header className="fixed top-0 left-0 right-0 w-full z-40 pt-safe bg-white/90 backdrop-blur-xl border-b border-[#EFEFEF]">
+        <div className={HEADER_CONTAINER}>
+          <HeaderLogo onNavigate={onNavigate} />
+          <div className="flex items-center gap-1">
+            <NotificationBell onNavigate={onNavigate} unreadCount={unreadCount} />
           </div>
         </div>
       </header>

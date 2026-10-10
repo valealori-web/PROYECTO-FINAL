@@ -8,6 +8,7 @@ import { ActiveScreen, Look, Salon } from './types';
 import { distanceKm, formatDistance } from './lib/geo';
 import { useUserLocation } from './lib/useUserLocation';
 import { LOOKS_DATA, SALONS_DATA, INITIAL_NOTIFICATIONS, OTHER_USERS_DATA } from './data/mockData';
+import { LoyaltyView } from './views/LoyaltyView';
 import { BottomNavBar } from './components/BottomNavBar';
 import { Toast } from './components/Toast';
 import { ExternalBookingModal } from './components/ExternalBookingModal';
@@ -330,6 +331,10 @@ export default function App() {
             onShowToast={showToast}
             unreadCount={unreadNotificationsCount}
           />
+        )}
+
+        {currentScreen.name === 'loyalty' && (
+          <LoyaltyView onNavigate={handleNavigate} onBack={handleBack} onShowToast={showToast} />
         )}
 
         {currentScreen.name === 'reservations' && (

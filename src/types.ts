@@ -230,4 +230,5 @@ export type ActiveScreen =
   | { name: 'notifications' }
   | { name: 'profile'; initialTab?: string }
   | { name: 'reservations' }
+  | { name: 'loyalty' }
   | { name: 'onboarding'; step: 'auth' | 'interests' };
