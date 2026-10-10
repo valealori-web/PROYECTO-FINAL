@@ -1,7 +1,6 @@
 import React from 'react';
 import { ActiveScreen } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
-import { USER_AVATAR } from '../data/mockData';
 
 interface ReservationsViewProps {
   onNavigate: (screen: ActiveScreen) => void;
@@ -42,18 +41,6 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
               {unreadCount > 0 && (
                 <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-[#FFFFFF]" />
               )}
-            </button>
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'profile' })}
-              className="rounded-full ring-1 ring-[#F1F1F1] overflow-hidden"
-              aria-label="Mi Perfil"
-            >
-              <img
-                alt="Valentina Rossi"
-                className="w-8 h-8 rounded-full object-cover"
-                src={USER_AVATAR}
-              />
             </button>
           </div>
         </div>
@@ -137,7 +124,6 @@ export const ReservationsView: React.FC<ReservationsViewProps> = ({
             <h2 className="text-xs uppercase font-bold text-[#111111] tracking-wider">
               Alertas de Lista de Espera
             </h2>
-            <span className="w-2 h-2 rounded-full bg-[#BA1A1A] animate-pulse" />
           </div>
 
           <div className="p-4 rounded-3xl bg-[#FFDAD6]/60 border border-[#BA1A1A]/30 flex flex-col gap-2.5">

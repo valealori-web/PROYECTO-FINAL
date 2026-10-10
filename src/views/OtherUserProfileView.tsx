@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { OtherUserProfile, ActiveScreen } from '../types';
-import { USER_AVATAR } from '../data/mockData';
 
 interface OtherUserProfileViewProps {
   user: OtherUserProfile;
@@ -58,121 +57,95 @@ export const OtherUserProfileView: React.FC<OtherUserProfileViewProps> = ({
             >
               <span className="material-symbols-outlined text-[20px]">share</span>
             </button>
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'profile' })}
-              className="rounded-full ring-1 ring-[#F1F1F1] overflow-hidden"
-              aria-label="Mi Perfil"
-            >
-              <img
-                alt="Valentina Rossi"
-                className="w-8 h-8 rounded-full object-cover"
-                src={USER_AVATAR}
-              />
-            </button>
           </div>
         </div>
       </header>
 
       {/* Main Body */}
       <main className="flex-1 flex flex-col w-full pt-16 px-4 sm:px-6 max-w-4xl mx-auto">
-        {/* Profile Card */}
-        <div className="pt-4 pb-3 flex flex-col gap-3">
-          <div className="flex items-start justify-between">
-            <div className="relative">
-              <img
-                src={user.avatar}
-                alt={user.name}
-                className="w-20 h-20 rounded-full object-cover shadow-md border-2 border-white"
-              />
-              <span className="absolute -bottom-1 -right-1 bg-[#111111] text-white w-6 h-6 rounded-full flex items-center justify-center text-[12px] shadow-xs">
-                ✓
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleFollowToggle}
-              className={`px-5 py-2 rounded-full text-xs font-bold transition-all shadow-xs active:scale-95 ${
-                isFollowing
-                  ? 'bg-[#F1F1F1] text-[#444444] hover:bg-[#FFDAD6] hover:text-[#BA1A1A]'
-                  : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
-              }`}
-            >
-              {isFollowing ? 'Siguiendo' : '+ Seguir'}
-            </button>
-          </div>
-
-          <div className="flex flex-col">
-            <div className="flex items-center gap-2">
-              <h2 className="text-xl font-bold text-[#111111]">{user.name}</h2>
-              {user.badge && (
-                <span className="px-2 py-0.5 rounded-full bg-[#F1F1F1] text-[#111111] text-[10px] font-bold">
-                  {user.badge}
+        {/* Profile */}
+        <section className="pt-5">
+          <div className="flex items-center gap-6">
+            <img
+              src={user.avatar}
+              alt={user.name}
+              className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover bg-[#F1F1F1] shrink-0"
+            />
+            <div className="flex-1 grid grid-cols-3 text-center">
+              <div className="flex flex-col">
+                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                  {user.sharedPhotos.length}
                 </span>
-              )}
-            </div>
-            <span className="text-xs text-[#6B6B6B]">{user.handle} · {user.city}</span>
-          </div>
-
-          <p className="text-xs text-[#444444] leading-relaxed">
-            {user.bio}
-          </p>
-
-          {/* Social Proof Strip */}
-          <div className="p-2.5 rounded-2xl bg-[#F7F7F7] flex items-center gap-2 text-xs text-[#444444] border border-[#F4F4F4]">
-            <span className="material-symbols-outlined text-[#111111] text-[18px]">group</span>
-            <span>Seguida por @valen.glow y 14 personas de tu comunidad</span>
-          </div>
-
-          {/* Stats Bar */}
-          <div className="grid grid-cols-3 gap-2 text-center pt-1">
-            <div className="p-2 bg-white rounded-xl border border-[#E5E5E5]">
-              <span className="block text-sm font-bold text-[#111111]">
-                {user.sharedPhotos.length}
-              </span>
-              <span className="text-[10px] text-[#6B6B6B]">Looks Reales</span>
-            </div>
-            <div className="p-2 bg-white rounded-xl border border-[#E5E5E5]">
-              <span className="block text-sm font-bold text-[#111111]">
-                {user.favoriteCollections.length}
-              </span>
-              <span className="text-[10px] text-[#6B6B6B]">Colecciones</span>
-            </div>
-            <div className="p-2 bg-white rounded-xl border border-[#E5E5E5]">
-              <span className="block text-sm font-bold text-[#111111]">
-                {followersCount}
-              </span>
-              <span className="text-[10px] text-[#6B6B6B]">Seguidores</span>
+                <span className="text-xs text-[#6B6B6B]">Looks</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                  {user.favoriteCollections.length}
+                </span>
+                <span className="text-xs text-[#6B6B6B]">Colecciones</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                  {followersCount}
+                </span>
+                <span className="text-xs text-[#6B6B6B]">Seguidores</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Tab Picker */}
-        <div className="flex rounded-full bg-[#F1F1F1] p-1 gap-1 my-3">
+          <div className="mt-4">
+            <h2 className="text-sm font-semibold text-[#111111]">{user.name}</h2>
+            <p className="text-xs text-[#6B6B6B]">
+              {user.handle} · {user.city}
+            </p>
+            <p className="text-sm text-[#111111] mt-2 leading-snug max-w-md">{user.bio}</p>
+          </div>
+
           <button
             type="button"
-            onClick={() => setActiveTab('looks')}
-            className={`flex-1 py-1.5 rounded-full text-xs font-semibold text-center transition-all ${
-              activeTab === 'looks'
-                ? 'bg-[#111111] text-white shadow-xs'
-                : 'text-[#444444]'
+            onClick={handleFollowToggle}
+            className={`mt-4 w-full h-9 rounded-lg text-sm font-semibold transition-colors ${
+              isFollowing
+                ? 'bg-[#F1F1F1] text-[#111111] hover:bg-[#E5E5E5]'
+                : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
             }`}
           >
-            Looks de {user.name.split(' ')[0]} ({user.sharedPhotos.length})
+            {isFollowing ? 'Siguiendo' : 'Seguir'}
           </button>
-          <button
-            type="button"
-            onClick={() => setActiveTab('colecciones')}
-            className={`flex-1 py-1.5 rounded-full text-xs font-semibold text-center transition-all ${
-              activeTab === 'colecciones'
-                ? 'bg-[#111111] text-white shadow-xs'
-                : 'text-[#444444]'
-            }`}
-          >
-            Tableros de Inspiración
-          </button>
+        </section>
+
+        {/* Tabs */}
+        <div className="mt-5 grid grid-cols-2 border-b border-[#EFEFEF]" role="tablist">
+          {[
+            { id: 'looks', icon: 'grid_view', label: 'Looks' },
+            { id: 'colecciones', icon: 'bookmark', label: 'Colecciones' },
+          ].map((tab) => {
+            const active = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                aria-label={tab.label}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`h-12 flex items-center justify-center border-b-2 transition-colors ${
+                  active
+                    ? 'border-[#111111] text-[#111111]'
+                    : 'border-transparent text-[#8A8A8A] hover:text-[#111111]'
+                }`}
+              >
+                <span
+                  className="material-symbols-outlined text-[24px]"
+                  style={{ fontVariationSettings: `'FILL' ${active ? 1 : 0}` }}
+                >
+                  {tab.icon}
+                </span>
+              </button>
+            );
+          })}
         </div>
+        <div className="h-3" />
 
         {/* Tab 1: Looks Reales */}
         {activeTab === 'looks' && (

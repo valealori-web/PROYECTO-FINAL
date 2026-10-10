@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Look, Salon, ActiveScreen } from '../types';
-import { USER_AVATAR } from '../data/mockData';
 
 interface ServiceDetailViewProps {
   look: Look;
@@ -150,18 +149,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
               >
                 {isSaved ? 'bookmark' : 'bookmark_border'}
               </span>
-            </button>
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'profile' })}
-              className="rounded-full ring-2 ring-[#F1F1F1] hover:ring-[#111111] overflow-hidden ml-1"
-              aria-label="Mi Perfil"
-            >
-              <img
-                alt="Valentina Rossi"
-                className="w-8 h-8 rounded-full object-cover"
-                src={USER_AVATAR}
-              />
             </button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Salon, ActiveScreen } from '../types';
+import { CityMap } from '../components/CityMap';
 import { USER_AVATAR } from '../data/mockData';
 
 interface SalonProfileViewProps {
@@ -87,9 +88,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
             >
               <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
             </button>
-            <h1 className="text-base font-bold text-[#111111] tracking-tight ml-1 truncate max-w-[200px]">
-              Perfil De Comercio
-            </h1>
           </div>
 
           <div className="flex items-center gap-2">
@@ -101,224 +99,118 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
             >
               <span className="material-symbols-outlined text-[20px]">share</span>
             </button>
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'profile' })}
-              className="rounded-full ring-1 ring-[#F1F1F1] overflow-hidden"
-              aria-label="Mi Perfil"
-            >
-              <img
-                alt="Valentina Rossi"
-                className="w-8 h-8 rounded-full object-cover"
-                src={USER_AVATAR}
-              />
-            </button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col w-full pt-16 max-w-6xl mx-auto sm:px-6 lg:px-8">
-        {/* Hero / Cover Image Section */}
-        <div className="relative w-full h-56 bg-[#F1F1F1] overflow-hidden shadow-xs">
+        {/* Cover */}
+        <div className="relative w-full h-36 sm:h-48 bg-[#F1F1F1] overflow-hidden sm:rounded-b-2xl">
           <img
             src={salon.coverImage}
             alt={salon.name}
             className="w-full h-full object-cover cursor-pointer"
             onClick={() => onOpenLightbox(salon.coverImage, salon.name)}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-          <div className="absolute top-4 right-4 flex items-center gap-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider">
-              <span className="material-symbols-outlined text-[13px]">photo_camera</span>
-              <span>Trabajo Real</span>
-            </span>
-          </div>
         </div>
 
-        {/* Profile Identity Card (Overlapping Cover) */}
-        <div className="relative -mt-10 px-5 flex flex-col z-10">
-          <div className="bg-white rounded-3xl p-4 shadow-md border border-[#E5E5E5]/60 flex flex-col gap-3">
-            <div className="flex items-start justify-between">
-              {/* Logo Emblem Avatar with Verified Icon */}
-              <div className="relative -mt-12">
-                <div className="w-20 h-20 rounded-full bg-[#F7F7F7] shadow-md overflow-hidden border-2 border-white">
-                  <img
-                    src={salon.logo}
-                    alt={salon.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div
-                  className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#111111] flex items-center justify-center text-white shadow-xs"
-                  title="Verificado"
-                >
-                  <span className="material-symbols-outlined text-[14px]">verified</span>
-                </div>
-              </div>
-
-              {/* Action buttons */}
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={handleFollowToggle}
-                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all shadow-xs ${
-                    isFollowing
-                      ? 'bg-[#111111] text-white'
-                      : 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80'
-                  }`}
-                >
-                  {isFollowing ? 'Siguiendo' : '+ Seguir'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onOpenChat(salon)}
-                  aria-label="Enviar mensaje directo"
-                  className="w-9 h-9 rounded-full bg-[#F1F1F1] text-[#111111] flex items-center justify-center hover:text-[#111111] transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[18px]">chat_bubble</span>
-                </button>
-              </div>
+        {/* Identity */}
+        <section className="px-5 -mt-10 relative z-10">
+          <div className="flex items-end gap-5">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white overflow-hidden border-4 border-white shrink-0">
+              <img src={salon.logo} alt={salon.name} className="w-full h-full object-cover" />
             </div>
-
-            {/* Business Name & Verification Pill */}
-            <div className="flex flex-col">
-              <h2 className="text-xl font-bold text-[#111111] tracking-tight">
-                {salon.name}
-              </h2>
-              <div className="inline-flex items-center gap-1.5 mt-1 self-start px-2.5 py-0.5 rounded-full bg-[#F1F1F1]/80 text-[#111111] text-[10px] font-bold uppercase tracking-wider">
-                <span
-                  className="material-symbols-outlined text-[13px]"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  workspace_premium
+            <div className="flex-1 grid grid-cols-3 text-center pb-1">
+              <div className="flex flex-col">
+                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                  {salon.worksCount}
                 </span>
-                <span>Salón Verificado por Glow Buzz</span>
+                <span className="text-xs text-[#6B6B6B]">Trabajos</span>
               </div>
-            </div>
-
-            {/* Bio / Specialties */}
-            <p className="text-xs text-[#444444] leading-relaxed">
-              {salon.bio}
-            </p>
-
-            {/* Location row (Clickable to jump to Map!) */}
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'explore', initialSalonId: salon.id })}
-              className="flex items-start gap-1.5 text-xs text-[#444444] text-left hover:text-[#111111] transition-colors group"
-            >
-              <span className="material-symbols-outlined text-[16px] text-[#111111] shrink-0 mt-0.5">
-                location_on
-              </span>
-              <span>
-                {salon.neighborhood} · {salon.address}{' '}
-                <span className="text-[#111111] font-semibold group-hover:underline">
-                  ({salon.distance} · Ver en mapa)
+              <div className="flex flex-col">
+                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                  {salon.followersCount}
                 </span>
-              </span>
-            </button>
-
-            {/* Social Proof / Mutuals */}
-            <div className="flex items-center gap-2 p-2.5 rounded-2xl bg-[#F7F7F7] text-xs text-[#111111]">
-              {salon.mutualFollowers.length > 0 && (
-                <div className="flex -space-x-2 shrink-0">
-                  {salon.mutualFollowers.map((m, i) => (
-                    <img
-                      key={i}
-                      src={m.avatar}
-                      alt={m.name}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (m.userId) {
-                          onNavigate({ name: 'user_profile', userId: m.userId });
-                        }
-                      }}
-                      className="w-6 h-6 rounded-full object-cover border border-white cursor-pointer"
-                    />
-                  ))}
-                </div>
-              )}
-              <p className="truncate text-[11px] text-[#444444]">
-                <button
-                  type="button"
-                  onClick={() => onNavigate({ name: 'user_profile', userId: 'sofia-val' })}
-                  className="text-[#111111] font-semibold hover:underline mr-1"
-                >
-                  @sofia.val
-                </button>
-                y 2 personas que seguís son clientas habituales
-              </p>
-            </div>
-
-            {/* Metrics Ribbon (Reseñas is clickable to switch to tab!) */}
-            <div className="grid grid-cols-3 gap-2 pt-1 text-center">
+                <span className="text-xs text-[#6B6B6B]">Seguidoras</span>
+              </div>
               <button
                 type="button"
                 onClick={() => setActiveTab('resenas')}
-                className="flex flex-col items-center p-2 rounded-xl bg-[#F7F7F7] hover:bg-[#F4F4F4] transition-colors cursor-pointer"
+                className="flex flex-col"
               >
-                <div className="flex items-center gap-1 text-[#111111] font-bold text-sm">
-                  <span>{salon.rating.toFixed(1)}</span>
-                  <span
-                    className="material-symbols-outlined text-[15px] text-amber-500"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    star
-                  </span>
-                </div>
-                <span className="text-[10px] text-[#111111] font-bold underline">
-                  {salon.reviewsCount} reseñas
+                <span className="text-lg font-semibold text-[#111111] leading-tight">
+                  {salon.rating.toFixed(1)} ★
                 </span>
-              </button>
-
-              <div className="flex flex-col items-center p-2 rounded-xl bg-[#F7F7F7]">
-                <span className="font-bold text-sm text-[#111111]">
-                  {salon.followersCount}
-                </span>
-                <span className="text-[10px] text-[#6B6B6B]">seguidoras</span>
-              </div>
-
-              <div className="flex flex-col items-center p-2 rounded-xl bg-[#F7F7F7]">
-                <span className="font-bold text-sm text-[#111111]">
-                  {salon.worksCount}
-                </span>
-                <span className="text-[10px] text-[#6B6B6B]">trabajos</span>
-              </div>
-            </div>
-
-            {/* Quick Action Buttons */}
-            <div className="grid grid-cols-12 gap-2 pt-1">
-              <button
-                type="button"
-                onClick={() =>
-                  document.getElementById('booking-sheet')?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="col-span-8 py-3 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs active:scale-95 transition-transform"
-              >
-                <span className="material-symbols-outlined text-[18px]">calendar_month</span>
-                <span>Reservar turno</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => onNavigate({ name: 'explore', initialSalonId: salon.id })}
-                className="col-span-4 py-3 rounded-full bg-[#F1F1F1] text-[#111111] font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors hover:bg-[#F1F1F1]"
-              >
-                <span className="material-symbols-outlined text-[17px] text-[#111111]">map</span>
-                <span>Mapa</span>
+                <span className="text-xs text-[#6B6B6B]">{salon.reviewsCount} reseñas</span>
               </button>
             </div>
           </div>
-        </div>
 
-        {/* Interactive Sticky Organizing Tabs */}
-        <div className="sticky top-16 z-30 mt-4 bg-[#FFFFFF]/95 backdrop-blur-md px-5 py-2">
-          <div className="flex gap-2 overflow-x-auto no-scrollbar py-1">
+          <div className="mt-3 flex items-center gap-1.5">
+            <h2 className="text-base font-semibold text-[#111111]">{salon.name}</h2>
+            {salon.verified && (
+              <span
+                className="material-symbols-outlined text-[17px] text-[#111111]"
+                style={{ fontVariationSettings: "'FILL' 1" }}
+                title="Salón verificado"
+              >
+                verified
+              </span>
+            )}
+          </div>
+          <p className="text-sm text-[#111111] mt-1 leading-snug max-w-lg">{salon.bio}</p>
+          <button
+            type="button"
+            onClick={() => onNavigate({ name: 'explore', initialSalonId: salon.id })}
+            className="mt-2 flex items-center gap-1 text-xs text-[#6B6B6B] hover:text-[#111111] transition-colors text-left"
+          >
+            <span className="material-symbols-outlined text-[15px]">location_on</span>
+            <span>
+              {salon.address}, {salon.neighborhood} · {salon.distance}
+            </span>
+          </button>
+
+          <div className="mt-4 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById('booking-sheet')?.scrollIntoView({ behavior: 'smooth' })
+              }
+              className="flex-1 h-10 rounded-lg bg-[#111111] hover:bg-[#2A2A2A] text-white text-sm font-semibold transition-colors"
+            >
+              Reservar turno
+            </button>
+            <button
+              type="button"
+              onClick={handleFollowToggle}
+              className={`h-10 px-5 rounded-lg text-sm font-semibold transition-colors ${
+                isFollowing
+                  ? 'bg-[#F1F1F1] text-[#111111] hover:bg-[#E5E5E5]'
+                  : 'bg-[#F1F1F1] text-[#111111] hover:bg-[#E5E5E5]'
+              }`}
+            >
+              {isFollowing ? 'Siguiendo' : 'Seguir'}
+            </button>
+            <button
+              type="button"
+              onClick={() => onOpenChat(salon)}
+              aria-label="Enviar mensaje"
+              className="w-10 h-10 rounded-lg bg-[#F1F1F1] text-[#111111] flex items-center justify-center hover:bg-[#E5E5E5] transition-colors"
+            >
+              <span className="material-symbols-outlined text-[20px]">chat_bubble</span>
+            </button>
+          </div>
+        </section>
+
+        {/* Tabs */}
+        <div className="sticky top-16 z-30 mt-5 bg-white/95 backdrop-blur-md border-b border-[#EFEFEF]">
+          <div className="flex overflow-x-auto no-scrollbar px-2" role="tablist">
             {[
-              { id: 'trabajos', label: 'Trabajos del Salón' },
-              { id: 'clientes', label: '✨ Subidos por Clientes' },
-              { id: 'servicios', label: 'Servicios & Precios' },
-              { id: 'resenas', label: `Reseñas (${salon.reviewsCount})` },
+              { id: 'trabajos', label: 'Trabajos' },
+              { id: 'clientes', label: 'Clientas' },
+              { id: 'servicios', label: 'Servicios' },
+              { id: 'resenas', label: 'Reseñas' },
               { id: 'ubicacion', label: 'Ubicación' },
             ].map((tab) => {
               const isActive = activeTab === tab.id;
@@ -326,11 +218,13 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                 <button
                   key={tab.id}
                   type="button"
+                  role="tab"
+                  aria-selected={isActive}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+                  className={`px-4 h-11 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
                     isActive
-                      ? 'bg-[#111111] text-white shadow-xs'
-                      : 'bg-[#F1F1F1] text-[#444444] hover:bg-[#F1F1F1]'
+                      ? 'border-[#111111] text-[#111111]'
+                      : 'border-transparent text-[#8A8A8A] hover:text-[#111111]'
                   }`}
                 >
                   {tab.label}
@@ -345,17 +239,7 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
           {/* TAB 1: Trabajos del Salón */}
           {activeTab === 'trabajos' && (
             <section className="flex flex-col gap-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-[#111111]">Portfolio de Autor</h3>
-                  <p className="text-xs text-[#6B6B6B]">
-                    Técnicas realizadas por el equipo técnico de {salon.name}
-                  </p>
-                </div>
-                <span className="text-[10px] font-bold text-[#111111] uppercase tracking-wider">
-                  {salon.portfolio.length} Looks
-                </span>
-              </div>
+              <h3 className="text-base font-semibold text-[#111111]">Trabajos del salón</h3>
 
               {/* Multi-Column Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
@@ -378,29 +262,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                           alt={work.alt}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/45 backdrop-blur-md text-white text-[9px] font-bold tracking-wider uppercase">
-                          {work.technique}
-                        </div>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleFavWork(work.id);
-                          }}
-                          aria-label="Favorito"
-                          className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-[#111111] active:scale-75 transition-transform"
-                        >
-                          <span
-                            className="material-symbols-outlined text-[16px]"
-                            style={isFav ? { fontVariationSettings: "'FILL' 1", color: '#111111' } : undefined}
-                          >
-                            favorite
-                          </span>
-                        </button>
-                        <div className="absolute bottom-2 left-2 right-2 p-1.5 rounded-xl bg-white/90 backdrop-blur-md flex items-center justify-between text-[#111111]">
-                          <span className="text-xs font-bold text-[#111111]">{work.price}</span>
-                          <span className="text-[10px] text-[#6B6B6B]">{work.duration}</span>
-                        </div>
                       </div>
 
                       <div className="flex flex-col px-1">
@@ -419,20 +280,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
           {/* TAB 2: Subidos por Clientes */}
           {activeTab === 'clientes' && (
             <section className="flex flex-col gap-4">
-              <div className="p-3.5 rounded-2xl bg-[#F1F1F1]/60 flex items-start gap-2.5">
-                <span className="material-symbols-outlined text-[#111111] text-[24px] mt-0.5 shrink-0">
-                  verified_user
-                </span>
-                <div className="flex flex-col">
-                  <span className="text-xs font-bold text-[#111111]">
-                    Pruebas Reales de Clientas
-                  </span>
-                  <p className="text-[11px] text-[#444444] mt-0.5 leading-snug">
-                    Selfies y fotos espontáneas subidas por personas con reserva completada y verificada en la app.
-                  </p>
-                </div>
-              </div>
-
               {salon.clientProofs.map((proof) => (
                 <div
                   key={proof.id}
@@ -492,32 +339,15 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                       alt={proof.caption}
                       className="w-full h-full object-cover hover:scale-103 transition-transform"
                     />
-                    <div className="absolute bottom-2 left-2 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white text-[10px] font-semibold">
-                      {proof.caption}
-                    </div>
-                    <div className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 text-white">
-                      <span className="material-symbols-outlined text-[16px]">zoom_in</span>
-                    </div>
                   </div>
 
                   <p className="text-xs text-[#111111] leading-relaxed">
                     &ldquo;{proof.quote}&rdquo;
                   </p>
 
-                  <div className="flex items-center gap-4 text-xs text-[#6B6B6B] pt-1 border-t border-[#F4F4F4]">
-                    <button
-                      type="button"
-                      onClick={() => onShowToast('¡Te gusta esta reseña!', 'favorite')}
-                      className="flex items-center gap-1 hover:text-[#111111]"
-                    >
-                      <span className="material-symbols-outlined text-[16px]">favorite_border</span>
-                      <span>{proof.likes}</span>
-                    </button>
-                    <span>·</span>
-                    <span className="text-[#111111] font-semibold">
-                      Servicio: {proof.price}
-                    </span>
-                  </div>
+                  <p className="text-xs text-[#6B6B6B] pt-1 border-t border-[#F4F4F4]">
+                    Servicio: <span className="text-[#111111] font-semibold">{proof.price}</span>
+                  </p>
                 </div>
               ))}
             </section>
@@ -528,7 +358,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
             <section className="flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <h3 className="text-base font-bold text-[#111111]">Carta de Servicios</h3>
-                <span className="text-xs text-[#111111] font-medium">Precios en Pesos (ARS)</span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -690,22 +519,16 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                 <p className="text-xs text-[#6B6B6B]">{salon.address}, {salon.neighborhood}</p>
               </div>
 
-              {/* Static / Styled Map Image */}
-              <div
-                className="w-full h-60 bg-cover bg-center rounded-2xl shadow-xs relative overflow-hidden border border-[#E5E5E5] cursor-pointer"
-                style={{
-                  backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuBLthwlRFG4pJH7AbbshQrLLXAFYgL60ii8DCesHqpLYOVr3aC1fBSqqn7mCspkHwF6gnyrTG4xsh529arv3jlRa1ee9bao40MkbXs_Eq3K-bCYuwSLVnOb4c_9WpXBCP2erVJzNnHBnRHj8ORblAbYhVlEy1A406e729oB78yK_oRqCyIY2ZhL4tbDSNIvhqpMbw98hgrDw3ylTdCCSPGidH_Kz188TLwakdJqL2IpPNXFOaNqIuea')`,
-                }}
-                onClick={() => onNavigate({ name: 'explore', initialSalonId: salon.id })}
-              >
-                <div className="absolute inset-0 bg-black/10" />
-                <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[#111111] text-xs font-bold shadow-xs flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[#111111] text-[16px]">
-                    near_me
-                  </span>
-                  <span>{salon.distance} · Ver en pantalla de mapa</span>
-                </div>
+              <div className="relative w-full h-60 rounded-2xl overflow-hidden border border-[#E5E5E5] isolate">
+                <CityMap salons={[salon]} selectedId={salon.id} onSelect={() => {}} />
               </div>
+              <button
+                type="button"
+                onClick={() => onNavigate({ name: 'explore', initialSalonId: salon.id })}
+                className="self-start text-xs font-semibold text-[#111111] hover:underline"
+              >
+                Ver en el mapa completo →
+              </button>
 
               {/* Horarios */}
               <div className="p-4 rounded-2xl bg-white border border-[#E5E5E5] shadow-xs flex flex-col gap-1.5">
@@ -739,7 +562,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
                   Próximo turno libre: {salon.nextSlot}
                 </span>
               </div>
-              <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
             </div>
 
             {selectedService && (
@@ -758,9 +580,6 @@ export const SalonProfileView: React.FC<SalonProfileViewProps> = ({
               <span>Reservar con Glow Buzz</span>
             </button>
 
-            <p className="text-[11px] text-center text-[#6B6B6B]">
-              Cancelación gratuita hasta 24 hs previas · Sin cobro por adelantado
-            </p>
           </div>
         </div>
       </main>

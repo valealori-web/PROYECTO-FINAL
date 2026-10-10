@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Look, ActiveScreen, LookCategory } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
-import { USER_AVATAR } from '../data/mockData';
 
 interface FeedViewProps {
   looks: Look[];
@@ -179,18 +178,6 @@ export const FeedView: React.FC<FeedViewProps> = ({
                 )}
               </button>
 
-              <button
-                type="button"
-                onClick={() => onNavigate({ name: 'profile' })}
-                className="rounded-full ring-2 ring-[#F1F1F1] hover:ring-[#111111] overflow-hidden transition-all ml-0.5"
-                aria-label="Mi Perfil"
-              >
-                <img
-                  alt="Valentina Rossi"
-                  className="w-8 h-8 rounded-full object-cover"
-                  src={USER_AVATAR}
-                />
-              </button>
             </div>
           </div>
         </div>

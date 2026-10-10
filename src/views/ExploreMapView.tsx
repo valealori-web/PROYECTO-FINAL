@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Salon, Look, ActiveScreen, FilterOptions } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
-import { USER_AVATAR } from '../data/mockData';
 import { CityMap } from '../components/CityMap';
 import { parseMaxDistance } from '../lib/geo';
 import type { useUserLocation } from '../lib/useUserLocation';
@@ -227,18 +226,6 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                   <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#111111] ring-2 ring-[#FFFFFF]" />
                 )}
               </button>
-              <button
-                type="button"
-                onClick={() => onNavigate({ name: 'profile' })}
-                className="rounded-full ring-2 ring-[#F1F1F1] hover:ring-[#111111] overflow-hidden transition-all ml-0.5"
-                aria-label="Mi Perfil"
-              >
-                <img
-                  alt="Valentina Rossi"
-                  className="w-8 h-8 rounded-full object-cover"
-                  src={USER_AVATAR}
-                />
-              </button>
             </div>
           </div>
         </div>
@@ -326,53 +313,6 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 })}
 
                 {/* Turnos Mañana / Inmediatos */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    const next = activeQuickFilter === 'tomorrow' ? 'all' : 'tomorrow';
-                    setActiveQuickFilter(next);
-                    onShowToast(
-                      next === 'tomorrow'
-                        ? 'Salones con turnos inmediatos o mañana'
-                        : 'Filtro de disponibilidad quitado'
-                    );
-                  }}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-full whitespace-nowrap shrink-0 text-xs font-semibold transition-all shadow-xs ${
-                    activeQuickFilter === 'tomorrow'
-                      ? 'bg-[#111111] text-white'
-                      : 'bg-[#F1F1F1] text-[#111111] hover:bg-[#F1F1F1]/80'
-                  }`}
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${
-                      activeQuickFilter === 'tomorrow' ? 'bg-white' : 'bg-[#111111] animate-pulse'
-                    }`}
-                  />
-                  <span>Turnos mañana</span>
-                </button>
-
-                {/* Rating 4.8+ */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    const next = activeQuickFilter === 'high_rating' ? 'all' : 'high_rating';
-                    setActiveQuickFilter(next);
-                    onShowToast(next === 'high_rating' ? 'Filtrando calificación 4.8+' : 'Filtro quitado');
-                  }}
-                  className={`flex items-center gap-1 px-3 py-1 rounded-full border whitespace-nowrap shrink-0 text-xs font-semibold transition-all shadow-xs ${
-                    activeQuickFilter === 'high_rating'
-                      ? 'bg-[#111111] text-white border-[#111111]'
-                      : 'bg-white text-[#111111] border-[#D9D9D9]'
-                  }`}
-                >
-                  <span
-                    className="material-symbols-outlined text-[13px] text-amber-500"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    star
-                  </span>
-                  <span>4.8+</span>
-                </button>
               </div>
 
               {/* Mobile View Toggle Button (Map / List) */}
@@ -407,166 +347,41 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               mobileViewMode === 'map' ? 'hidden md:flex' : 'flex'
             }`}
           >
-            {/* Header info */}
-            <div className="flex items-center justify-between px-1">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#111111] animate-pulse" />
-                <h2 className="text-sm font-bold text-[#111111] tracking-tight">
-                  {filteredSalons.length} salones encontrados
-                </h2>
-              </div>
-              <span className="text-xs text-[#6B6B6B]">Montevideo</span>
-            </div>
+            <p className="px-1 text-xs text-[#6B6B6B]">
+              {filteredSalons.length} {filteredSalons.length === 1 ? 'salón' : 'salones'} en Montevideo
+            </p>
 
             {/* List of Salon Cards */}
             <div className="flex flex-col gap-3.5">
               {filteredSalons.map((salon) => {
                 const isSelected = selectedPinId === salon.id;
-                const matchLook = getMatchingLook(salon.id);
-                const leadService = salon.services[0] || {
-                  name: 'Consulta & Asesoría',
-                  price: '$ 1.500',
-                  duration: '45 min',
-                };
-
                 return (
                   <article
                     key={salon.id}
                     id={`salon-card-desktop-${salon.id}`}
                     onMouseEnter={() => setSelectedPinId(salon.id)}
-                    className={`bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 border transition-all duration-300 shadow-xs hover:shadow-md ${
+                    onClick={() => onNavigate({ name: 'salon_profile', salonId: salon.id })}
+                    className={`flex gap-4 p-3 rounded-2xl border cursor-pointer transition-colors ${
                       isSelected
-                        ? 'border-[#111111] ring-2 ring-[#111111]/30 bg-[#FFFFFF]'
+                        ? 'border-[#111111]'
                         : 'border-[#E5E5E5] hover:border-[#D9D9D9]'
                     }`}
                   >
-                    <div className="flex gap-3.5">
-                      {/* Image Thumbnail */}
-                      <div
-                        className="relative w-28 sm:w-32 h-28 sm:h-32 rounded-xl sm:rounded-2xl overflow-hidden shrink-0 cursor-pointer bg-[#F4F4F4]"
-                        onClick={() =>
-                          onNavigate({ name: 'salon_profile', salonId: salon.id })
-                        }
-                      >
-                        <img
-                          src={salon.coverImage}
-                          alt={salon.name}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute top-1.5 left-1.5 bg-black/60 backdrop-blur-md text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">
-                          Verificado
-                        </div>
-                        {matchLook && (
-                          <div className="absolute bottom-1.5 right-1.5 bg-[#111111] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
-                            Inspo
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Info & Details */}
-                      <div className="flex-1 flex flex-col justify-between min-w-0">
-                        <div>
-                          <div className="flex items-start justify-between gap-1">
-                            <h3
-                              onClick={() =>
-                                onNavigate({ name: 'salon_profile', salonId: salon.id })
-                              }
-                              className="text-sm font-bold text-[#111111] hover:text-[#111111] cursor-pointer truncate transition-colors"
-                            >
-                              {salon.name}
-                            </h3>
-                          </div>
-
-                          <p className="text-[11px] text-[#6B6B6B] flex items-center gap-1 mt-0.5 truncate">
-                            <span className="material-symbols-outlined text-[13px] text-[#111111]">
-                              location_on
-                            </span>
-                            <span>{salon.neighborhood} · {salon.distance}</span>
-                          </p>
-
-                          {/* Highlighted Lead Service & Price */}
-                          <div className="mt-2 p-1.5 rounded-xl bg-[#F7F7F7] flex items-center justify-between text-xs">
-                            <span className="font-semibold text-[#111111] truncate max-w-[150px]">
-                              {leadService.name}
-                            </span>
-                            <span className="font-bold text-[#111111] shrink-0">
-                              {leadService.price}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Ratings & Next slot */}
-                        <div className="flex items-center justify-between pt-2 border-t border-[#F4F4F4] mt-1.5">
-                          <button
-                            type="button"
-                            onClick={() =>
-                              onNavigate({
-                                name: 'salon_profile',
-                                salonId: salon.id,
-                                initialTab: 'resenas',
-                              })
-                            }
-                            className="flex items-center gap-1 text-xs font-bold text-[#111111] hover:text-[#111111] transition-colors"
-                          >
-                            <span
-                              className="material-symbols-outlined text-[13px] text-amber-500"
-                              style={{ fontVariationSettings: "'FILL' 1" }}
-                            >
-                              star
-                            </span>
-                            <span>{salon.rating.toFixed(1)}</span>
-                            <span className="text-[10px] text-[#6B6B6B] font-normal underline">
-                              ({salon.reviewsCount})
-                            </span>
-                          </button>
-
-                          <span className="text-[11px] font-semibold text-[#111111] bg-[#F1F1F1] px-2 py-0.5 rounded-full truncate max-w-[120px]">
-                            {salon.nextSlot}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Action buttons footer */}
-                    <div className="flex items-center gap-2 mt-3 pt-2.5 border-t border-[#F4F4F4]">
-                      {matchLook ? (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            onNavigate({ name: 'look_detail', lookId: matchLook.id })
-                          }
-                          className="flex-1 py-1.5 px-3 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-xs font-bold transition-colors flex items-center justify-center gap-1"
-                        >
-                          <span className="material-symbols-outlined text-[14px]">visibility</span>
-                          <span>Ver look &amp; detalle</span>
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            onNavigate({ name: 'salon_profile', salonId: salon.id })
-                          }
-                          className="flex-1 py-1.5 px-3 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-xs font-bold transition-colors"
-                        >
-                          Ver perfil del salón
-                        </button>
-                      )}
-
-                      <button
-                        type="button"
-                        onClick={() =>
-                          onOpenBooking({
-                            salonName: salon.name,
-                            serviceName: leadService.name,
-                            price: leadService.price,
-                            slot: salon.nextSlot,
-                            provider: salon.externalBookingProvider,
-                          })
-                        }
-                        className="py-1.5 px-4 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white text-xs font-bold shadow-xs active:scale-95 transition-all"
-                      >
-                        Reservar
-                      </button>
+                    <img
+                      src={salon.coverImage}
+                      alt={salon.name}
+                      className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl object-cover shrink-0 bg-[#F1F1F1]"
+                    />
+                    <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
+                      <h3 className="text-sm font-semibold text-[#111111] truncate">{salon.name}</h3>
+                      <p className="text-xs text-[#6B6B6B] truncate">
+                        {salon.neighborhood} · {salon.distance}
+                      </p>
+                      <p className="text-xs text-[#111111]">
+                        ★ {salon.rating.toFixed(1)}{' '}
+                        <span className="text-[#6B6B6B]">({salon.reviewsCount})</span>
+                      </p>
+                      <p className="text-xs text-[#6B6B6B] truncate">Próximo turno: {salon.nextSlot}</p>
                     </div>
                   </article>
                 );
@@ -616,16 +431,6 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 focusSelectedOnMount={!!initialSalonId}
               />
 
-              {/* Map Floating Controls Top */}
-              <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-md border border-[#F4F4F4]">
-                  <span className="w-2 h-2 rounded-full bg-[#111111] animate-ping" />
-                  <span className="text-xs font-bold text-[#111111]">
-                    {filteredSalons.length} salones en mapa
-                  </span>
-                </div>
-              </div>
-
               <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
                 <button
                   type="button"
@@ -640,88 +445,32 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 </button>
               </div>
 
-              {/* Selected Salon Preview Card Floating at Bottom of Map (Desktop & Mobile) */}
+              {/* Salón seleccionado */}
               {selectedSalon && (
-                <div className="absolute bottom-4 left-4 right-4 z-20">
-                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-xl border border-[#F1F1F1] flex items-center gap-3 sm:gap-4 max-w-xl mx-auto">
+                <div className="absolute bottom-4 left-4 right-4 z-20 hidden md:block">
+                  <button
+                    type="button"
+                    onClick={() => onNavigate({ name: 'salon_profile', salonId: selectedSalon.id })}
+                    className="w-full max-w-md mx-auto bg-white rounded-2xl p-3 shadow-lg border border-[#E5E5E5] flex items-center gap-3 text-left"
+                  >
                     <img
                       src={selectedSalon.coverImage}
-                      alt={selectedSalon.name}
-                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl object-cover shrink-0 cursor-pointer shadow-xs"
-                      onClick={() =>
-                        onNavigate({ name: 'salon_profile', salonId: selectedSalon.id })
-                      }
+                      alt=""
+                      className="w-14 h-14 rounded-xl object-cover shrink-0 bg-[#F1F1F1]"
                     />
-
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between gap-1">
-                        <div>
-                          <h4
-                            onClick={() =>
-                              onNavigate({ name: 'salon_profile', salonId: selectedSalon.id })
-                            }
-                            className="text-xs sm:text-sm font-bold text-[#111111] hover:text-[#111111] cursor-pointer truncate"
-                          >
-                            {selectedSalon.name}
-                          </h4>
-                          <p className="text-[11px] text-[#6B6B6B] truncate">
-                            {selectedSalon.neighborhood} · {selectedSalon.distance}
-                          </p>
-                        </div>
-
-                        <span className="text-xs font-bold text-[#111111] shrink-0">
-                          {selectedSalon.services[0]?.price}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-2 mt-2">
-                        {selectedLook ? (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              onNavigate({ name: 'look_detail', lookId: selectedLook.id })
-                            }
-                            className="px-3 py-1 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-[11px] font-bold transition-colors flex items-center gap-1"
-                          >
-                            <span>Ver trabajo real</span>
-                            <span className="material-symbols-outlined text-[13px]">
-                              arrow_forward
-                            </span>
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() =>
-                              onNavigate({
-                                name: 'salon_profile',
-                                salonId: selectedSalon.id,
-                              })
-                            }
-                            className="px-3 py-1 rounded-full bg-[#F1F1F1] hover:bg-[#E5E5E5] text-[#111111] text-[11px] font-bold transition-colors"
-                          >
-                            Ver comercio
-                          </button>
-                        )}
-
-                        <button
-                          type="button"
-                          onClick={() =>
-                            onOpenBooking({
-                              salonName: selectedSalon.name,
-                              serviceName:
-                                selectedSalon.services[0]?.name || 'Turno de consulta',
-                              price: selectedSalon.services[0]?.price,
-                              slot: selectedSalon.nextSlot,
-                              provider: selectedSalon.externalBookingProvider,
-                            })
-                          }
-                          className="px-3.5 py-1 rounded-full bg-[#111111] hover:bg-[#2A2A2A] text-white text-[11px] font-bold shadow-xs transition-colors shrink-0"
-                        >
-                          Reservar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                    <span className="flex-1 min-w-0">
+                      <span className="block text-sm font-semibold text-[#111111] truncate">
+                        {selectedSalon.name}
+                      </span>
+                      <span className="block text-xs text-[#6B6B6B] truncate">
+                        {selectedSalon.neighborhood} · {selectedSalon.distance} · ★{' '}
+                        {selectedSalon.rating.toFixed(1)}
+                      </span>
+                    </span>
+                    <span className="material-symbols-outlined text-[20px] text-[#8A8A8A]">
+                      chevron_right
+                    </span>
+                  </button>
                 </div>
               )}
             </div>
@@ -734,102 +483,25 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
               >
                 {filteredSalons.map((salon) => {
                   const isSelected = selectedPinId === salon.id;
-                  const matchLook = getMatchingLook(salon.id);
-                  const leadService = salon.services[0] || {
-                    name: 'Tratamiento Signature',
-                    price: '$ 1.450',
-                  };
-
                   return (
                     <div
                       key={salon.id}
                       id={`salon-card-mobile-${salon.id}`}
-                      className={`snap-start shrink-0 w-[82vw] max-w-[320px] bg-white rounded-2xl overflow-hidden shadow-sm border transition-all ${
-                        isSelected
-                          ? 'border-[#111111] ring-2 ring-[#111111]/30'
-                          : 'border-[#E5E5E5]'
+                      onClick={() => onNavigate({ name: 'salon_profile', salonId: salon.id })}
+                      className={`snap-start shrink-0 w-[78vw] max-w-[300px] bg-white rounded-2xl overflow-hidden border cursor-pointer transition-colors ${
+                        isSelected ? 'border-[#111111]' : 'border-[#E5E5E5]'
                       }`}
                     >
-                      <div
-                        className="relative h-36 w-full overflow-hidden cursor-pointer"
-                        onClick={() =>
-                          onNavigate({ name: 'salon_profile', salonId: salon.id })
-                        }
-                      >
-                        <img
-                          src={salon.coverImage}
-                          alt={salon.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                        <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-white text-[9px] font-bold uppercase">
-                          <span className="material-symbols-outlined text-[12px]">verified</span>
-                          <span>Trabajo Real</span>
-                        </div>
-                        <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-white">
-                          <span className="text-xs font-semibold truncate max-w-[180px]">
-                            {leadService.name}
-                          </span>
-                          <span className="text-xs font-bold">{leadService.price}</span>
-                        </div>
-                      </div>
-
-                      <div className="p-3 flex flex-col gap-2">
-                        <div className="flex items-start justify-between gap-1">
-                          <div>
-                            <h4
-                              onClick={() =>
-                                onNavigate({ name: 'salon_profile', salonId: salon.id })
-                              }
-                              className="text-xs font-bold text-[#111111] truncate"
-                            >
-                              {salon.name}
-                            </h4>
-                            <p className="text-[10px] text-[#6B6B6B] truncate">
-                              {salon.neighborhood} · {salon.distance}
-                            </p>
-                          </div>
-                          <span className="text-[11px] font-bold text-amber-600 flex items-center gap-0.5">
-                            ★ {salon.rating.toFixed(1)}
-                          </span>
-                        </div>
-
-                        <div className="flex items-center justify-between pt-1 border-t border-[#F4F4F4]">
-                          {matchLook ? (
-                            <button
-                              type="button"
-                              onClick={() =>
-                                onNavigate({ name: 'look_detail', lookId: matchLook.id })
-                              }
-                              className="text-xs font-semibold text-[#111111] flex items-center gap-0.5 hover:underline"
-                            >
-                              <span>Ver look</span>
-                              <span className="material-symbols-outlined text-[13px]">
-                                arrow_forward
-                              </span>
-                            </button>
-                          ) : (
-                            <span className="text-[10px] text-[#111111] font-semibold">
-                              {salon.nextSlot}
-                            </span>
-                          )}
-
-                          <button
-                            type="button"
-                            onClick={() =>
-                              onOpenBooking({
-                                salonName: salon.name,
-                                serviceName: leadService.name,
-                                price: leadService.price,
-                                slot: salon.nextSlot,
-                                provider: salon.externalBookingProvider,
-                              })
-                            }
-                            className="px-3 py-1 rounded-full bg-[#111111] text-white text-xs font-bold shadow-xs active:scale-95"
-                          >
-                            Reservar
-                          </button>
-                        </div>
+                      <img
+                        src={salon.coverImage}
+                        alt={salon.name}
+                        className="h-32 w-full object-cover bg-[#F1F1F1]"
+                      />
+                      <div className="p-3">
+                        <h4 className="text-sm font-semibold text-[#111111] truncate">{salon.name}</h4>
+                        <p className="text-xs text-[#6B6B6B] truncate">
+                          {salon.neighborhood} · {salon.distance} · ★ {salon.rating.toFixed(1)}
+                        </p>
                       </div>
                     </div>
                   );

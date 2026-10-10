@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { NotificationItem, ActiveScreen } from '../types';
-import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
-import { USER_AVATAR } from '../data/mockData';
 
 interface NotificationsViewProps {
   notifications: NotificationItem[];
@@ -76,56 +74,28 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             >
               <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
             </button>
-            <GlowBuzzLogo variant="icon" size={26} />
             <h1 className="text-base font-bold text-[#111111] tracking-tight ml-1 truncate max-w-[200px]">
               Notificaciones
             </h1>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => onNavigate({ name: 'profile' })}
-              className="rounded-full ring-1 ring-[#F1F1F1] overflow-hidden"
-              aria-label="Mi Perfil"
-            >
-              <img
-                alt="Valentina Rossi"
-                className="w-8 h-8 rounded-full object-cover"
-                src={USER_AVATAR}
-              />
-            </button>
-          </div>
         </div>
       </header>
 
       {/* Main Body */}
       <main className="flex-1 flex flex-col w-full pt-16 px-4 sm:px-6 max-w-4xl mx-auto">
-        {/* Top Subtle Context Strip & Quick Actions */}
-        <div className="flex items-center justify-between pt-3 pb-1">
-          <div className="flex items-center gap-1.5">
-            <span
-              className={`inline-flex w-2 h-2 rounded-full ${
-                unreadCount > 0 ? 'bg-[#111111] animate-pulse' : 'bg-[#6B6B6B]/40'
-              }`}
-            />
-            <span className="text-xs text-[#444444] font-medium">
-              {unreadCount > 0 ? `${unreadCount} alertas sin leer` : 'Todo al día'}
-            </span>
+        {unreadCount > 0 && (
+          <div className="flex items-center justify-between pt-3 pb-1">
+            <span className="text-xs text-[#6B6B6B]">{unreadCount} sin leer</span>
+            <button
+              type="button"
+              onClick={handleMarkRead}
+              className="text-xs font-semibold text-[#111111] hover:underline"
+            >
+              Marcar todo leído
+            </button>
           </div>
-
-          <button
-            type="button"
-            onClick={handleMarkRead}
-            className={`text-xs py-1 px-2 rounded-full font-semibold transition-colors ${
-              isMarkedDone
-                ? 'text-[#6B6B6B]'
-                : 'text-[#111111] hover:bg-[#F1F1F1]/50'
-            }`}
-          >
-            {isMarkedDone ? 'Todo al día ✓' : 'Marcar todo leído'}
-          </button>
-        </div>
+        )}
 
         {/* Horizontal Filter Pills */}
         <nav
@@ -163,7 +133,6 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
                 : 'bg-[#F1F1F1] text-[#444444] hover:bg-[#F1F1F1]'
             }`}
           >
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#BA1A1A]" />
             <span>Lista de Espera</span>
           </button>
           <button
@@ -186,9 +155,6 @@ export const NotificationsView: React.FC<NotificationsViewProps> = ({
             <section className="flex flex-col gap-2.5">
               <div className="flex items-center justify-between px-1">
                 <h2 className="text-base font-bold text-[#111111] tracking-tight">Hoy</h2>
-                <span className="text-[10px] text-[#6B6B6B] uppercase tracking-wider font-bold">
-                  Prioritarias
-                </span>
               </div>
 
               {hoyItems.map((item) => (
