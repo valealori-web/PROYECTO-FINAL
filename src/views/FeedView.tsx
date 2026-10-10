@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Look, ActiveScreen, LookCategory } from '../types';
 import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
 import { USER_AVATAR } from '../data/mockData';
@@ -30,6 +30,40 @@ export const FeedView: React.FC<FeedViewProps> = ({
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('Todos');
   const [searchQuery, setSearchQuery] = useState('');
+  // Menú de acciones (mantener presionado en el celular)
+  const [menuLookId, setMenuLookId] = useState<string | null>(null);
+  const pressTimer = useRef<number | null>(null);
+  const pressStart = useRef<{ x: number; y: number } | null>(null);
+  const longPressFired = useRef(false);
+  const menuOpenedAt = useRef(0);
+
+  const cancelPress = () => {
+    if (pressTimer.current !== null) {
+      window.clearTimeout(pressTimer.current);
+      pressTimer.current = null;
+    }
+    pressStart.current = null;
+  };
+
+  const startPress = (e: React.PointerEvent, lookId: string) => {
+    if (e.pointerType !== 'touch') return;
+    longPressFired.current = false;
+    pressStart.current = { x: e.clientX, y: e.clientY };
+    pressTimer.current = window.setTimeout(() => {
+      longPressFired.current = true;
+      menuOpenedAt.current = Date.now();
+      pressTimer.current = null;
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) navigator.vibrate(10);
+      setMenuLookId(lookId);
+    }, 450);
+  };
+
+  const movePress = (e: React.PointerEvent) => {
+    const start = pressStart.current;
+    if (start && Math.hypot(e.clientX - start.x, e.clientY - start.y) > 10) cancelPress();
+  };
+
+  const menuLook = menuLookId ? looks.find((l) => l.id === menuLookId) : undefined;
 
   const filterCategories = [
     { label: 'Todos', value: 'Todos' },
@@ -236,19 +270,6 @@ export const FeedView: React.FC<FeedViewProps> = ({
 
       {/* Main Content: True Pinterest-Style Masonry Stream */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-3 sm:pt-5">
-        {/* Subtle Inspiration Header */}
-        <div className="flex items-center justify-between px-1 mb-3">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#111111] animate-pulse" />
-            <h1 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#111111]">
-              Inspiración &amp; Trabajos Reales
-            </h1>
-          </div>
-          <span className="text-[11px] text-[#6B6B6B] font-medium">
-            {filteredLooks.length} resultados
-          </span>
-        </div>
-
         {/* Pinterest-like Multi-column Masonry Grid */}
         <div className="columns-2 sm:columns-3 md:columns-3 lg:columns-4 xl:columns-5 gap-3 md:gap-4 [column-fill:_balance]">
           {filteredLooks.map((look, idx) => {
@@ -259,59 +280,53 @@ export const FeedView: React.FC<FeedViewProps> = ({
             return (
               <article
                 key={look.id}
-                onClick={() => onNavigate({ name: 'look_detail', lookId: look.id })}
-                className="break-inside-avoid mb-3 md:mb-4 group cursor-pointer relative overflow-hidden rounded-2xl sm:rounded-3xl bg-[#F1F1F1]/30 shadow-[0_4px_16px_rgba(17,17,17,0.04)] hover:shadow-xl transition-all duration-300"
+                onClick={() => {
+                  if (longPressFired.current) {
+                    longPressFired.current = false;
+                    return;
+                  }
+                  onNavigate({ name: 'look_detail', lookId: look.id });
+                }}
+                onPointerDown={(e) => startPress(e, look.id)}
+                onPointerMove={movePress}
+                onPointerUp={cancelPress}
+                onPointerCancel={cancelPress}
+                onPointerLeave={cancelPress}
+                onContextMenu={(e) => e.preventDefault()}
+                className="break-inside-avoid mb-3 md:mb-4 group cursor-pointer relative overflow-hidden rounded-2xl bg-[#F1F1F1] [-webkit-touch-callout:none] select-none"
               >
-                {/* Visual Image Slot */}
-                <div className={`relative w-full ${aspectClass} overflow-hidden bg-[#F1F1F1]`}>
+                <div className={`relative w-full ${aspectClass} overflow-hidden`}>
                   <img
                     src={mainImage.url}
                     alt={mainImage.alt || look.title}
                     loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    draggable={false}
+                    className="w-full h-full object-cover"
                   />
 
-                  {/* Gradient Scrim on hover/touch */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 opacity-40 group-hover:opacity-75 transition-opacity duration-300" />
-
-                  {/* Minimal Floating Bookmark Button (Discreet in corner) */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleSave(look.id);
-                    }}
-                    aria-label={isSaved ? 'Quitar de guardados' : 'Guardar en inspiración'}
-                    className={`absolute top-2.5 right-2.5 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200 shadow-xs active:scale-75 ${
-                      isSaved
-                        ? 'bg-[#111111] text-white opacity-100'
-                        : 'bg-black/35 hover:bg-white text-white hover:text-[#111111] backdrop-blur-md opacity-85 group-hover:opacity-100'
-                    }`}
-                  >
-                    <span
-                      className="material-symbols-outlined text-[17px]"
-                      style={isSaved ? { fontVariationSettings: "'FILL' 1" } : undefined}
+                  {/* Solo en computadora: opciones al pasar el mouse */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-gradient-to-b from-black/35 via-transparent to-black/45">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleSave(look.id);
+                      }}
+                      onPointerDown={(e) => e.stopPropagation()}
+                      className={`absolute top-3 right-3 h-9 px-4 rounded-full text-sm font-semibold transition-colors ${
+                        isSaved
+                          ? 'bg-white text-[#111111]'
+                          : 'bg-[#111111] text-white hover:bg-[#2A2A2A]'
+                      }`}
                     >
-                      {isSaved ? 'bookmark' : 'bookmark_border'}
-                    </span>
-                  </button>
+                      {isSaved ? 'Guardado' : 'Guardar'}
+                    </button>
 
-                  {/* Category Pill Tag (Subtle) */}
-                  {look.category && (
-                    <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-md text-white/95 text-[9px] font-bold uppercase tracking-wider opacity-90">
-                      {look.category}
-                    </div>
-                  )}
-
-                  {/* Minimal Subtle Information: ONLY Image + Elegant Subtle Price */}
-                  <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-end justify-between pointer-events-none">
-                    <span className="px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md text-white text-xs font-bold tracking-tight shadow-xs border border-white/10">
-                      {look.price}
-                    </span>
-
-                    {/* Subtle verified eye indicator */}
-                    <div className="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-[12px] opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    <div className="absolute bottom-3 left-3 right-3 text-white">
+                      <p className="text-sm font-semibold leading-tight line-clamp-2">
+                        {look.title}
+                      </p>
+                      <p className="text-xs text-white/80 mt-0.5 truncate">{look.salonName}</p>
                     </div>
                   </div>
                 </div>
@@ -343,6 +358,71 @@ export const FeedView: React.FC<FeedViewProps> = ({
           </div>
         )}
       </main>
+
+      {/* Acciones de una publicación (mantener presionado) */}
+      {menuLook && (
+        <div
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/50"
+          onClick={() => {
+            // ignora el click que llega al soltar el dedo tras la pulsación larga
+            if (Date.now() - menuOpenedAt.current < 600) return;
+            setMenuLookId(null);
+          }}
+        >
+          <div
+            role="dialog"
+            aria-label="Opciones de la publicación"
+            className="w-full max-w-md bg-white rounded-t-3xl p-2 pb-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-10 h-1 rounded-full bg-[#D9D9D9] mx-auto mt-2 mb-3" />
+            <div className="flex items-center gap-3 px-4 pb-3 mb-1 border-b border-[#F1F1F1]">
+              <img
+                src={menuLook.images[0].url}
+                alt=""
+                className="w-12 h-12 rounded-lg object-cover bg-[#F1F1F1]"
+              />
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-[#111111] truncate">{menuLook.title}</p>
+                <p className="text-xs text-[#6B6B6B] truncate">{menuLook.salonName}</p>
+              </div>
+            </div>
+            {[
+              {
+                icon: savedLookIds.includes(menuLook.id) ? 'bookmark_remove' : 'bookmark_add',
+                label: savedLookIds.includes(menuLook.id) ? 'Quitar de guardados' : 'Guardar',
+                run: () => onToggleSave(menuLook.id),
+              },
+              {
+                icon: 'visibility',
+                label: 'Ver detalle',
+                run: () => onNavigate({ name: 'look_detail', lookId: menuLook.id }),
+              },
+              {
+                icon: 'storefront',
+                label: 'Ir al salón',
+                run: () => onNavigate({ name: 'salon_profile', salonId: menuLook.salonId }),
+              },
+            ].map((item) => (
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => {
+                  if (Date.now() - menuOpenedAt.current < 600) return;
+                  setMenuLookId(null);
+                  item.run();
+                }}
+                className="w-full flex items-center gap-4 px-4 py-3.5 rounded-xl hover:bg-[#F7F7F7] text-left transition-colors"
+              >
+                <span className="material-symbols-outlined text-[22px] text-[#111111]">
+                  {item.icon}
+                </span>
+                <span className="text-sm font-medium text-[#111111]">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

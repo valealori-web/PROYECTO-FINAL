@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Look, Salon, ActiveScreen } from '../types';
-import { GlowBuzzLogo } from '../components/GlowBuzzLogo';
 import { USER_AVATAR } from '../data/mockData';
 
 interface ServiceDetailViewProps {
@@ -123,9 +122,8 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
             >
               <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
             </button>
-            <GlowBuzzLogo variant="icon" size={26} />
             <h1 className="text-sm sm:text-base font-bold text-[#111111] tracking-tight ml-1 truncate max-w-[220px] sm:max-w-md">
-              Detalle del Servicio
+              Detalle
             </h1>
           </div>
 
@@ -197,19 +195,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                         className="w-full h-full object-cover cursor-pointer"
                         onClick={() => onOpenLightbox(img.url, img.caption)}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 pointer-events-none" />
-
-                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white pointer-events-none">
-                        <span className="text-xs bg-black/60 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs">
-                          <span className="material-symbols-outlined text-[14px] text-[#E5E5E5]">
-                            photo_camera
-                          </span>
-                          <span>{img.caption}</span>
-                        </span>
-                        <span className="text-[10px] uppercase font-bold tracking-wider bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full">
-                          {idx + 1} / {images.length}
-                        </span>
-                      </div>
                     </div>
                   ))}
                 </div>
@@ -221,7 +206,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                       type="button"
                       onClick={handlePrevSlide}
                       aria-label="Imagen anterior"
-                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/60 active:scale-90 transition-all z-20"
+                      className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white items-center justify-center hover:bg-black/60 active:scale-90 transition-all z-20"
                     >
                       <span className="material-symbols-outlined text-[22px]">chevron_left</span>
                     </button>
@@ -229,39 +214,12 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                       type="button"
                       onClick={handleNextSlide}
                       aria-label="Siguiente imagen"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/60 active:scale-90 transition-all z-20"
+                      className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white items-center justify-center hover:bg-black/60 active:scale-90 transition-all z-20"
                     >
                       <span className="material-symbols-outlined text-[22px]">chevron_right</span>
                     </button>
                   </>
                 )}
-
-                {/* Verified badge floating pill */}
-                <div className="absolute top-4 left-4 z-10">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md text-white shadow-md">
-                    <span
-                      className="material-symbols-outlined text-[15px] text-[#D4D4D4]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      verified
-                    </span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider">
-                      Trabajo real verificado
-                    </span>
-                  </div>
-                </div>
-
-                {/* Zoom / Fullscreen Button */}
-                <button
-                  type="button"
-                  onClick={() =>
-                    onOpenLightbox(images[currentSlide].url, images[currentSlide].caption)
-                  }
-                  aria-label="Ver imagen en grande"
-                  className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-                >
-                  <span className="material-symbols-outlined text-[18px]">zoom_in</span>
-                </button>
 
                 {/* Slide Navigation Dots */}
                 {images.length > 1 && (
@@ -280,76 +238,10 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                   </div>
                 )}
               </div>
-
-              {/* Thumbnail Strip */}
-              {images.length > 1 && (
-                <div className="flex gap-2 p-3 bg-white border-t border-[#E5E5E5] overflow-x-auto no-scrollbar">
-                  {images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setCurrentSlide(idx)}
-                      className={`relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${
-                        currentSlide === idx
-                          ? 'border-[#111111] ring-2 ring-[#111111]/30 scale-105'
-                          : 'border-transparent opacity-70 hover:opacity-100'
-                      }`}
-                    >
-                      <img src={img.url} alt={img.alt} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </section>
-
-            {/* Quick Social & Engagement Metrics Strip */}
-            <section className="px-4 py-3 bg-[#F4F4F4] rounded-2xl flex items-center justify-between shadow-xs">
-              <div className="flex items-center gap-2">
-                <div className="flex -space-x-2 overflow-hidden items-center">
-                  <div className="w-6 h-6 rounded-full bg-[#E5E5E5] flex items-center justify-center text-[9px] font-bold text-[#111111]">
-                    ML
-                  </div>
-                  <div className="w-6 h-6 rounded-full bg-[#F1F1F1] flex items-center justify-center text-[9px] font-bold text-[#111111]">
-                    CV
-                  </div>
-                  <div className="w-6 h-6 rounded-full bg-[#E5E5E5] flex items-center justify-center text-[9px] font-bold text-[#111111]">
-                    AR
-                  </div>
-                </div>
-                <p className="text-xs font-semibold text-[#111111]">
-                  {look.savedCount} usuarias guardaron este look
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => onToggleSave(look.id)}
-                  aria-label="Guardar look"
-                  className={`w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-xs active:scale-90 transition-all ${
-                    isSaved ? 'text-[#111111]' : 'text-[#111111] hover:text-[#111111]'
-                  }`}
-                >
-                  <span
-                    className="material-symbols-outlined text-[18px]"
-                    style={isSaved ? { fontVariationSettings: "'FILL' 1" } : undefined}
-                  >
-                    {isSaved ? 'bookmark' : 'bookmark_border'}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleShareClick}
-                  aria-label="Compartir look"
-                  className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#111111] hover:text-[#111111] active:scale-90 transition-all shadow-xs"
-                >
-                  <span className="material-symbols-outlined text-[18px]">ios_share</span>
-                </button>
-              </div>
             </section>
 
             {/* Key Specs Bento Grid */}
-            <section className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <section className="grid grid-cols-2 gap-3">
               <div className="bg-white p-4 rounded-2xl flex flex-col justify-between border border-[#E5E5E5] shadow-xs">
                 <div className="flex items-center gap-1 text-[#111111] mb-1">
                   <span className="material-symbols-outlined text-[18px]">payments</span>
@@ -376,20 +268,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                 </div>
               </div>
 
-              <div className="col-span-2 sm:col-span-1 bg-white p-4 rounded-2xl flex flex-col justify-between border border-[#E5E5E5] shadow-xs">
-                <div className="flex items-center gap-1 text-[#111111] mb-1">
-                  <span className="material-symbols-outlined text-[18px]">event_repeat</span>
-                  <span className="text-[10px] uppercase font-bold tracking-wider">
-                    Mantenimiento
-                  </span>
-                </div>
-                <div>
-                  <span className="text-base font-bold text-[#111111]">
-                    {look.specs.products || 'Productos de salón'}
-                  </span>
-                  <span className="block text-[11px] text-[#6B6B6B]">Calidad profesional</span>
-                </div>
-              </div>
             </section>
 
             {/* Service Description & Steps */}
@@ -400,19 +278,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
               <p className="text-xs sm:text-sm text-[#444444] leading-relaxed">
                 {look.description}
               </p>
-              <div className="mt-2 pt-3 border-t border-[#F4F4F4] flex flex-col gap-2">
-                <span className="text-xs font-bold text-[#111111]">Garantía del servicio:</span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#F7F7F7] text-xs text-[#444444]">
-                    <span className="material-symbols-outlined text-[#111111] text-[16px]">verified</span>
-                    <span>Técnicas 100% verificadas</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2.5 rounded-xl bg-[#F7F7F7] text-xs text-[#444444]">
-                    <span className="material-symbols-outlined text-[#111111] text-[16px]">auto_awesome</span>
-                    <span>{look.specs.products || 'Productos premium'}</span>
-                  </div>
-                </div>
-              </div>
             </section>
 
             {/* Client Reviews Section with Large Image Zoom */}
@@ -421,13 +286,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-base font-bold text-[#111111]">Resultados de clientas</h3>
-                    <p className="text-xs text-[#6B6B6B]">
-                      Fotos y opiniones reales (tocá las fotos para verlas en grande)
-                    </p>
                   </div>
-                  <span className="bg-[#E5E5E5] text-[#111111] text-xs font-bold px-3 py-1 rounded-full">
-                    ★ 4.9 / 5.0
-                  </span>
                 </div>
 
                 <div className="flex flex-col gap-3.5">
@@ -508,7 +367,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                               <span className="font-semibold text-[#111111]">
                                 {rev.highlightTag}
                               </span>
-                              <span className="text-[11px] text-[#6B6B6B]">Puntualidad 10/10</span>
                             </div>
                           )}
                         </div>
@@ -525,17 +383,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-base font-bold text-[#111111]">Trabajos similares</h3>
-                    <p className="text-xs text-[#6B6B6B]">
-                      Tocá una tarjeta para ver su detalle completo
-                    </p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate({ name: 'explore' })}
-                    className="text-xs font-semibold text-[#111111] hover:underline"
-                  >
-                    Explorar mapa →
-                  </button>
                 </div>
 
                 <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
@@ -551,9 +399,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                           alt={sim.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute top-2 left-2 bg-black/60 backdrop-blur-md text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">
-                          {sim.tag}
-                        </div>
                       </div>
                       <div className="p-3 flex flex-col justify-between flex-1">
                         <div>
@@ -563,17 +408,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                           <p className="text-[11px] text-[#6B6B6B]">
                             {sim.salon} • {sim.price}
                           </p>
-                        </div>
-                        <div className="mt-2 flex items-center justify-between pt-1 border-t border-[#F4F4F4]">
-                          <span className="text-[10px] font-bold text-[#111111]">
-                            ★ {sim.rating}
-                          </span>
-                          <span className="text-xs font-semibold text-[#111111] flex items-center gap-0.5">
-                            Ver detalle
-                            <span className="material-symbols-outlined text-[13px]">
-                              arrow_forward
-                            </span>
-                          </span>
                         </div>
                       </div>
                     </div>
@@ -594,12 +428,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                   <span className="bg-[#F1F1F1] text-[#111111] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
                     {look.categoryLabel}
                   </span>
-                  {look.highDemand && (
-                    <span className="bg-[#F1F1F1] text-[#444444] px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#111111] animate-pulse" />
-                      Alta Demanda
-                    </span>
-                  )}
                 </div>
 
                 <h2 className="text-xl sm:text-2xl font-bold text-[#111111] tracking-tight leading-snug">
@@ -656,9 +484,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                   <span>Reservar con Glow Buzz</span>
                 </button>
 
-                <p className="text-[11px] text-[#6B6B6B] text-center">
-                  Reserva con derivación oficial a la agenda de {salon.name}
-                </p>
               </div>
 
               {/* Salon Profile Card */}
@@ -674,9 +499,6 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({
                         alt={salon.name}
                         className="w-12 h-12 rounded-full object-cover border border-[#F1F1F1]"
                       />
-                      <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#111111] rounded-full flex items-center justify-center text-white text-[9px]">
-                        <span className="material-symbols-outlined text-[10px]">check</span>
-                      </span>
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-[#111111] hover:text-[#111111] transition-colors">
