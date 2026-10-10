@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Salon, Look, ActiveScreen, FilterOptions } from '../types';
 import { HeaderLogo, NotificationBell, BackButton } from '../components/HeaderParts';
 import { CityMap } from '../components/CityMap';
+import { PhotoSearchBanner, PhotoSearchButton, usePhotoSearch } from '../components/PhotoSearch';
+import { scoreSalon } from '../lib/visualSearch';
 import { parseMaxDistance } from '../lib/geo';
 import type { useUserLocation } from '../lib/useUserLocation';
 
@@ -45,6 +47,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
   );
   const [mobileViewMode, setMobileViewMode] = useState<'map' | 'list'>('map');
   const [searchQuery, setSearchQuery] = useState('');
+  const photo = usePhotoSearch();
   const [activeQuickFilter, setActiveQuickFilter] = useState<'all' | 'tomorrow' | 'high_rating'>('all');
   const [activeNeighborhood, setActiveNeighborhood] = useState<string>('Todos');
   const [recenterToken, setRecenterToken] = useState(0);
@@ -94,7 +97,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
     .map(([name]) => name);
 
   // Filter salons dynamically
-  const filteredSalons = salons.filter((s) => {
+  const baseSalons = salons.filter((s) => {
     // Neighborhood filter
     if (activeNeighborhood !== 'Todos') {
       if (!s.neighborhood.toLowerCase().includes(activeNeighborhood.toLowerCase())) {
@@ -147,6 +150,15 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
     return true;
   });
 
+  // Búsqueda por foto: salones con servicios parecidos primero
+  const filteredSalons = photo.result
+    ? baseSalons
+        .map((salon) => ({ salon, score: scoreSalon(salon, photo.result!) }))
+        .filter((x) => x.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map((x) => x.salon)
+    : baseSalons;
+
   const selectedSalon =
     filteredSalons.find((s) => s.id === selectedPinId) ||
     filteredSalons[0] ||
@@ -189,6 +201,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                     <span className="material-symbols-outlined text-[15px]">close</span>
                   </button>
                 )}
+                <PhotoSearchButton onFile={photo.start} className="mr-1.5" />
                 <button
                   type="button"
                   onClick={onOpenFilters}
@@ -229,6 +242,7 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
                 <span className="material-symbols-outlined text-[15px]">close</span>
               </button>
             )}
+            <PhotoSearchButton onFile={photo.start} className="mr-1.5" />
             <button
               type="button"
               onClick={onOpenFilters}
@@ -327,6 +341,8 @@ export const ExploreMapView: React.FC<ExploreMapViewProps> = ({
             <p className="px-1 text-xs text-[#6B6B6B]">
               {filteredSalons.length} {filteredSalons.length === 1 ? 'salón' : 'salones'} en Montevideo
             </p>
+
+            <PhotoSearchBanner search={photo} resultsLabel="salones" resultsCount={filteredSalons.length} />
 
             {/* List of Salon Cards */}
             <div className="flex flex-col gap-3.5">

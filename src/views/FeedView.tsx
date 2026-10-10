@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Look, ActiveScreen, LookCategory } from '../types';
 import { HeaderLogo, NotificationBell } from '../components/HeaderParts';
+import { PhotoSearchBanner, PhotoSearchButton, usePhotoSearch } from '../components/PhotoSearch';
+import { scoreLook } from '../lib/visualSearch';
 
 interface FeedViewProps {
   looks: Look[];
@@ -29,6 +31,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('Todos');
   const [searchQuery, setSearchQuery] = useState('');
+  const photo = usePhotoSearch();
   // Menú de acciones (mantener presionado en el celular)
   const [menuLookId, setMenuLookId] = useState<string | null>(null);
   const pressTimer = useRef<number | null>(null);
@@ -75,7 +78,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
     { label: 'Cerca de mí', value: 'nearby', isIcon: true },
   ];
 
-  const filteredLooks = looks.filter((look) => {
+  const baseLooks = looks.filter((look) => {
     // Category match from chips
     if (activeCategory !== 'Todos' && activeCategory !== 'nearby') {
       if (look.category !== activeCategory) return false;
@@ -103,6 +106,15 @@ export const FeedView: React.FC<FeedViewProps> = ({
     }
     return true;
   });
+
+  // Búsqueda por foto: ordena por afinidad y deja solo lo que se parece
+  const filteredLooks = photo.result
+    ? baseLooks
+        .map((look) => ({ look, score: scoreLook(look, photo.result!) }))
+        .filter((x) => x.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map((x) => x.look)
+    : baseLooks;
 
   // Calculate dynamic aspect ratio classes for the Pinterest masonry look
   const getAspectRatioClass = (look: Look, index: number) => {
@@ -150,6 +162,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                     <span className="material-symbols-outlined text-[16px]">close</span>
                   </button>
                 )}
+                <PhotoSearchButton onFile={photo.start} className="mr-1.5" />
                 <button
                   type="button"
                   onClick={onOpenFilters}
@@ -189,6 +202,7 @@ export const FeedView: React.FC<FeedViewProps> = ({
                 <span className="material-symbols-outlined text-[15px]">close</span>
               </button>
             )}
+            <PhotoSearchButton onFile={photo.start} className="mr-1.5" />
             <button
               type="button"
               onClick={onOpenFilters}
@@ -242,6 +256,8 @@ export const FeedView: React.FC<FeedViewProps> = ({
 
       {/* Main Content: True Pinterest-Style Masonry Stream */}
       <main className="flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-3 sm:pt-5">
+        <PhotoSearchBanner search={photo} resultsLabel="looks" resultsCount={filteredLooks.length} />
+
         {/* Pinterest-like Multi-column Masonry Grid */}
         <div className="columns-2 sm:columns-3 md:columns-3 lg:columns-4 xl:columns-5 gap-3 md:gap-4 [column-fill:_balance]">
           {filteredLooks.map((look, idx) => {
